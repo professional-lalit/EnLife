@@ -12,4 +12,10 @@
     <string name="already_hav_acc">Already have an account?</string>
     <string name="name">Name</string>
     <string name="submit">Submit</string>
+    <string name="next">Next</string>
+
+    <string name="wt_note_1">Keep your work organized and quickly check your reminders with simple calendar.</string>
+    <string name="wt_note_2">Get warned when you consume the restricted apps after the agreed time.</string>
+    <string name="wt_note_3">Use this app\'s guidance system in order to stay on track of achieving your goals.</string>
+    <string name="ok_im_in">Ok, I\'m in</string>
 </resources>

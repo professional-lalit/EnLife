@@ -17,6 +17,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.Constants;
 import com.enlife.app.screens.forgot_password.ForgotPasswordActivity;
 import com.enlife.app.screens.signup.SignUpActivity;
+import com.enlife.app.screens.walkthrough.WalkThroughActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void setViews() {
         txtSignUpLink.setOnClickListener(this);
         txtForgotPassword.setOnClickListener(this);
+        btnSignIn.setOnClickListener(this);
     }
 
     private void initViews() {
@@ -78,6 +80,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.txt_forgot_password:
                 ForgotPasswordActivity.openScreen(this, null);
+                break;
+            case R.id.btn_sign_in:
+                WalkThroughActivity.openScreen(this, null);
+                finish();
                 break;
         }
     }

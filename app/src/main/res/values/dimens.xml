@@ -47,5 +47,6 @@
     <dimen name="dimen_size_110">110dp</dimen>
     <dimen name="dimen_size_75">75dp</dimen>
     <dimen name="dimen_size_250">250dp</dimen>
+    <dimen name="dimen_size_60">60dp</dimen>
 
 </resources>

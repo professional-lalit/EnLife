@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnLife.NoActionBar">
-        <activity android:name=".screens.forgot_password.ForgotPasswordActivity"></activity>
+        <activity android:name=".screens.home.HomeActivity"></activity>
+        <activity android:name=".screens.walkthrough.WalkThroughActivity" />
+        <activity android:name=".screens.forgot_password.ForgotPasswordActivity" />
         <activity
             android:name=".screens.signup.SignUpActivity"
             android:windowSoftInputMode="adjustPan" />
