@@ -28,6 +28,22 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="HomeDrawerItemText" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/underline_bg</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/avenir_regular</item>
+        <item name="android:padding">@dimen/dimen_size_30</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="NavigationDrawerStyle" parent="Widget.Design.NavigationView">
+        <item name="android:listDivider">@drawable/underline_bg</item>
+        <item name="android:fontFamily">@font/avenir_light</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
     <style name="BasicEditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:singleLine">true</item>
@@ -70,7 +86,7 @@
         <item name="fontFamily">@font/avenir_regular</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:padding">@dimen/dimen_size_5</item>
-        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:gravity">center</item>
     </style>
 

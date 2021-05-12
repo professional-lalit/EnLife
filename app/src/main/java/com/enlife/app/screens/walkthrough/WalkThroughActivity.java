@@ -27,8 +27,7 @@ public class WalkThroughActivity extends AppCompatActivity implements View.OnCli
         activity.startActivity(intent);
     }
 
-    private List<PageData> pageDataList = new ArrayList<>();
-    private WTPagerAdapter wtPagerAdapter;
+    private final List<PageData> pageDataList = new ArrayList<>();
 
     private ViewPager2 viewPager;
     private CircleIndicator3 circleIndicator3;
@@ -56,21 +55,21 @@ public class WalkThroughActivity extends AppCompatActivity implements View.OnCli
 
     private void loadWalkThroughData() {
         pageDataList.add(new PageData(
-                ContextCompat.getDrawable(this, R.drawable.calendar),
+                ContextCompat.getDrawable(this, R.drawable.ic_calendar),
                 getString(R.string.wt_note_1)
         ));
         pageDataList.add(new PageData(
-                ContextCompat.getDrawable(this, R.drawable.calendar),
+                ContextCompat.getDrawable(this, R.drawable.ic_chained),
                 getString(R.string.wt_note_2)
         ));
         pageDataList.add(new PageData(
-                ContextCompat.getDrawable(this, R.drawable.calendar),
+                ContextCompat.getDrawable(this, R.drawable.ic_target),
                 getString(R.string.wt_note_3)
         ));
     }
 
     private void setWalkThroughAdapter() {
-        wtPagerAdapter = new WTPagerAdapter(pageDataList);
+        WTPagerAdapter wtPagerAdapter = new WTPagerAdapter(pageDataList);
         viewPager.setAdapter(wtPagerAdapter);
         viewPager.setUserInputEnabled(false);
         circleIndicator3.setViewPager(viewPager);

@@ -4,14 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
     tools:context=".screens.home.HomeActivity">
 
-    <TextView
-        style="@style/BasicText"
-        android:text="HELLO WORLD"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:id="@+id/rel_actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:elevation="1dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent" />
+
+
+                <TextView
+                    android:id="@+id/txt_toolbar_title"
+                    style="@style/BasicText"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/text_size_18"
+                    tools:text="Dummy Title" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:elevation="1dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/NavigationDrawerStyle"
+            app:headerLayout="@layout/home_drawer_header_layout"
+            app:menu="@menu/home_nav_drawer_layout" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

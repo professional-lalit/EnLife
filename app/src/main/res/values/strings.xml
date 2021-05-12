@@ -18,4 +18,14 @@
     <string name="wt_note_2">Get warned when you consume the restricted apps after the agreed time.</string>
     <string name="wt_note_3">Use this app\'s guidance system in order to stay on track of achieving your goals.</string>
     <string name="ok_im_in">Ok, I\'m in</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="overview">Overview</string>
+    <string name="groups">Groups</string>
+    <string name="lists">Lists</string>
+    <string name="profile">Profile</string>
+    <string name="timeline">Timeline</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Log Out</string>
 </resources>

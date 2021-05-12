@@ -48,5 +48,7 @@
     <dimen name="dimen_size_75">75dp</dimen>
     <dimen name="dimen_size_250">250dp</dimen>
     <dimen name="dimen_size_60">60dp</dimen>
+    <dimen name="dimen_size_350">350dp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
 
 </resources>
