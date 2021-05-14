@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,9 +18,7 @@ import com.enlife.app.R;
 import com.enlife.app.models.CalendarDay;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -68,7 +65,17 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
 
     @Override
     public void setCalenderView(List<CalendarDay> calendarDays) {
-        CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays);
+        CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays, (position, calendarDay) -> {
+            for (int i = 0; i < calendarDays.size(); i++) {
+                if (calendarDays.get(i).isSelected()) {
+                    calendarDays.get(i).setSelected(false);
+                    recyclerCalendar.getAdapter().notifyItemChanged(i);
+                    break;
+                }
+            }
+            calendarDay.setSelected(true);
+            recyclerCalendar.getAdapter().notifyItemChanged(position);
+        });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));
     }
@@ -78,4 +85,5 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
         txtMonthName.setText(monthFormat.format(calendar.getTime()));
     }
+
 }

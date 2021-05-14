@@ -3,7 +3,7 @@ package com.enlife.app.models;
 public class CalendarDay {
     private final int date;
     private final boolean hasContent;
-    private final boolean isSelected;
+    private boolean isSelected;
     private final boolean isCurrentMonthDay;
 
     public CalendarDay(int date, boolean hasContent, boolean isSelected, boolean isCurrentMonthDay) {
@@ -19,6 +19,10 @@ public class CalendarDay {
 
     public boolean isHasContent() {
         return hasContent;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public boolean isSelected() {
