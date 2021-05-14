@@ -43,6 +43,7 @@
             android:src="@drawable/avatar" />
 
         <RelativeLayout
+            android:layout_marginBottom="@dimen/dimen_size_10"
             android:paddingStart="@dimen/dimen_size_20"
             android:paddingEnd="@dimen/dimen_size_20"
             android:layout_width="match_parent"

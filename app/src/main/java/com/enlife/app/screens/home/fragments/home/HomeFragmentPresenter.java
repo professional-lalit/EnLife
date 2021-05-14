@@ -11,16 +11,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeFragmentPresenter {
-    private final HomeFragmentContract homeFragmentContract;
+public class HomeFragmentPresenter implements HomeScreenContract.PresenterContract {
+    private final HomeScreenContract.ViewContract viewContract;
     private String monthSelected = "";
     private Date cursorDay = new Date();
 
-    public HomeFragmentPresenter(HomeFragmentContract homeFragmentContract) {
-        this.homeFragmentContract = homeFragmentContract;
+    public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract) {
+        this.viewContract = viewContract;
     }
 
-    public void initializeCalendar() {
+    private void updateCalendar() {
         SimpleDateFormat dayFormat = new SimpleDateFormat("d", Locale.getDefault());
         SimpleDateFormat monthFormat = new SimpleDateFormat("M", Locale.getDefault());
 
@@ -28,7 +28,7 @@ public class HomeFragmentPresenter {
         List<Pair<String, String>> days = getProcessedDays(dayFormat, monthFormat, calendar);
         List<CalendarDay> calendarDays = getCalendarDays(days);
 
-        homeFragmentContract.setCalenderView(calendarDays);
+        viewContract.setCalenderView(calendarDays);
     }
 
     private List<CalendarDay> getCalendarDays(List<Pair<String, String>> days) {
@@ -73,29 +73,30 @@ public class HomeFragmentPresenter {
         return calendar;
     }
 
+    @Override
+    public void onViewInitialized() {
+        updateCalendar();
+    }
+
+    @Override
     public void onNext() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(cursorDay);
         calendar.add(Calendar.MONTH, 1);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         cursorDay = calendar.getTime();
-        initializeCalendar();
-        homeFragmentContract.setMonthTitle(calendar);
+        updateCalendar();
+        viewContract.setMonthTitle(calendar);
     }
 
+    @Override
     public void onPrevious() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(cursorDay);
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         cursorDay = calendar.getTime();
-        initializeCalendar();
-        homeFragmentContract.setMonthTitle(calendar);
-    }
-
-    public interface HomeFragmentContract {
-        void setCalenderView(List<CalendarDay> calendarDays);
-
-        void setMonthTitle(Calendar calendar);
+        updateCalendar();
+        viewContract.setMonthTitle(calendar);
     }
 }

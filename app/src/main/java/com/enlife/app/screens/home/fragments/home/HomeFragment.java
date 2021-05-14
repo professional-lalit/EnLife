@@ -25,14 +25,14 @@ import java.util.Date;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements HomeFragmentPresenter.HomeFragmentContract {
+public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract {
 
     private RecyclerView recyclerCalendar;
     private ImageView imgPreviousWeek;
     private ImageView imgNextWeek;
     private TextView txtMonthName;
 
-    private final HomeFragmentPresenter presenter = new HomeFragmentPresenter(this);
+    private final HomeScreenContract.PresenterContract presenterContract = new HomeFragmentPresenter(this);
 
     public static HomeFragment newInstance(@Nullable Bundle bundle) {
         HomeFragment fragment = new HomeFragment();
@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.Home
         super.onViewCreated(view, savedInstanceState);
         initViews();
         setViews();
-        presenter.initializeCalendar();
+        presenterContract.onViewInitialized();
     }
 
     private void initViews() {
@@ -62,8 +62,8 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.Home
     }
 
     private void setViews() {
-        imgNextWeek.setOnClickListener(v -> presenter.onNext());
-        imgPreviousWeek.setOnClickListener(v -> presenter.onPrevious());
+        imgNextWeek.setOnClickListener(v -> presenterContract.onNext());
+        imgPreviousWeek.setOnClickListener(v -> presenterContract.onPrevious());
     }
 
     @Override
