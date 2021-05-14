@@ -25,14 +25,14 @@ import java.util.Date;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeFragmentPresenter.HomeFragmentContract {
 
     private RecyclerView recyclerCalendar;
     private ImageView imgPreviousWeek;
     private ImageView imgNextWeek;
     private TextView txtMonthName;
-    private String monthSelected = "";
-    private Date pivotDay;
+
+    private final HomeFragmentPresenter presenter = new HomeFragmentPresenter(this);
 
     public static HomeFragment newInstance(@Nullable Bundle bundle) {
         HomeFragment fragment = new HomeFragment();
@@ -43,17 +43,15 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        pivotDay = new Date();
         initViews();
-        initCalendarView(new Date());
         setViews();
+        presenter.initializeCalendar();
     }
 
     private void initViews() {
@@ -63,80 +61,21 @@ public class HomeFragment extends Fragment {
         txtMonthName = requireView().findViewById(R.id.txt_month_name);
     }
 
-    private void initCalendarView(Date date) {
+    private void setViews() {
+        imgNextWeek.setOnClickListener(v -> presenter.onNext());
+        imgPreviousWeek.setOnClickListener(v -> presenter.onPrevious());
+    }
 
-        SimpleDateFormat dayFormat = new SimpleDateFormat("d");
-        SimpleDateFormat monthFormat = new SimpleDateFormat("M");
-
-        Calendar calendar = getCalendar(monthFormat, date);
-        List<Pair<String, String>> days = getDaysDataSet(dayFormat, monthFormat, calendar);
-        List<CalendarDay> calendarDays = getCalendarDays(days);
-
+    @Override
+    public void setCalenderView(List<CalendarDay> calendarDays) {
         CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays);
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));
     }
 
-    private List<CalendarDay> getCalendarDays(List<Pair<String, String>> days) {
-        List<CalendarDay> calendarDays = new ArrayList<>();
-        for (Pair<String, String> day : days) {
-            if (day != null) {
-                assert day.first != null;
-                calendarDays.add(
-                        new CalendarDay(
-                                Integer.parseInt(day.first),
-                                false,
-                                false,
-                                monthSelected.equals(day.second))
-                );
-            }
-        }
-        return calendarDays;
-    }
-
-    private List<Pair<String, String>> getDaysDataSet(SimpleDateFormat dayFormat, SimpleDateFormat monthFormat, Calendar calendar) {
-        List<Pair<String, String>> days = new ArrayList<>();
-        for (int i = 0; i < 35; i++) {
-            Date date = new Date(calendar.getTimeInMillis());
-            String day = (String) dayFormat.format(date);
-            String month = monthFormat.format(date);
-            days.add(new Pair<>(day, month));
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return days;
-    }
-
-    private Calendar getCalendar(SimpleDateFormat monthFormat, Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(pivotDay);
-        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        monthSelected = monthFormat.format(date);
-        return calendar;
-    }
-
-    private void setViews() {
-        imgNextWeek.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(pivotDay);
-            calendar.add(Calendar.MONTH, 1);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            pivotDay = calendar.getTime();
-            initCalendarView(pivotDay);
-
-            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
-            txtMonthName.setText(monthFormat.format(calendar.getTime()));
-        });
-        imgPreviousWeek.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(pivotDay);
-            calendar.add(Calendar.MONTH, -1);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            pivotDay = calendar.getTime();
-            initCalendarView(pivotDay);
-
-            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
-            txtMonthName.setText(monthFormat.format(calendar.getTime()));
-        });
+    @Override
+    public void setMonthTitle(Calendar calendar) {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+        txtMonthName.setText(monthFormat.format(calendar.getTime()));
     }
 }
