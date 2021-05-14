@@ -1,7 +1,6 @@
 package com.enlife.app.screens.home;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,7 +11,7 @@ import android.widget.FrameLayout;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.home.fragments.HomeFragment;
+import com.enlife.app.screens.home.fragments.home.HomeFragment;
 
 import java.util.Objects;
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/lin_weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/txt_sunday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/sunday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_monday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/monday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_tuesday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/tuesday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_wednesday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/wednesday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_thursday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/thursday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_friday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/friday"
+            android:textSize="@dimen/text_size_13" />
+
+        <TextView
+            android:id="@+id/txt_saturday"
+            style="@style/BasicText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dimen_size_10"
+            android:text="@string/sat"
+            android:textSize="@dimen/text_size_13" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</merge>

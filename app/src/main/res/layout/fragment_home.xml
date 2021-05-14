@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.home.fragments.HomeFragment">
+    tools:context=".screens.home.fragments.home.HomeFragment">
 
 
     <ImageView
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -29,8 +30,8 @@
 
         <TextView
             style="@style/BasicText"
-            android:letterSpacing="0.1"
             android:fontFamily="@font/avenir_light"
+            android:letterSpacing="0.1"
             android:text="Good Morning!"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_30" />
@@ -42,15 +43,17 @@
             android:src="@drawable/avatar" />
 
         <RelativeLayout
+            android:paddingStart="@dimen/dimen_size_20"
+            android:paddingEnd="@dimen/dimen_size_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_size_20"
-            android:padding="@dimen/text_size_20">
+            android:layout_marginTop="@dimen/dimen_size_20">
 
             <ImageView
                 android:id="@+id/img_previous_week"
-                android:layout_width="@dimen/dimen_size_20"
-                android:layout_height="@dimen/dimen_size_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_size_10"
                 android:src="@drawable/ic_left" />
 
             <TextView
@@ -58,19 +61,32 @@
                 style="@style/BasicText"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/avenir_light"
-                android:text="February"
                 android:letterSpacing="0.2"
+                android:text="February"
                 android:textAllCaps="true"
                 android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/img_next_week"
-                android:layout_width="@dimen/dimen_size_20"
-                android:layout_height="@dimen/dimen_size_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:padding="@dimen/dimen_size_10"
                 android:src="@drawable/ic_right" />
 
         </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <include layout="@layout/layout_calendar" />
 
     </LinearLayout>
 
@@ -79,6 +95,7 @@
         android:layout_height="@dimen/dimen_size_50"
         android:layout_margin="@dimen/dimen_size_20"
         android:src="@drawable/add"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
