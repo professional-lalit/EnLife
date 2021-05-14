@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.enlife.app.R;
 import com.enlife.app.models.CalendarDay;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerCalendar;
     private ImageView imgPreviousWeek;
     private ImageView imgNextWeek;
+    private TextView txtMonthName;
     private String monthSelected = "";
     private Date pivotDay;
 
@@ -58,6 +60,7 @@ public class HomeFragment extends Fragment {
         recyclerCalendar = requireView().findViewById(R.id.recycler_calendar);
         imgNextWeek = requireView().findViewById(R.id.img_next_week);
         imgPreviousWeek = requireView().findViewById(R.id.img_previous_week);
+        txtMonthName = requireView().findViewById(R.id.txt_month_name);
     }
 
     private void initCalendarView(Date date) {
@@ -117,15 +120,23 @@ public class HomeFragment extends Fragment {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(pivotDay);
             calendar.add(Calendar.MONTH, 1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
             pivotDay = calendar.getTime();
             initCalendarView(pivotDay);
+
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+            txtMonthName.setText(monthFormat.format(calendar.getTime()));
         });
         imgPreviousWeek.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(pivotDay);
             calendar.add(Calendar.MONTH, -1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
             pivotDay = calendar.getTime();
             initCalendarView(pivotDay);
+
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+            txtMonthName.setText(monthFormat.format(calendar.getTime()));
         });
     }
 }
