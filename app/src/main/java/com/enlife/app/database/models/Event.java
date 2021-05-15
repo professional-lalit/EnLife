@@ -11,7 +11,6 @@ public class Event {
     private final boolean isAllDay;
     @Nullable
     private final String location;
-    @Nullable
     private final RepeatMode repeatMode;
     private final String fromTime;
     private final String toTime;
