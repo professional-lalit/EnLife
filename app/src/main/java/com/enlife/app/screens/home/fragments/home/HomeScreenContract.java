@@ -10,14 +10,18 @@ public interface HomeScreenContract {
     interface ViewContract {
         void setCalenderView(List<CalendarDay> calendarDays);
 
-        void setMonthTitle(Calendar calendar);
+        void setMonthTitle(String monthTitle);
+
+        void onDayUpdated(int position);
     }
 
     interface PresenterContract {
-        public void onViewInitialized();
+        void onViewInitialized();
 
-        public void onNext();
+        void onNext();
 
-        public void onPrevious();
+        void onPrevious();
+
+        void onDaySelected(List<CalendarDay> calendarDays, CalendarDay selectedCalendarDay);
     }
 }

@@ -9,7 +9,7 @@ import java.util.Locale;
 public class DateFormatter {
 
     public enum DateFormat {
-        REGULAR_INDIAN_DATE("dd/MM/yyyy"),
+        INDIAN_DATE_FORMAT("dd/MM/yyyy"),
         SINGLE_DIGIT_DAY("d"),
         SINGLE_DIGIT_MONTH("M"),
         FULL_NAME_MONTH("MMMM");

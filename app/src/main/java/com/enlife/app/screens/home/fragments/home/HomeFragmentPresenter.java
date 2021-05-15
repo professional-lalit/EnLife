@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class HomeFragmentPresenter implements HomeScreenContract.PresenterContract {
+
     private final HomeScreenContract.ViewContract viewContract;
     private String monthSelected = "";
     private Date cursorDate = new Date();
@@ -68,6 +69,14 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         return calendar;
     }
 
+    public void setCursorDate(Date cursorDate) {
+        this.cursorDate = cursorDate;
+    }
+
+    public Date getCursorDate() {
+        return cursorDate;
+    }
+
     @Override
     public void onViewInitialized() {
         updateCalendar();
@@ -81,7 +90,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         cursorDate = calendar.getTime();
         updateCalendar();
-        viewContract.setMonthTitle(calendar);
+        viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
     }
 
     @Override
@@ -92,6 +101,20 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         cursorDate = calendar.getTime();
         updateCalendar();
-        viewContract.setMonthTitle(calendar);
+        viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
+    }
+
+    @Override
+    public void onDaySelected(List<CalendarDay> calendarDays, CalendarDay selectedCalendarDay) {
+        for (int i = 0; i < calendarDays.size(); i++) {
+            if (calendarDays.get(i).isSelected()) {
+                calendarDays.get(i).setSelected(false);
+                viewContract.onDayUpdated(i);
+                break;
+            }
+        }
+        int selectedPosition = calendarDays.indexOf(selectedCalendarDay);
+        selectedCalendarDay.setSelected(true);
+        viewContract.onDayUpdated(selectedPosition);
     }
 }
