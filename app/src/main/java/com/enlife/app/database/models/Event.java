@@ -5,17 +5,17 @@ import androidx.annotation.Nullable;
 public class Event {
     @Nullable
     private final Long id;
-    private final String title;
-    private final String description;
-    private final String date;
-    private final boolean isAllDay;
+    private String title;
+    private String description;
+    private String date;
+    private boolean isAllDay;
     @Nullable
-    private final String location;
-    private final RepeatMode repeatMode;
-    private final String fromTime;
-    private final String toTime;
+    private String location;
+    private RepeatMode repeatMode;
+    private String fromTime;
+    private String toTime;
     @Nullable
-    private final String imagePath;
+    private String imagePath;
 
     public Event(Long id, String title, String description, String date, boolean isAllDay, String location,
                  RepeatMode repeatMode, String fromTime, String toTime, String imagePath) {
@@ -28,6 +28,42 @@ public class Event {
         this.repeatMode = repeatMode;
         this.fromTime = fromTime;
         this.toTime = toTime;
+        this.imagePath = imagePath;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setAllDay(boolean allDay) {
+        isAllDay = allDay;
+    }
+
+    public void setLocation(@Nullable String location) {
+        this.location = location;
+    }
+
+    public void setRepeatMode(RepeatMode repeatMode) {
+        this.repeatMode = repeatMode;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
+
+    public void setImagePath(@Nullable String imagePath) {
         this.imagePath = imagePath;
     }
 

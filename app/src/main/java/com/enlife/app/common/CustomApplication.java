@@ -16,7 +16,7 @@ public class CustomApplication extends Application {
     public static Context getAppContext() {
         return customApplication.getApplicationContext();
     }
-    
+
     @Override
     public void onCreate() {
         super.onCreate();

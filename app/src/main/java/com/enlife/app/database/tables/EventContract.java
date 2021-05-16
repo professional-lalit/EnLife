@@ -10,7 +10,7 @@ public class EventContract {
 
     public static String getCreateQuery(){
         return "CREATE TABLE " + EventEntry.TABLE_NAME + " (" +
-                EventEntry._ID + " INTEGER PRIMARY KEY," +
+                EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 EventEntry.COLUMN_EVENT_TITLE + " TEXT," +
                 EventEntry.COLUMN_EVENT_DESCRIPTION + " TEXT," +
                 EventEntry.COLUMN_EVENT_IS_ALL_DAY + " INTEGER," +
@@ -18,6 +18,7 @@ public class EventContract {
                 EventEntry.COLUMN_EVENT_REPEAT_MODE + " VARCHAR(20)," +
                 EventEntry.COLUMN_EVENT_FROM_TIME + " VARCHAR(10)," +
                 EventEntry.COLUMN_EVENT_TO_TIME + " VARCHAR(10)," +
+                EventEntry.COLUMN_EVENT_DATE + " VARCHAR(10)," +
                 EventEntry.COLUMN_EVENT_IMAGE_PATH + " TEXT)";
     }
 
