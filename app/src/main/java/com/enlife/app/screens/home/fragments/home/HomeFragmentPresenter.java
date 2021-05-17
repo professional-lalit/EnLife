@@ -2,6 +2,8 @@ package com.enlife.app.screens.home.fragments.home;
 
 import androidx.core.util.Pair;
 
+import com.enlife.app.database.operators.DatabaseOperator;
+import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.utils.DateFormatter;
 
@@ -16,6 +18,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
     private String monthSelected = "";
     private Date cursorDate = new Date();
     private final DateFormatter dateFormatter = new DateFormatter();
+    private final DatabaseOperator databaseOperator = new EventDataOperator();
 
     public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract) {
         this.viewContract = viewContract;
@@ -91,6 +94,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         cursorDate = calendar.getTime();
         updateCalendar();
         viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
+        fetchEventsForDay();
     }
 
     @Override
@@ -102,10 +106,16 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         cursorDate = calendar.getTime();
         updateCalendar();
         viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
+        fetchEventsForDay();
     }
 
     @Override
     public void onDaySelected(List<CalendarDay> calendarDays, CalendarDay selectedCalendarDay) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(cursorDate);
+        calendar.set(Calendar.DAY_OF_MONTH, selectedCalendarDay.getDate());
+        cursorDate = calendar.getTime();
+
         for (int i = 0; i < calendarDays.size(); i++) {
             if (calendarDays.get(i).isSelected()) {
                 calendarDays.get(i).setSelected(false);
@@ -116,5 +126,11 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         int selectedPosition = calendarDays.indexOf(selectedCalendarDay);
         selectedCalendarDay.setSelected(true);
         viewContract.onDayUpdated(selectedPosition);
+    }
+
+    @Override
+    public void fetchEventsForDay() {
+        String date = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, cursorDate);
+        viewContract.onEventsFetched(databaseOperator.getList(date));
     }
 }

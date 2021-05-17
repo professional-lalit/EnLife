@@ -1,5 +1,6 @@
 package com.enlife.app.screens.home.fragments.home;
 
+import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
 
 import java.util.Calendar;
@@ -13,6 +14,8 @@ public interface HomeScreenContract {
         void setMonthTitle(String monthTitle);
 
         void onDayUpdated(int position);
+
+        void onEventsFetched(List<Event> events);
     }
 
     interface PresenterContract {
@@ -23,5 +26,7 @@ public interface HomeScreenContract {
         void onPrevious();
 
         void onDaySelected(List<CalendarDay> calendarDays, CalendarDay selectedCalendarDay);
+
+        void fetchEventsForDay();
     }
 }

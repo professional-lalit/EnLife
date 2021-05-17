@@ -35,6 +35,7 @@ public class EventDataOperator extends DatabaseOperator {
         values.put(EventContract.EventEntry.COLUMN_EVENT_FROM_TIME, event.getFromTime());
         values.put(EventContract.EventEntry.COLUMN_EVENT_TO_TIME, event.getToTime());
         values.put(EventContract.EventEntry.COLUMN_EVENT_IMAGE_PATH, event.getImagePath());
+        values.put(EventContract.EventEntry.COLUMN_EVENT_DATE, event.getDate());
         return databaseHelper.getWritableDatabase().insert(EventContract.EventEntry.TABLE_NAME, null, values);
     }
 
@@ -66,7 +67,15 @@ public class EventDataOperator extends DatabaseOperator {
 
     @Override
     public final List<Event> getList(String... selectorFields) {
-        String date = selectorFields[0];
+        String selection = "";
+        String[] selectionArgs = new String[0];
+
+        if (selectorFields.length > 0) {
+            String date = selectorFields[0];
+            selectionArgs = new String[]{date};
+            selection = EventContract.EventEntry.COLUMN_EVENT_DATE + " = '" + selectorFields[0] + "'";
+        }
+
         List<Event> events = new ArrayList<>();
         String[] projection = {
                 EventContract.EventEntry._ID,
@@ -80,13 +89,11 @@ public class EventDataOperator extends DatabaseOperator {
                 EventContract.EventEntry.COLUMN_EVENT_TO_TIME,
                 EventContract.EventEntry.COLUMN_EVENT_IMAGE_PATH,
         };
-        String selection = EventContract.EventEntry.COLUMN_EVENT_DATE + " = ?";
-        String[] selectionArgs = {date};
 
         Cursor cursor = databaseHelper.getReadableDatabase().query(
                 EventContract.EventEntry.TABLE_NAME,
                 projection,
-                null,
+                selection,
                 null,
                 null,
                 null,

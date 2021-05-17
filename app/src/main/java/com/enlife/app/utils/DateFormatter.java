@@ -10,7 +10,9 @@ public class DateFormatter {
 
     public enum DateFormat {
         INDIAN_DATE_FORMAT("dd/MM/yyyy"),
+        MMM_dd_yyyy("MMM dd, yyyy"),
         SINGLE_DIGIT_DAY("d"),
+        HH_mm_a("HH:mm a"),
         SINGLE_DIGIT_MONTH("M"),
         FULL_NAME_MONTH("MMMM");
 

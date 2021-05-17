@@ -18,7 +18,7 @@ public class EventContract {
                 EventEntry.COLUMN_EVENT_REPEAT_MODE + " VARCHAR(20)," +
                 EventEntry.COLUMN_EVENT_FROM_TIME + " VARCHAR(10)," +
                 EventEntry.COLUMN_EVENT_TO_TIME + " VARCHAR(10)," +
-                EventEntry.COLUMN_EVENT_DATE + " VARCHAR(10)," +
+                EventEntry.COLUMN_EVENT_DATE + " VARCHAR(20)," +
                 EventEntry.COLUMN_EVENT_IMAGE_PATH + " TEXT)";
     }
 

@@ -1,11 +1,13 @@
 package com.enlife.app.screens.home.fragments.home;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -15,11 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enlife.app.R;
-import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
+import com.enlife.app.screens.home.dialog.EventsBottomDialog;
+import com.enlife.app.screens.home.fragments.home.calendar.CalendarDaysAdapter;
+import com.enlife.app.screens.home.fragments.home.events.EventAdapter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -50,6 +54,7 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         initViews();
         setViews();
         presenterContract.onViewInitialized();
+        presenterContract.fetchEventsForDay();
     }
 
     private void initViews() {
@@ -68,6 +73,9 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     public void setCalenderView(List<CalendarDay> calendarDays) {
         CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays, (position, calendarDay) -> {
             presenterContract.onDaySelected(calendarDays, calendarDay);
+            Date date = ((HomeFragmentPresenter) presenterContract).getCursorDate();
+            EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
+            dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
         });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));
@@ -81,5 +89,9 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     @Override
     public void onDayUpdated(int position) {
         recyclerCalendar.getAdapter().notifyItemChanged(position);
+    }
+
+    @Override
+    public void onEventsFetched(List<Event> events) {
     }
 }
