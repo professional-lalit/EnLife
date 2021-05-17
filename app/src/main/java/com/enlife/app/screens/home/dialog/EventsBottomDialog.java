@@ -22,13 +22,13 @@ import java.util.List;
 
 public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract {
 
-    private EventsBottomContract.PresenterContract presenter = new EventsBottomDialogPresenter(this);
+    private final EventsBottomContract.PresenterContract presenter = new EventsBottomDialogPresenter(this);
     private RecyclerView recyclerEvents;
     private TextView txtDialogTitle;
     private TextView txtNoData;
 
     private Date date;
-    private DateFormatter dateFormatter = new DateFormatter();
+    private final DateFormatter dateFormatter = new DateFormatter();
 
     private static final String ARG_EVENTS_DATE = "arg_events_date";
 
@@ -58,7 +58,6 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initViews();
         String formattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.MMM_dd_yyyy, date);
         txtDialogTitle.setText(String.format(getString(R.string.events_for), formattedDate));
