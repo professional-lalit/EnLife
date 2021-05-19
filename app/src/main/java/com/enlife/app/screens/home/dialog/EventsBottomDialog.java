@@ -104,7 +104,6 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_event:
-                Utils.showToast("Event added");
                 break;
 
             case R.id.img_close:

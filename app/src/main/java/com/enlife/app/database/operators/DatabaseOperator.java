@@ -12,8 +12,7 @@ public abstract class DatabaseOperator {
 
     protected final ApplicationDatabaseHelper databaseHelper;
 
-    public DatabaseOperator() {
-        Context context = CustomApplication.getAppContext();
+    public DatabaseOperator(Context context) {
         databaseHelper = new ApplicationDatabaseHelper(context);
     }
 

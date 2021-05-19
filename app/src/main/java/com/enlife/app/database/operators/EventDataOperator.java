@@ -1,6 +1,7 @@
 package com.enlife.app.database.operators;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -13,7 +14,14 @@ import com.enlife.app.database.tables.EventContract;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class EventDataOperator extends DatabaseOperator {
+
+    @Inject
+    public EventDataOperator(Context context) {
+        super(context);
+    }
 
     private Event.RepeatMode getEventRepeatMode(String string) {
         if (string.equals(Event.RepeatMode.DAILY.getMode())) {

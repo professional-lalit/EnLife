@@ -1,7 +1,9 @@
 package com.enlife.app.screens.home.fragments.home;
 
+import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.operators.EventDataOperator;
+import com.enlife.app.di.HomeComponent;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.utils.DateFormatter;
 
@@ -10,16 +12,32 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class HomeFragmentPresenter implements HomeScreenContract.PresenterContract {
 
     private final HomeScreenContract.ViewContract viewContract;
-    private String monthSelected = "";
     private Date cursorDate = new Date();
-    private final DateFormatter dateFormatter = new DateFormatter();
-    private final EventDataOperator databaseOperator = new EventDataOperator();
+
+    @Inject
+    EventDataOperator databaseOperator;
+
+    @Inject
+    DateFormatter dateFormatter;
 
     public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract) {
         this.viewContract = viewContract;
+        HomeComponent homeComponent = CustomApplication
+                .getInstance()
+                .applicationComponent
+                .homeComponent()
+                .create();
+        homeComponent.inject(this);
+    }
+
+    @Override
+    public void onViewInitialized() {
+        updateCalendar();
     }
 
     private void updateCalendar() {
@@ -69,7 +87,6 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         calendar.setTime(cursorDate);
         calendar.setFirstDayOfWeek(Calendar.SUNDAY);
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        monthSelected = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_MONTH, date);
         return calendar;
     }
 
@@ -79,11 +96,6 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
 
     public Date getCursorDate() {
         return cursorDate;
-    }
-
-    @Override
-    public void onViewInitialized() {
-        updateCalendar();
     }
 
     @Override
