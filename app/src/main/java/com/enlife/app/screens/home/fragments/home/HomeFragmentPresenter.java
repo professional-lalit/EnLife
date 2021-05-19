@@ -1,8 +1,6 @@
 package com.enlife.app.screens.home.fragments.home;
 
-import androidx.core.util.Pair;
-
-import com.enlife.app.database.operators.DatabaseOperator;
+import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.utils.DateFormatter;
@@ -18,7 +16,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
     private String monthSelected = "";
     private Date cursorDate = new Date();
     private final DateFormatter dateFormatter = new DateFormatter();
-    private final DatabaseOperator databaseOperator = new EventDataOperator();
+    private final EventDataOperator databaseOperator = new EventDataOperator();
 
     public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract) {
         this.viewContract = viewContract;
@@ -26,41 +24,44 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
 
     private void updateCalendar() {
         Calendar calendar = getModifiedCalendar(cursorDate);
-        List<Pair<String, String>> days = getProcessedDays(calendar);
-        List<CalendarDay> calendarDays = getCalendarDays(days);
+        List<CalendarDay> calendarDays = getProcessedDays(calendar);
         viewContract.setCalenderView(calendarDays);
     }
 
-    private List<CalendarDay> getCalendarDays(List<Pair<String, String>> days) {
-        String cursorDay = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_DAY, cursorDate);
-        String cursorMonth = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_MONTH, cursorDate);
-
+    private List<CalendarDay> getProcessedDays(Calendar calendar) {
         List<CalendarDay> calendarDays = new ArrayList<>();
-        for (Pair<String, String> day : days) {
-            if (day != null) {
-                assert day.first != null;
-                calendarDays.add(
-                        new CalendarDay(
-                                Integer.parseInt(day.first),
-                                false,
-                                cursorDay.equals(day.first) && cursorMonth.equals(day.second),
-                                monthSelected.equals(day.second))
-                );
-            }
-        }
-        return calendarDays;
-    }
 
-    private List<Pair<String, String>> getProcessedDays(Calendar calendar) {
-        List<Pair<String, String>> days = new ArrayList<>();
+        String currentMonth = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_MONTH, cursorDate);
+        String currentDay = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_DAY, cursorDate);
+        List<DateEventCount> dateEventCountList = databaseOperator.getDateEventCounts();
+
         for (int i = 0; i < 35; i++) {
             Date date = new Date(calendar.getTimeInMillis());
             String day = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_DAY, date);
             String month = dateFormatter.getFormattedDate(DateFormatter.DateFormat.SINGLE_DIGIT_MONTH, date);
-            days.add(new Pair<>(day, month));
+            String dayForComparison = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, date);
+
+            boolean hasContent = false;
+            for (DateEventCount dateEventCount : dateEventCountList) {
+                if (dateEventCount.getDate().equals(dayForComparison) && dateEventCount.getCount() > 0) {
+                    hasContent = true;
+                    break;
+                }
+            }
+
+            calendarDays.add(
+                    new CalendarDay(
+                            Integer.parseInt(day),
+                            hasContent,
+                            day.equals(currentDay),
+                            month.equals(currentMonth)
+                    )
+            );
+
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        return days;
+
+        return calendarDays;
     }
 
     private Calendar getModifiedCalendar(Date date) {
@@ -94,7 +95,6 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         cursorDate = calendar.getTime();
         updateCalendar();
         viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
-        fetchEventsForDay();
     }
 
     @Override
@@ -106,7 +106,6 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         cursorDate = calendar.getTime();
         updateCalendar();
         viewContract.setMonthTitle(dateFormatter.getFormattedDate(DateFormatter.DateFormat.FULL_NAME_MONTH, calendar.getTime()));
-        fetchEventsForDay();
     }
 
     @Override
@@ -126,11 +125,5 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         int selectedPosition = calendarDays.indexOf(selectedCalendarDay);
         selectedCalendarDay.setSelected(true);
         viewContract.onDayUpdated(selectedPosition);
-    }
-
-    @Override
-    public void fetchEventsForDay() {
-        String date = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, cursorDate);
-        viewContract.onEventsFetched(databaseOperator.getList(date));
     }
 }

@@ -2,7 +2,11 @@ package com.enlife.app.database.operators;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
+
+import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.models.Event;
 import com.enlife.app.database.tables.EventContract;
 
@@ -62,19 +66,15 @@ public class EventDataOperator extends DatabaseOperator {
                 EventContract.EventEntry.TABLE_NAME,
                 values,
                 selection,
-                selectionArgs);
+                selectionArgs
+        );
     }
 
     @Override
     public final List<Event> getList(String... selectorFields) {
-        String selection = "";
-        String[] selectionArgs = new String[0];
 
-        if (selectorFields.length > 0) {
-            String date = selectorFields[0];
-            selectionArgs = new String[]{date};
-            selection = EventContract.EventEntry.COLUMN_EVENT_DATE + " = '" + selectorFields[0] + "'";
-        }
+        String selection = "";
+        String[] selectionArgs = null;
 
         List<Event> events = new ArrayList<>();
         String[] projection = {
@@ -90,15 +90,22 @@ public class EventDataOperator extends DatabaseOperator {
                 EventContract.EventEntry.COLUMN_EVENT_IMAGE_PATH,
         };
 
+        if (selectorFields.length > 0) {
+            String date = selectorFields[0];
+            selectionArgs = new String[]{date};
+            selection = EventContract.EventEntry.COLUMN_EVENT_DATE + "=?";
+        }
+
         Cursor cursor = databaseHelper.getReadableDatabase().query(
                 EventContract.EventEntry.TABLE_NAME,
                 projection,
                 selection,
-                null,
+                selectionArgs,
                 null,
                 null,
                 null
         );
+
 
         while (cursor.moveToNext()) {
             Event event = new Event(
@@ -117,6 +124,20 @@ public class EventDataOperator extends DatabaseOperator {
         }
         cursor.close();
         return events;
+    }
+
+    public List<DateEventCount> getDateEventCounts() {
+        List<DateEventCount> dateEventCountList = new ArrayList<>();
+        String SQL = "select date, count(*) as events_for_day from events group by date";
+
+        Cursor cursor = databaseHelper.getReadableDatabase().rawQuery(SQL, null);
+        while (cursor.moveToNext()) {
+            String date = cursor.getString(0);
+            int eventCount = cursor.getInt(1);
+            dateEventCountList.add(new DateEventCount(date, eventCount));
+        }
+        cursor.close();
+        return dateEventCountList;
     }
 
     @Override

@@ -9,14 +9,14 @@ import java.util.List;
 
 public class EventDataOperatorUtil {
 
-    public static List<Event> createEvents(int size) {
+    public static List<Event> createEvents(int size, Date date) {
         List<Event> events = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             events.add(new Event(
                     0L,
                     "Event number" + i,
                     "Event description" + i,
-                    new DateFormatter().getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, new Date()),
+                    new DateFormatter().getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, date),
                     false,
                     "{12123123.213:2143233432.3434}",
                     Event.RepeatMode.DAILY,

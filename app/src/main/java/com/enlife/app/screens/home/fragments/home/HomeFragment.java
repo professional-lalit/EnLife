@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enlife.app.R;
+import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.home.dialog.EventsBottomDialog;
@@ -54,7 +55,6 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         initViews();
         setViews();
         presenterContract.onViewInitialized();
-        presenterContract.fetchEventsForDay();
     }
 
     private void initViews() {
@@ -91,7 +91,4 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         recyclerCalendar.getAdapter().notifyItemChanged(position);
     }
 
-    @Override
-    public void onEventsFetched(List<Event> events) {
-    }
 }

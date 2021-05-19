@@ -1,5 +1,6 @@
 package com.enlife.app.presenters_tests;
 
+import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.home.fragments.home.HomeFragmentPresenter;
 import com.enlife.app.screens.home.fragments.home.HomeScreenContract;
