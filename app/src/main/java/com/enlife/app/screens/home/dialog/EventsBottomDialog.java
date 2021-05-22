@@ -14,14 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
+import com.enlife.app.di.HomeComponent;
 import com.enlife.app.screens.home.fragments.home.events.EventAdapter;
 import com.enlife.app.utils.DateFormatter;
-import com.enlife.app.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract, View.OnClickListener {
 
@@ -30,11 +33,12 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     private RecyclerView recyclerEvents;
     private TextView txtDialogTitle;
     private TextView txtNoData;
-    private ImageView imgClose;
     private ImageView imgAddEvent;
 
     private Date date;
-    private final DateFormatter dateFormatter = new DateFormatter();
+
+    @Inject
+    DateFormatter dateFormatter;
 
     private static final String ARG_EVENTS_DATE = "arg_events_date";
 
@@ -55,6 +59,16 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        HomeComponent homeComponent = CustomApplication.getInstance()
+                .applicationComponent
+                .homeComponent()
+                .create();
+        homeComponent.inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,14 +80,13 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         super.onViewCreated(view, savedInstanceState);
         initViews();
         setViews();
+        presenter.loadEvents(date);
     }
 
     private void setViews() {
         // Set dialog title
         String formattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.MMM_dd_yyyy, date);
         txtDialogTitle.setText(String.format(getString(R.string.events_for), formattedDate));
-        presenter.loadEvents(date);
-        imgClose.setOnClickListener(this);
         imgAddEvent.setOnClickListener(this);
     }
 
@@ -82,7 +95,6 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         recyclerEvents = getView().findViewById(R.id.recycler_events);
         txtDialogTitle = getView().findViewById(R.id.txt_dialog_title);
         txtNoData = getView().findViewById(R.id.txt_no_data);
-        imgClose = getView().findViewById(R.id.img_close);
         imgAddEvent = getView().findViewById(R.id.img_add_event);
     }
 
@@ -104,10 +116,6 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_event:
-                break;
-
-            case R.id.img_close:
-                dismiss();
                 break;
         }
     }

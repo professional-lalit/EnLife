@@ -1,54 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:id="@+id/grp1"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/item1"
-            android:title="@string/home" />
-    </group>
+    <item
+        android:id="@+id/action_home"
+        android:title="@string/home" />
 
-    <group android:id="@+id/grp2">
-        <item
-            android:id="@+id/item2"
-            android:title="@string/overview" />
-    </group>
+    <item
+        android:id="@+id/action_goals"
+        android:title="@string/goals" />
 
-    <group android:id="@+id/grp3">
-        <item
-            android:id="@+id/item3"
-            android:title="@string/groups" />
-    </group>
+    <item
+        android:id="@+id/action_habit_tracking"
+        android:title="@string/habit_tracking" />
 
-    <group android:id="@+id/grp4">
-        <item
-            android:id="@+id/item4"
-            android:title="@string/lists" />
-    </group>
+    <item
+        android:id="@+id/action_notes"
+        android:title="@string/notes" />
 
-    <group android:id="@+id/grp5">
-        <item
-            android:id="@+id/item5"
-            android:title="@string/profile" />
-    </group>
+    <item
+        android:id="@+id/action_daily_stocism"
+        android:title="@string/stocism" />
 
-    <group android:id="@+id/grp6">
-        <item
-            android:id="@+id/item6"
-            android:title="@string/timeline" />
-    </group>
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings" />
 
-    <group android:id="@+id/grp7">
-        <item
-            android:id="@+id/item7"
-            android:title="@string/settings" />
-    </group>
-
-    <group android:id="@+id/grp8">
-        <item
-            android:id="@+id/item8"
-            android:title="@string/logout" />
-    </group>
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout" />
 
 </menu>

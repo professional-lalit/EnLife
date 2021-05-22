@@ -4,11 +4,12 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_marginTop="@dimen/dimen_size_30"
-        android:layout_marginBottom="@dimen/dimen_size_30"
-        android:layout_marginStart="@dimen/dimen_size_10"
+        android:id="@+id/img_drawer_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_10"
+        android:layout_marginTop="@dimen/dimen_size_30"
+        android:layout_marginBottom="@dimen/dimen_size_30"
         android:src="@drawable/ic_close" />
 
 </FrameLayout>

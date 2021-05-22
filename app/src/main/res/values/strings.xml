@@ -37,4 +37,18 @@
     <string name="sat">SAT</string>
     <string name="events_for">Events for %s</string>
     <string name="no_events_for_this_day">No events for this day</string>
+    <string name="goals">Goals</string>
+    <string name="analysis">Analysis</string>
+    <string name="notes">Notes</string>
+    <string name="good_thoughts">Good Thoughts</string>
+    <string name="stocism">Daily Stoicism</string>
+    <string name="habit_tracking">Habit Tracking</string>
+    <string name="add_title">Add Title</string>
+    <string name="short_description">Short description</string>
+    <string name="annual">Annual</string>
+    <string name="monthly">Monthly</string>
+    <string name="weekly">Weekly</string>
+    <string name="custom">Custom</string>
+    <string name="goal_type">Goal Type</string>
+    <string name="daily_schedule">Daily schedule to achieve goal</string>
 </resources>

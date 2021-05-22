@@ -41,7 +41,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
     }
 
     private void updateCalendar() {
-        Calendar calendar = getModifiedCalendar(cursorDate);
+        Calendar calendar = getModifiedCalendar();
         List<CalendarDay> calendarDays = getProcessedDays(calendar);
         viewContract.setCalenderView(calendarDays);
     }
@@ -82,7 +82,7 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         return calendarDays;
     }
 
-    private Calendar getModifiedCalendar(Date date) {
+    private Calendar getModifiedCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(cursorDate);
         calendar.setFirstDayOfWeek(Calendar.SUNDAY);

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,17 +25,20 @@ import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.home.dialog.EventsBottomDialog;
 import com.enlife.app.screens.home.fragments.home.calendar.CalendarDaysAdapter;
 import com.enlife.app.screens.home.fragments.home.events.EventAdapter;
+import com.enlife.app.screens.widgets.CustomActionBar;
 
 import java.util.Date;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract {
+public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract, CustomActionBar.CustomActionBarCallback {
 
     private RecyclerView recyclerCalendar;
     private ImageView imgPreviousWeek;
     private ImageView imgNextWeek;
     private TextView txtMonthName;
+    private CustomActionBar customActionBar;
+
 
     private final HomeScreenContract.PresenterContract presenterContract = new HomeFragmentPresenter(this);
 
@@ -53,6 +58,7 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
+        initToolbar();
         setViews();
         presenterContract.onViewInitialized();
     }
@@ -62,6 +68,15 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         imgNextWeek = requireView().findViewById(R.id.img_next_week);
         imgPreviousWeek = requireView().findViewById(R.id.img_previous_week);
         txtMonthName = requireView().findViewById(R.id.txt_month_name);
+        customActionBar = requireView().findViewById(R.id.action_bar);
+    }
+
+    private void initToolbar() {
+        customActionBar.title("")
+                .callback(this)
+                .backGroundColor(R.color.transparent)
+                .homeIcon(R.drawable.ic_drawer_menu)
+                .optionIcon(R.drawable.ic_search);
     }
 
     private void setViews() {
@@ -91,4 +106,13 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         recyclerCalendar.getAdapter().notifyItemChanged(position);
     }
 
+    @Override
+    public void onHomeButtonClicked() {
+        
+    }
+
+    @Override
+    public void onOptionButtonClicked() {
+
+    }
 }
