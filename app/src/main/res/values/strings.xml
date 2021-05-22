@@ -51,4 +51,5 @@
     <string name="custom">Custom</string>
     <string name="goal_type">Goal Type</string>
     <string name="daily_schedule">Daily schedule to achieve goal</string>
+    <string name="add_task">Add Task</string>
 </resources>
