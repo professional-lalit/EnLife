@@ -59,4 +59,5 @@
     <string name="click_on_date">[Click on dates for selection]</string>
     <string name="ok">ok</string>
     <string name="attach_this_ms_to_goal">Attach this milestone to goal</string>
+    <string name="add_event">Add Event</string>
 </resources>

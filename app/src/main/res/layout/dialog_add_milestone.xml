@@ -35,14 +35,38 @@
         android:textColor="@color/black"
         android:textColorHint="@color/greyText" />
 
-
-    <com.enlife.app.screens.widgets.DateDurationChooserView
-        android:id="@+id/duration_chooser"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dimen_size_10" />
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:gravity="center">
 
+        <com.enlife.app.screens.widgets.DateDurationChooserView
+            android:id="@+id/duration_chooser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/lin_add_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_size_30"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_size_50"
+                android:layout_height="@dimen/dimen_size_50"
+                android:src="@drawable/add" />
+
+            <TextView
+                style="@style/BasicText"
+                android:text="@string/add_event" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_add_milstone"
