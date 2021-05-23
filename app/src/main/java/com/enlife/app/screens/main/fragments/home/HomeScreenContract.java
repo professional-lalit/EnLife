@@ -1,10 +1,7 @@
-package com.enlife.app.screens.home.fragments.home;
+package com.enlife.app.screens.main.fragments.home;
 
-import com.enlife.app.database.models.DateEventCount;
-import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
 
-import java.util.Calendar;
 import java.util.List;
 
 public interface HomeScreenContract {

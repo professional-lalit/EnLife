@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/txt_from"
+        style="@style/BasicText"
+        android:fontFamily="@font/avenir_bold"
+        android:text="From:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_from_date"
+        style="@style/BasicText"
+        android:background="@drawable/edittext_border_bg"
+        android:padding="@dimen/dimen_size_5"
+        android:text="10/05/2021"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_from"
+        app:layout_constraintStart_toEndOf="@+id/txt_from"
+        app:layout_constraintTop_toTopOf="@+id/txt_from" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_size_0_5"
+        android:background="@color/greyText"
+        app:layout_constraintBottom_toTopOf="@+id/txt_to_date"
+        app:layout_constraintEnd_toEndOf="@+id/txt_from_date"
+        app:layout_constraintStart_toStartOf="@id/txt_from"
+        app:layout_constraintTop_toBottomOf="@+id/txt_from_date" />
+
+    <TextView
+        android:id="@+id/txt_to"
+        style="@style/BasicText"
+        android:layout_marginTop="@dimen/dimen_size_5"
+        android:fontFamily="@font/avenir_bold"
+        android:text="To:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_from" />
+
+    <TextView
+        android:id="@+id/txt_to_date"
+        style="@style/BasicText"
+        android:background="@drawable/edittext_border_bg"
+        android:padding="@dimen/dimen_size_5"
+        android:text="10/05/2021"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_to"
+        app:layout_constraintStart_toEndOf="@+id/txt_from"
+        app:layout_constraintTop_toTopOf="@+id/txt_to" />
+
+    <TextView
+        android:id="@+id/txt_date_note"
+        style="@style/BasicText"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dimen_size_8"
+        android:gravity="center"
+        android:text="@string/click_on_date"
+        android:textSize="@dimen/text_size_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_to_date" />
+
+</merge>

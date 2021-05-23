@@ -1,7 +1,6 @@
-package com.enlife.app.screens.home.dialog;
+package com.enlife.app.screens.main.dialog;
 
 import com.enlife.app.common.CustomApplication;
-import com.enlife.app.database.operators.DatabaseOperator;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.di.HomeComponent;
 import com.enlife.app.utils.DateFormatter;

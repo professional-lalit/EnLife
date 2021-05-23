@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.login.LoginActivity;
+import com.enlife.app.screens.main.fragments.login.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

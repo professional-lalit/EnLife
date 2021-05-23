@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.home.HomeActivity;
+import com.enlife.app.screens.main.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;

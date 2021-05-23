@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.fragments.home;
+package com.enlife.app.screens.main.fragments.home;
 
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.DateEventCount;

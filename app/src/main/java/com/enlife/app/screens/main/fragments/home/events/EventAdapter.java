@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.fragments.home.events;
+package com.enlife.app.screens.main.fragments.home.events;
 
 import android.view.LayoutInflater;
 import android.view.View;

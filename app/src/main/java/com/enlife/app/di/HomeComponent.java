@@ -1,9 +1,9 @@
 package com.enlife.app.di;
 
-import com.enlife.app.screens.home.dialog.EventsBottomDialog;
-import com.enlife.app.screens.home.dialog.EventsBottomDialogPresenter;
-import com.enlife.app.screens.home.fragments.home.HomeFragment;
-import com.enlife.app.screens.home.fragments.home.HomeFragmentPresenter;
+import com.enlife.app.screens.main.dialog.EventsBottomDialog;
+import com.enlife.app.screens.main.dialog.EventsBottomDialogPresenter;
+import com.enlife.app.screens.main.fragments.home.HomeFragment;
+import com.enlife.app.screens.main.fragments.home.HomeFragmentPresenter;
 
 import dagger.Subcomponent;
 

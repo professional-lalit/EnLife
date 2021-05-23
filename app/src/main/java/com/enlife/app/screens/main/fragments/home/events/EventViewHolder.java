@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.fragments.home.events;
+package com.enlife.app.screens.main.fragments.home.events;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.enlife.app.R;
 import com.enlife.app.database.models.Event;
-import com.enlife.app.utils.DateFormatter;
-
-import java.util.Date;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 

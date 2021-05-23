@@ -1,31 +1,23 @@
-package com.enlife.app.screens.home;
+package com.enlife.app.screens.main;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.home.fragments.goals.GoalManagementFragment;
-import com.enlife.app.screens.home.fragments.home.HomeFragment;
-import com.enlife.app.screens.widgets.CustomActionBar;
-import com.enlife.app.utils.Utils;
+import com.enlife.app.screens.main.fragments.goals.GoalManagementFragment;
+import com.enlife.app.screens.main.fragments.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 

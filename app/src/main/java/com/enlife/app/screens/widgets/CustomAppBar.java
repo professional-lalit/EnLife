@@ -1,12 +1,8 @@
 package com.enlife.app.screens.widgets;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -16,15 +12,15 @@ import androidx.core.content.ContextCompat;
 import com.enlife.app.R;
 import com.google.android.material.appbar.AppBarLayout;
 
-public class CustomActionBar extends AppBarLayout {
+public class CustomAppBar extends AppBarLayout {
 
 
-    public CustomActionBar(Context context) {
+    public CustomAppBar(Context context) {
         super(context);
         init(context);
     }
 
-    public CustomActionBar(Context context, AttributeSet attrs) {
+    public CustomAppBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -41,36 +37,36 @@ public class CustomActionBar extends AppBarLayout {
         imgOption = findViewById(R.id.img_option);
     }
 
-    public CustomActionBar callback(CustomActionBarCallback customActionBarCallback) {
+    public CustomAppBar callback(CustomActionBarCallback customActionBarCallback) {
         this.customActionBarCallback = customActionBarCallback;
         return this;
     }
 
-    public CustomActionBar title(String title) {
+    public CustomAppBar title(String title) {
         txtToolbarTitle.setText(title);
         return this;
     }
 
-    public CustomActionBar homeIcon(@DrawableRes int homeIcon) {
+    public CustomAppBar homeIcon(@DrawableRes int homeIcon) {
         imgHome.setVisibility(VISIBLE);
         imgHome.setImageResource(homeIcon);
         imgHome.setOnClickListener(v -> customActionBarCallback.onHomeButtonClicked());
         return this;
     }
 
-    public CustomActionBar optionIcon(@DrawableRes int optionIcon) {
+    public CustomAppBar optionIcon(@DrawableRes int optionIcon) {
         imgOption.setVisibility(VISIBLE);
         imgOption.setImageResource(optionIcon);
         imgOption.setOnClickListener(v -> customActionBarCallback.onOptionButtonClicked());
         return this;
     }
 
-    public CustomActionBar backGroundColor(@ColorRes int backGroundColor) {
+    public CustomAppBar backGroundColor(@ColorRes int backGroundColor) {
         setBackgroundColor(ContextCompat.getColor(getContext(), backGroundColor));
         return this;
     }
 
-    public CustomActionBar titleColor(@ColorRes int titleColor) {
+    public CustomAppBar titleColor(@ColorRes int titleColor) {
         txtToolbarTitle.setTextColor(ContextCompat.getColor(getContext(), titleColor));
         return this;
     }
@@ -79,7 +75,7 @@ public class CustomActionBar extends AppBarLayout {
         imgHome.setVisibility(GONE);
     }
 
-    public CustomActionBar removeOptionIcon() {
+    public CustomAppBar removeOptionIcon() {
         imgOption.setVisibility(GONE);
         return this;
     }

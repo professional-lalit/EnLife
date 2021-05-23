@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.enlife.app.screens.widgets.CustomToolbar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_associated_goal"
+        style="@style/BasicText"
+        android:background="@color/greyText"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/avenir_bold"
+        android:paddingStart="@dimen/dimen_size_10"
+        android:text="Goal: Finance" />
+
+    <TextView
+        android:id="@+id/txt_associated_milestone"
+        style="@style/BasicText"
+        android:layout_width="match_parent"
+        android:background="@color/greyText"
+        android:layout_marginTop="@dimen/dimen_size_5"
+        android:fontFamily="@font/avenir_bold"
+        android:paddingStart="@dimen/dimen_size_10"
+        android:text="Milestone: Cut expenses" />
+
+    <EditText
+        android:id="@+id/edt_milestone_title"
+        style="@style/BasicEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_size_10"
+        android:background="@drawable/editext_bg"
+        android:hint="@string/enter_title"
+        android:maxLines="2"
+        android:singleLine="false"
+        android:textColor="@color/black"
+        android:textColorHint="@color/greyText" />
+
+
+    <EditText
+        android:id="@+id/edt_milestone_description"
+        style="@style/BasicEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:background="@drawable/editext_bg"
+        android:hint="@string/enter_description"
+        android:maxLines="5"
+        android:singleLine="false"
+        android:textColor="@color/black"
+        android:textColorHint="@color/greyText" />
+
+
+    <com.enlife.app.screens.widgets.TimeDurationChooserView
+        android:id="@+id/duration_chooser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_size_10" />
+
+
+    <Button
+        android:id="@+id/btn_add_event"
+        style="@style/BasicButton"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:drawablePadding="0dp"
+        android:minHeight="@dimen/dimen_size_30"
+        android:text="@string/submit" />
+
+</LinearLayout>

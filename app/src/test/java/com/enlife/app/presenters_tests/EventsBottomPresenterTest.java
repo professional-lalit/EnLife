@@ -1,8 +1,8 @@
 package com.enlife.app.presenters_tests;
 
 import com.enlife.app.database.models.Event;
-import com.enlife.app.screens.home.dialog.EventsBottomContract;
-import com.enlife.app.screens.home.dialog.EventsBottomDialogPresenter;
+import com.enlife.app.screens.main.dialog.EventsBottomContract;
+import com.enlife.app.screens.main.dialog.EventsBottomDialogPresenter;
 import com.enlife.app.utils.DateFormatter;
 
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package com.enlife.app.screens.login;
+package com.enlife.app.screens.main.fragments.login;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

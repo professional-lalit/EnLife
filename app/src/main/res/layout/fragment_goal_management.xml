@@ -1,206 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingBottom="@dimen/dimen_size_20"
-        tools:context=".screens.home.fragments.goals.GoalManagementFragment">
-
-        <ImageView
-            android:id="@+id/img_header"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_size_250"
-            android:background="@drawable/add_goal_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edt_goal_title"
-            style="@style/BasicEditText"
-            android:layout_width="match_parent"
-            android:layout_margin="@dimen/dimen_size_20"
-            android:hint="@string/add_title"
-            android:paddingStart="0dp"
-            android:paddingTop="@dimen/dimen_size_20"
-            android:paddingBottom="@dimen/dimen_size_20"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="@dimen/text_size_30"
-            app:layout_constraintBottom_toBottomOf="@+id/img_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar" />
-
-        <com.enlife.app.screens.widgets.CustomActionBar
-            android:id="@+id/action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/dimen_size_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edt_short_description"
-            style="@style/BasicEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_size_30"
-            android:hint="@string/short_description"
-            android:maxLines="3"
-            android:singleLine="false"
-            android:textColor="@color/black"
-            android:textColorHint="@color/greyText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_header" />
-
-        <TextView
-            android:id="@+id/txt_goal_type"
-            style="@style/BasicText"
-            android:layout_margin="@dimen/dimen_size_10"
-            android:text="@string/goal_type"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_short_description" />
-
-        <RadioGroup
-            android:id="@+id/rg_goal_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_size_10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_goal_type">
-
-            <RadioButton
-                android:id="@+id/rb_annual"
-                style="@style/BasicText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_size_5"
-                android:text="@string/annual" />
-
-            <RadioButton
-                android:id="@+id/rb_monthly"
-                style="@style/BasicText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_size_5"
-                android:text="@string/monthly" />
-
-            <RadioButton
-                android:id="@+id/rb_weekly"
-                style="@style/BasicText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_size_5"
-                android:text="@string/weekly" />
-
-        </RadioGroup>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lin_goal_type_duration"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/dimen_size_50"
-            app:layout_constraintBottom_toBottomOf="@+id/rg_goal_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rg_goal_type"
-            app:layout_constraintTop_toTopOf="@+id/rg_goal_type">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/dimen_size_20"
+            tools:context=".screens.main.fragments.goals.GoalManagementFragment">
 
-
-            <TextView
-                android:id="@+id/txt_from"
-                style="@style/BasicText"
-                android:fontFamily="@font/avenir_bold"
-                android:text="From:"
-                app:layout_constraintBottom_toTopOf="@+id/txt_to"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_from_date"
-                style="@style/BasicText"
-                android:text="10/05/2021"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_from"
-                app:layout_constraintStart_toEndOf="@+id/txt_from"
-                app:layout_constraintTop_toTopOf="@+id/txt_from" />
-
-            <TextView
-                android:id="@+id/txt_to"
-                style="@style/BasicText"
-                android:fontFamily="@font/avenir_bold"
-                android:text="To:"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/img_header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_size_250"
+                android:background="@drawable/add_goal_bg"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <EditText
+                android:id="@+id/edt_goal_title"
+                style="@style/BasicEditText"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/dimen_size_20"
+                android:hint="@string/add_title"
+                android:paddingStart="0dp"
+                android:paddingTop="@dimen/dimen_size_20"
+                android:paddingBottom="@dimen/dimen_size_20"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/text_size_30"
+                app:layout_constraintBottom_toBottomOf="@+id/img_header"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/edt_short_description"
+                style="@style/BasicEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_30"
+                android:hint="@string/short_description"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:textColor="@color/black"
+                android:textColorHint="@color/greyText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_header" />
+
             <TextView
-                android:id="@+id/txt_to_date"
+                android:id="@+id/txt_goal_type"
                 style="@style/BasicText"
-                android:text="10/05/2021"
-                app:layout_constraintBottom_toBottomOf="@+id/txt_to"
-                app:layout_constraintStart_toEndOf="@+id/txt_from"
-                app:layout_constraintTop_toTopOf="@+id/txt_to" />
+                android:layout_margin="@dimen/dimen_size_10"
+                android:text="@string/goal_type"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_short_description" />
+
+            <RadioGroup
+                android:id="@+id/rg_goal_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_goal_type">
+
+                <RadioButton
+                    android:id="@+id/rb_annual"
+                    style="@style/BasicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_size_5"
+                    android:text="@string/annual" />
+
+                <RadioButton
+                    android:id="@+id/rb_monthly"
+                    style="@style/BasicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_size_5"
+                    android:text="@string/monthly" />
+
+                <RadioButton
+                    android:id="@+id/rb_weekly"
+                    style="@style/BasicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_size_5"
+                    android:text="@string/weekly" />
+
+            </RadioGroup>
+
+            <com.enlife.app.screens.widgets.DateDurationChooserView
+                android:id="@+id/duration_chooser"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingStart="@dimen/dimen_size_50"
+                app:layout_constraintBottom_toBottomOf="@+id/rg_goal_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rg_goal_type"
+                app:layout_constraintTop_toTopOf="@+id/rg_goal_type" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_size_0_5"
+                android:layout_marginTop="@dimen/dimen_size_20"
+                android:background="@color/greyText"
+                app:layout_constraintTop_toBottomOf="@+id/rg_goal_type" />
+
+            <TextView
+                android:id="@+id/txt_goal_management"
+                style="@style/BasicText"
+                android:layout_marginTop="@dimen/dimen_size_20"
+                android:text="Goal Management"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+            <TextView
+                android:id="@+id/txt_task_note"
+                style="@style/BasicText"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:paddingStart="@dimen/dimen_size_50"
+                android:paddingEnd="@dimen/dimen_size_50"
+                android:text="Plan your goal by adding milestones"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_goal_management" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_size_20"
+                app:layout_constraintTop_toBottomOf="@+id/txt_task_note" />
+
+            <ImageView
+                android:id="@+id/img_add_milestone"
+                android:layout_width="@dimen/dimen_size_30"
+                android:layout_height="@dimen/dimen_size_30"
+                android:layout_marginTop="@dimen/dimen_size_20"
+                android:src="@drawable/add"
+                android:text="@string/add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_tasks" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_size_0_5"
-            android:layout_marginTop="@dimen/dimen_size_20"
-            android:background="@color/greyText"
-            app:layout_constraintTop_toBottomOf="@+id/rg_goal_type" />
-
-        <TextView
-            android:id="@+id/txt_goal_management"
-            style="@style/BasicText"
-            android:layout_marginTop="@dimen/dimen_size_20"
-            android:text="Goal Management"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-
-        <TextView
-            android:id="@+id/txt_task_note"
-            style="@style/BasicText"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:paddingStart="@dimen/dimen_size_50"
-            android:paddingEnd="@dimen/dimen_size_50"
-            android:text="Plan your goal by creating tasks or milestones that you complete daily"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_goal_management" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_tasks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_size_20"
-            app:layout_constraintTop_toBottomOf="@+id/txt_task_note" />
-
-        <Button
-            style="@style/BasicButton"
-            android:layout_marginTop="@dimen/dimen_size_20"
-            android:minHeight="@dimen/dimen_size_30"
-            android:text="@string/add_task"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_tasks" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    <com.enlife.app.screens.widgets.CustomAppBar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+</RelativeLayout>

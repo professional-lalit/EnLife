@@ -1,6 +1,6 @@
 package com.enlife.app.di;
 
-import com.enlife.app.screens.home.fragments.home.HomeFragment;
+import com.enlife.app.screens.main.fragments.home.HomeFragment;
 
 import dagger.Component;
 

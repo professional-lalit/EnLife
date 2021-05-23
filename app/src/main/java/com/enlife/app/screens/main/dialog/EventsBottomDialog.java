@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.dialog;
+package com.enlife.app.screens.main.dialog;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
 import com.enlife.app.di.HomeComponent;
-import com.enlife.app.screens.home.fragments.home.events.EventAdapter;
+import com.enlife.app.screens.main.fragments.home.events.EventAdapter;
 import com.enlife.app.utils.DateFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 

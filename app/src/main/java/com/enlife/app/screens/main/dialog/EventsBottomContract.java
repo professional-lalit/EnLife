@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.dialog;
+package com.enlife.app.screens.main.dialog;
 
 import com.enlife.app.database.models.Event;
 

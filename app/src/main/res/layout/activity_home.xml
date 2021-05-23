@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    tools:context=".screens.home.HomeActivity">
+    tools:context=".screens.main.HomeActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/home_drawer_layout"

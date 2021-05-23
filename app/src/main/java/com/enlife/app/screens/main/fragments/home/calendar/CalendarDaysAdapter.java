@@ -1,4 +1,4 @@
-package com.enlife.app.screens.home.fragments.home.calendar;
+package com.enlife.app.screens.main.fragments.home.calendar;
 
 import android.view.LayoutInflater;
 import android.view.View;
