@@ -1,32 +1,22 @@
 package com.enlife.app.screens.main.dialog;
 
-import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.EventDataOperator;
-import com.enlife.app.di.HomeComponent;
 import com.enlife.app.utils.DateFormatter;
 
 import java.util.Date;
-
-import javax.inject.Inject;
 
 public class EventsBottomDialogPresenter implements EventsBottomContract.PresenterContract {
 
     private final EventsBottomContract.ViewContract viewContract;
 
-    @Inject
     DateFormatter dateFormatter;
-
-    @Inject
     EventDataOperator databaseOperator;
 
-    public EventsBottomDialogPresenter(EventsBottomContract.ViewContract viewContract) {
+    public EventsBottomDialogPresenter(EventsBottomContract.ViewContract viewContract,
+                                       DateFormatter dateFormatter, EventDataOperator databaseOperator) {
         this.viewContract = viewContract;
-        HomeComponent homeComponent = CustomApplication
-                .getInstance()
-                .applicationComponent
-                .homeComponent()
-                .create();
-        homeComponent.inject(this);
+        this.dateFormatter = dateFormatter;
+        this.databaseOperator = databaseOperator;
     }
 
     @Override

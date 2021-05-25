@@ -3,8 +3,11 @@ package com.enlife.app.common;
 import android.app.Application;
 import android.content.Context;
 
-import com.enlife.app.di.ApplicationComponent;
-import com.enlife.app.di.DaggerApplicationComponent;
+import com.enlife.app.di.components.ApplicationComponent;
+import com.enlife.app.di.components.DaggerApplicationComponent;
+import com.enlife.app.di.modules.DatabaseModule;
+import com.enlife.app.di.modules.GoalManagementModule;
+import com.enlife.app.di.modules.UtilityModule;
 
 public class CustomApplication extends Application {
 
@@ -18,11 +21,12 @@ public class CustomApplication extends Application {
         return customApplication.getApplicationContext();
     }
 
-    public ApplicationComponent applicationComponent = DaggerApplicationComponent.create();
+    public ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         customApplication = this;
+        applicationComponent = DaggerApplicationComponent.create();
     }
 }

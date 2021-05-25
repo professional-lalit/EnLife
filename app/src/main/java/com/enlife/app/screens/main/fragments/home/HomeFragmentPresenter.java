@@ -3,7 +3,6 @@ package com.enlife.app.screens.main.fragments.home;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.operators.EventDataOperator;
-import com.enlife.app.di.HomeComponent;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.utils.DateFormatter;
 
@@ -18,21 +17,14 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
 
     private final HomeScreenContract.ViewContract viewContract;
     private Date cursorDate = new Date();
-
-    @Inject
     EventDataOperator databaseOperator;
-
-    @Inject
     DateFormatter dateFormatter;
 
-    public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract) {
+    public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract,
+                                 EventDataOperator databaseOperator, DateFormatter dateFormatter) {
         this.viewContract = viewContract;
-        HomeComponent homeComponent = CustomApplication
-                .getInstance()
-                .applicationComponent
-                .homeComponent()
-                .create();
-        homeComponent.inject(this);
+        this.databaseOperator = databaseOperator;
+        this.dateFormatter = dateFormatter;
     }
 
     @Override

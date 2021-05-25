@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
-import com.enlife.app.di.HomeComponent;
+import com.enlife.app.database.operators.EventDataOperator;
+import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.events.EventAdapter;
 import com.enlife.app.utils.DateFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -28,7 +29,7 @@ import javax.inject.Inject;
 
 public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract, View.OnClickListener {
 
-    private final EventsBottomContract.PresenterContract presenter = new EventsBottomDialogPresenter(this);
+    private EventsBottomContract.PresenterContract presenter;
 
     private RecyclerView recyclerEvents;
     private TextView txtDialogTitle;
@@ -39,6 +40,9 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
 
     @Inject
     DateFormatter dateFormatter;
+
+    @Inject
+    EventDataOperator databaseOperator;
 
     private static final String ARG_EVENTS_DATE = "arg_events_date";
 
@@ -62,11 +66,10 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HomeComponent homeComponent = CustomApplication.getInstance()
+        CustomApplication.getInstance()
                 .applicationComponent
-                .homeComponent()
-                .create();
-        homeComponent.inject(this);
+                .inject(this);
+        presenter = new EventsBottomDialogPresenter(this, dateFormatter, databaseOperator);
     }
 
     @Nullable
@@ -86,7 +89,7 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     private void setViews() {
         // Set dialog title
         String formattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.MMM_dd_yyyy, date);
-        txtDialogTitle.setText(String.format(getString(R.string.events_for), formattedDate));
+        txtDialogTitle.setText(String.format(getString(R.string.schedule_for), formattedDate));
         imgAddEvent.setOnClickListener(this);
     }
 
@@ -116,6 +119,7 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_event:
+                AddEventBottomDialog.createDialog(null).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
                 break;
         }
     }

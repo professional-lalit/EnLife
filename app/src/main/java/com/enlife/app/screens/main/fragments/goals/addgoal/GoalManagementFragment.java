@@ -1,4 +1,4 @@
-package com.enlife.app.screens.main.fragments.goals;
+package com.enlife.app.screens.main.fragments.goals.addgoal;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -10,21 +10,47 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Event;
+import com.enlife.app.database.models.Goal;
+import com.enlife.app.database.operators.GoalDataOperator;
+import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
+import com.enlife.app.utils.DateFormatter;
 
 
-public class GoalManagementFragment extends Fragment implements CustomAppBar.CustomActionBarCallback, View.OnClickListener {
+public class GoalManagementFragment extends Fragment
+        implements CustomAppBar.CustomActionBarCallback,
+        View.OnClickListener,
+        GoalManagementContract.ViewContract {
 
     private CustomAppBar customAppBar;
     private ImageView imgAddMilestone;
+    private GoalManagementPresenter presenter;
+
+//    @Inject
+    GoalDataOperator databaseOperator;
+
+//    @Inject
+    DateFormatter dateFormatter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CustomApplication.getInstance()
+                .applicationComponent
+                .inject(this);
+        presenter = new GoalManagementPresenter(dateFormatter, databaseOperator);
+    }
+
 
     public static GoalManagementFragment newInstance() {
         return new GoalManagementFragment();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,5 +102,15 @@ public class GoalManagementFragment extends Fragment implements CustomAppBar.Cus
                 AddMilestoneBottomDialog.createDialog(null).show(getChildFragmentManager(), AddMilestoneBottomDialog.TAG);
                 break;
         }
+    }
+
+    @Override
+    public void onEventAdded(Event event) {
+
+    }
+
+    @Override
+    public void onGoalAdded(Goal goal) {
+
     }
 }

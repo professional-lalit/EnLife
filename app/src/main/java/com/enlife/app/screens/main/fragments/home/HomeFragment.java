@@ -15,13 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.main.dialog.EventsBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
 import com.enlife.app.screens.widgets.CustomAppBar;
+import com.enlife.app.utils.DateFormatter;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 
 public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract, CustomAppBar.CustomActionBarCallback {
@@ -32,13 +37,27 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     private TextView txtMonthName;
     private CustomAppBar customAppBar;
 
+    @Inject
+    EventDataOperator dataOperator;
 
-    private final HomeScreenContract.PresenterContract presenterContract = new HomeFragmentPresenter(this);
+    @Inject
+    DateFormatter dateFormatter;
+
+    private HomeScreenContract.PresenterContract presenterContract;
 
     public static HomeFragment newInstance(@Nullable Bundle bundle) {
         HomeFragment fragment = new HomeFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CustomApplication.getInstance()
+                .applicationComponent
+                .inject(this);
+        presenterContract = new HomeFragmentPresenter(this, dataOperator, dateFormatter);
     }
 
     @Override
@@ -101,7 +120,7 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
 
     @Override
     public void onHomeButtonClicked() {
-        
+
     }
 
     @Override

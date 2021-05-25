@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.main.fragments.goals.GoalManagementFragment;
+import com.enlife.app.screens.main.fragments.goals.addgoal.GoalManagementFragment;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 

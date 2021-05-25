@@ -1,4 +1,4 @@
-package com.enlife.app.screens.main.fragments.goals;
+package com.enlife.app.screens.main.fragments.goals.addevent;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.GoalEvent;
+import com.enlife.app.database.operators.GoalEventDataOperator;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.CustomToolbar;
+import com.enlife.app.utils.DateFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class AddEventBottomDialog extends BottomSheetDialogFragment implements CustomAppBar.CustomActionBarCallback {
+import javax.inject.Inject;
+
+public class AddEventBottomDialog extends BottomSheetDialogFragment
+        implements AddEventContract.ViewContract,
+        CustomAppBar.CustomActionBarCallback {
 
     public static final String TAG = AddEventBottomDialog.class.getSimpleName();
+    private AddEventDialogPresenter presenter;
 
     public static AddEventBottomDialog createDialog(@Nullable Bundle bundle) {
         AddEventBottomDialog dialog = new AddEventBottomDialog();
@@ -24,6 +33,22 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment implements C
     }
 
     private CustomToolbar customToolbar;
+
+    @Inject
+    GoalEventDataOperator databaseOperator;
+
+    @Inject
+    DateFormatter dateFormatter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CustomApplication.getInstance()
+                .applicationComponent
+                .inject(this);
+
+        presenter = new AddEventDialogPresenter(dateFormatter, databaseOperator);
+    }
 
     @Nullable
     @Override
@@ -59,5 +84,10 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment implements C
     @Override
     public void onOptionButtonClicked() {
         dismiss();
+    }
+
+    @Override
+    public void onEventAdded(GoalEvent event) {
+
     }
 }

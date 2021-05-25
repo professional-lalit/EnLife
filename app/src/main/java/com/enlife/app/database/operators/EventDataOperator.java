@@ -23,6 +23,8 @@ public class EventDataOperator extends DatabaseOperator {
         super(context);
     }
 
+
+
     private Event.RepeatMode getEventRepeatMode(String string) {
         if (string.equals(Event.RepeatMode.DAILY.getMode())) {
             return Event.RepeatMode.DAILY;
@@ -50,6 +52,12 @@ public class EventDataOperator extends DatabaseOperator {
         values.put(EventContract.EventEntry.COLUMN_EVENT_DATE, event.getDate());
         return databaseHelper.getWritableDatabase().insert(EventContract.EventEntry.TABLE_NAME, null, values);
     }
+
+    @Override
+    public long addList(List<Object> list) {
+        return 0;
+    }
+
 
     @Override
     public int updateData(long id, Object data) {

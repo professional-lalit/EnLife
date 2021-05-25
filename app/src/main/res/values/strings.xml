@@ -35,7 +35,7 @@
     <string name="thursday">THU</string>
     <string name="friday">FRI</string>
     <string name="sat">SAT</string>
-    <string name="events_for">Events for %s</string>
+    <string name="schedule_for">Schedule for %s</string>
     <string name="no_events_for_this_day">No events for this day</string>
     <string name="goals">Goals</string>
     <string name="analysis">Analysis</string>

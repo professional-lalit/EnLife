@@ -1,4 +1,4 @@
-package com.enlife.app.di;
+package com.enlife.app.di.modules;
 
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.utils.DateFormatter;

@@ -22,6 +22,8 @@ public abstract class DatabaseOperator {
 
     public abstract long addData(Object data);
 
+    public abstract long addList(List<Object> list);
+
     public abstract int updateData(long id, Object data);
 
     public abstract int deleteData(String... selectorFields);

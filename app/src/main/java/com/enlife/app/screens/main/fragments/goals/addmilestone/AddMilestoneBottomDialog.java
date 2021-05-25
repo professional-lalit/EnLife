@@ -1,4 +1,4 @@
-package com.enlife.app.screens.main.fragments.goals;
+package com.enlife.app.screens.main.fragments.goals.addmilestone;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,13 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Milestone;
+import com.enlife.app.database.operators.MilestoneDataOperator;
+import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.CustomToolbar;
+import com.enlife.app.utils.DateFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class AddMilestoneBottomDialog extends BottomSheetDialogFragment implements CustomAppBar.CustomActionBarCallback, View.OnClickListener {
+import javax.inject.Inject;
+
+public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
+        implements CustomAppBar.CustomActionBarCallback,
+        AddMilestoneContract.ViewContract,
+        View.OnClickListener {
 
     public static final String TAG = AddMilestoneBottomDialog.class.getSimpleName();
+    private AddMilestoneDialogPresenter presenter;
 
     public static AddMilestoneBottomDialog createDialog(@Nullable Bundle bundle) {
         AddMilestoneBottomDialog dialog = new AddMilestoneBottomDialog();
@@ -29,9 +40,17 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment implemen
     private CustomToolbar customToolbar;
     private LinearLayout linAddEvent;
 
+    @Inject
+    MilestoneDataOperator databaseOperator;
+
+    @Inject
+    DateFormatter dateFormatter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CustomApplication.getInstance().applicationComponent.inject(this);
+        presenter = new AddMilestoneDialogPresenter(dateFormatter, databaseOperator);
     }
 
     @Nullable
@@ -73,5 +92,10 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment implemen
                 AddEventBottomDialog.createDialog(null).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
                 break;
         }
+    }
+
+    @Override
+    public void onMilestoneAdded(Milestone milestone) {
+
     }
 }
