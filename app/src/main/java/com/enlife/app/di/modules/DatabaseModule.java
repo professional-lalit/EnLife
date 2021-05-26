@@ -4,6 +4,7 @@ import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
 import com.enlife.app.database.operators.GoalEventDataOperator;
+import com.enlife.app.database.operators.MilestoneDataOperator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,6 +25,11 @@ public class DatabaseModule {
     @Provides
     public GoalEventDataOperator goalEventDataOperator(CustomApplication customApplication) {
         return new GoalEventDataOperator(customApplication.getApplicationContext());
+    }
+
+    @Provides
+    public MilestoneDataOperator milestoneDataOperator(CustomApplication customApplication) {
+        return new MilestoneDataOperator(customApplication.getApplicationContext());
     }
 
 }

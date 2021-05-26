@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EnLife.NoActionBar">
-        <activity android:name=".screens.goals.GoalManagementActivity"></activity>
+
         <activity android:name=".screens.main.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
