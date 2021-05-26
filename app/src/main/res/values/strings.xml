@@ -57,7 +57,10 @@
     <string name="enter_description">Enter description</string>
     <string name="add">Add</string>
     <string name="click_on_date">[Click on dates for selection]</string>
+    <string name="click_on_time">[Click on time for selection]</string>
     <string name="ok">ok</string>
     <string name="attach_this_ms_to_goal">Attach this milestone to goal</string>
     <string name="add_event">Add Event</string>
+    <string name="plz_goal_duration">Please select goal duration</string>
+    <string name="plz_milestone_duration">Please select milestone duration</string>
 </resources>

@@ -101,7 +101,7 @@
             </RadioGroup>
 
             <com.enlife.app.screens.widgets.DateDurationChooserView
-                android:id="@+id/duration_chooser"
+                android:id="@+id/time_duration_chooser"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:paddingStart="@dimen/dimen_size_50"

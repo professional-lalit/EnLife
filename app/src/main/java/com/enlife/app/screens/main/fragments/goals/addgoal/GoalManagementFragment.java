@@ -19,23 +19,37 @@ import com.enlife.app.database.models.Goal;
 import com.enlife.app.database.operators.GoalDataOperator;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
+import com.enlife.app.screens.widgets.DateDurationChooserView;
 import com.enlife.app.utils.DateFormatter;
+import com.enlife.app.utils.Utils;
+
+import java.util.Date;
+
+import javax.inject.Inject;
 
 
 public class GoalManagementFragment extends Fragment
         implements CustomAppBar.CustomActionBarCallback,
         View.OnClickListener,
-        GoalManagementContract.ViewContract {
+        GoalManagementContract.ViewContract, DateDurationChooserView.DateSelectionListener {
 
     private CustomAppBar customAppBar;
     private ImageView imgAddMilestone;
+    private DateDurationChooserView dateDurationChooserView;
+
     private GoalManagementPresenter presenter;
 
-//    @Inject
+    private Date fromDate;
+    private Date toDate;
+
+    @Inject
     GoalDataOperator databaseOperator;
 
-//    @Inject
+    @Inject
     DateFormatter dateFormatter;
+
+    @Inject
+    Utils utils;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +83,7 @@ public class GoalManagementFragment extends Fragment
     private void initViews() {
         customAppBar = requireView().findViewById(R.id.action_bar);
         imgAddMilestone = requireView().findViewById(R.id.img_add_milestone);
+        dateDurationChooserView = requireView().findViewById(R.id.time_duration_chooser);
     }
 
     private void initToolbar() {
@@ -82,6 +97,7 @@ public class GoalManagementFragment extends Fragment
 
     private void setViews() {
         imgAddMilestone.setOnClickListener(this);
+        dateDurationChooserView.setSelectionListener(this);
     }
 
     @Override
@@ -99,7 +115,12 @@ public class GoalManagementFragment extends Fragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_milestone:
-                AddMilestoneBottomDialog.createDialog(null).show(getChildFragmentManager(), AddMilestoneBottomDialog.TAG);
+                if (fromDate != null && toDate != null) {
+                    AddMilestoneBottomDialog.createDialog(fromDate, toDate)
+                            .show(getChildFragmentManager(), AddMilestoneBottomDialog.TAG);
+                } else {
+                    utils.showToast(getString(R.string.plz_goal_duration));
+                }
                 break;
         }
     }
@@ -112,5 +133,15 @@ public class GoalManagementFragment extends Fragment
     @Override
     public void onGoalAdded(Goal goal) {
 
+    }
+
+    @Override
+    public void onFromDateSet(Date date) {
+        fromDate = date;
+    }
+
+    @Override
+    public void onToDateSet(Date date) {
+        toDate = date;
     }
 }

@@ -25,6 +25,11 @@ public class TimeDurationChooserView extends ConstraintLayout {
 
     private DateFormatter dateFormatter = new DateFormatter();
 
+    private Date upperBoundDate;
+    private Date lowerBoundDate;
+
+    private TimeSelectionListener timeSelectionListener;
+
 
     public TimeDurationChooserView(@NonNull Context context) {
         super(context);
@@ -37,7 +42,7 @@ public class TimeDurationChooserView extends ConstraintLayout {
     }
 
     private void init(Context context) {
-        inflate(context, R.layout.layout_duration_view, this);
+        inflate(context, R.layout.layout_time_duration_view, this);
         txtFromDate = findViewById(R.id.txt_from_date);
         txtToDate = findViewById(R.id.txt_to_date);
 
@@ -65,6 +70,7 @@ public class TimeDurationChooserView extends ConstraintLayout {
             calendar.set(Calendar.MINUTE, minute);
             String time = dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, calendar.getTime());
             txtFromDate.setText(time);
+            timeSelectionListener.onFromTimeSet(calendar.getTime());
         }
     };
 
@@ -77,10 +83,24 @@ public class TimeDurationChooserView extends ConstraintLayout {
             calendar.set(Calendar.MINUTE, minute);
             String time = dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, calendar.getTime());
             txtToDate.setText(time);
+            timeSelectionListener.onToTimeSet(calendar.getTime());
         }
     };
 
+    public void setTimeSelectionListener(TimeSelectionListener timeSelectionListener) {
+        this.timeSelectionListener = timeSelectionListener;
+    }
+
+    public void setUpperBoundDate(Date upperBoundDate) {
+        this.upperBoundDate = upperBoundDate;
+    }
+
+    public void setLowerBoundDate(Date lowerBoundDate) {
+        this.lowerBoundDate = lowerBoundDate;
+    }
+
     public interface TimeSelectionListener {
+
         void onFromTimeSet(Date date);
 
         void onToTimeSet(Date date);

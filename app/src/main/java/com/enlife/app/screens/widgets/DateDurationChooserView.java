@@ -3,7 +3,6 @@ package com.enlife.app.screens.widgets;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -22,8 +21,10 @@ public class DateDurationChooserView extends ConstraintLayout {
     private TextView txtFromDate;
     private TextView txtToDate;
 
-    private DateSelectionListener selectionListener;
+    private Date upperBoundDate;
+    private Date lowerBoundDate;
 
+    private DateSelectionListener selectionListener;
 
     public DateDurationChooserView(@NonNull Context context) {
         super(context);
@@ -36,30 +37,51 @@ public class DateDurationChooserView extends ConstraintLayout {
     }
 
     private void init(Context context) {
-        inflate(context, R.layout.layout_duration_view, this);
+        initViews(context);
+        setViews();
+    }
+
+    private void initViews(Context context) {
+        inflate(context, R.layout.layout_date_duration_view, this);
         txtFromDate = findViewById(R.id.txt_from_date);
         txtToDate = findViewById(R.id.txt_to_date);
+    }
 
+    private void setViews() {
         txtFromDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            new DatePickerDialog(getContext(), fromDateSetListener,
+            if (lowerBoundDate != null) {
+                calendar.setTime(lowerBoundDate);
+            }
+            DatePickerDialog dialog = new DatePickerDialog(getContext(), fromDateSetListener,
                     calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)
-            ).show();
+            );
+            if (upperBoundDate != null && lowerBoundDate != null) {
+                dialog.getDatePicker().setMaxDate(upperBoundDate.getTime());
+                dialog.getDatePicker().setMinDate(lowerBoundDate.getTime());
+            }
+            dialog.show();
         });
 
         txtToDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            new DatePickerDialog(getContext(), toDateSetListener,
+            if (lowerBoundDate != null) {
+                calendar.setTime(lowerBoundDate);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            DatePickerDialog dialog = new DatePickerDialog(getContext(), toDateSetListener,
                     calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)
-            ).show();
+            );
+            if (upperBoundDate != null && lowerBoundDate != null) {
+                dialog.getDatePicker().setMaxDate(upperBoundDate.getTime());
+                dialog.getDatePicker().setMinDate(lowerBoundDate.getTime());
+            }
+            dialog.show();
         });
     }
 
-    public DateSelectionListener getSelectionListener() {
-        return selectionListener;
-    }
 
     private final DatePickerDialog.OnDateSetListener fromDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -69,6 +91,9 @@ public class DateDurationChooserView extends ConstraintLayout {
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.YEAR, year);
             txtFromDate.setText(new DateFormatter().getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, calendar.getTime()));
+            if (selectionListener != null) {
+                selectionListener.onFromDateSet(calendar.getTime());
+            }
         }
     };
 
@@ -80,12 +105,27 @@ public class DateDurationChooserView extends ConstraintLayout {
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.YEAR, year);
             txtToDate.setText(new DateFormatter().getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, calendar.getTime()));
+            if (selectionListener != null) {
+                selectionListener.onToDateSet(calendar.getTime());
+            }
         }
     };
+
+    public void setSelectionListener(DateSelectionListener selectionListener) {
+        this.selectionListener = selectionListener;
+    }
 
     public interface DateSelectionListener {
         void onFromDateSet(Date date);
 
         void onToDateSet(Date date);
+    }
+
+    public void setUpperBoundDate(Date upperBoundDate) {
+        this.upperBoundDate = upperBoundDate;
+    }
+
+    public void setLowerBoundDate(Date lowerBoundDate) {
+        this.lowerBoundDate = lowerBoundDate;
     }
 }
