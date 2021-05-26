@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.enlife.app.database.tables.EventContract;
+import com.enlife.app.database.tables.GoalContract;
+import com.enlife.app.database.tables.MilestoneContract;
 
 public class ApplicationDatabaseHelper extends SQLiteOpenHelper {
 
@@ -18,6 +20,8 @@ public class ApplicationDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(EventContract.getCreateQuery());
+        db.execSQL(GoalContract.getCreateQuery());
+        db.execSQL(MilestoneContract.getCreateQuery());
     }
 
     @Override
