@@ -8,7 +8,7 @@ import com.enlife.app.database.models.Event;
 
 import java.util.List;
 
-public abstract class DatabaseOperator {
+public abstract class DatabaseOperator<T extends Object> {
 
     protected final ApplicationDatabaseHelper databaseHelper;
 
@@ -20,15 +20,15 @@ public abstract class DatabaseOperator {
         databaseHelper.close();
     }
 
-    public abstract long addData(Object data);
+    public abstract long addData(T data);
 
-    public abstract long addList(List<Object> list);
+    public abstract long addList(List<T> list);
 
-    public abstract int updateData(long id, Object data);
+    public abstract int updateData(long id, T data);
 
     public abstract int deleteData(String... selectorFields);
 
-    public abstract List<Event> getList(String... selectorFields);
+    public abstract List<T> getList(String... selectorFields);
 
     public abstract int clearTable();
 

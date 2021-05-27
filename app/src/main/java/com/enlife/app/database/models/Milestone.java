@@ -3,18 +3,18 @@ package com.enlife.app.database.models;
 import java.util.List;
 
 public class Milestone {
+    private final long milestoneId;
     private final String title;
     private final String description;
-    private final String goalType;
     private final String fromDate;
     private final String toDate;
-    private final List<GoalEvent> events;
+    private final List<Event> events;
 
-    public Milestone(String title, String description, String goalType,
-                     String fromDate, String toDate, List<GoalEvent> events) {
+    public Milestone(long milestoneId, String title, String description,
+                     String fromDate, String toDate, List<Event> events) {
+        this.milestoneId = milestoneId;
         this.title = title;
         this.description = description;
-        this.goalType = goalType;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.events = events;
@@ -28,10 +28,6 @@ public class Milestone {
         return description;
     }
 
-    public String getGoalType() {
-        return goalType;
-    }
-
     public String getFromDate() {
         return fromDate;
     }
@@ -40,7 +36,7 @@ public class Milestone {
         return toDate;
     }
 
-    public List<GoalEvent> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 }

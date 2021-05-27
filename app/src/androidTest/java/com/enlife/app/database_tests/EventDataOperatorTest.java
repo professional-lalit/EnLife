@@ -5,7 +5,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.models.Event;
-import com.enlife.app.database.operators.DatabaseOperator;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.utils.DateFormatter;
 

@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.enlife.app.R;
 import com.enlife.app.utils.DateFormatter;
+import com.enlife.app.utils.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,10 +24,10 @@ public class TimeDurationChooserView extends ConstraintLayout {
     private TextView txtFromDate;
     private TextView txtToDate;
 
-    private DateFormatter dateFormatter = new DateFormatter();
+    private Date fromTime;
 
-    private Date upperBoundDate;
-    private Date lowerBoundDate;
+    private DateFormatter dateFormatter = new DateFormatter();
+    private Utils utils = new Utils();
 
     private TimeSelectionListener timeSelectionListener;
 
@@ -48,16 +49,27 @@ public class TimeDurationChooserView extends ConstraintLayout {
 
         txtFromDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            new TimePickerDialog(getContext(), fromTimeSetListener,
-                    calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                    false).show();
+            if (fromTime != null) {
+                calendar.setTime(fromTime);
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            TimePickerDialog dialog = new TimePickerDialog(
+                    getContext(),
+                    fromTimeSetListener,
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    false);
+            dialog.show();
         });
 
         txtToDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            new TimePickerDialog(getContext(), toTimeSetListener,
-                    calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                    false).show();
+            new TimePickerDialog(
+                    getContext(), toTimeSetListener,
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE),
+                    false
+            ).show();
         });
     }
 
@@ -68,6 +80,7 @@ public class TimeDurationChooserView extends ConstraintLayout {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, minute);
+            fromTime = calendar.getTime();
             String time = dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, calendar.getTime());
             txtFromDate.setText(time);
             timeSelectionListener.onFromTimeSet(calendar.getTime());
@@ -81,22 +94,19 @@ public class TimeDurationChooserView extends ConstraintLayout {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, minute);
-            String time = dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, calendar.getTime());
-            txtToDate.setText(time);
-            timeSelectionListener.onToTimeSet(calendar.getTime());
+
+            if (calendar.getTime().after(fromTime)) {
+                String time = dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, calendar.getTime());
+                txtToDate.setText(time);
+                timeSelectionListener.onToTimeSet(calendar.getTime());
+            } else {
+                utils.showToast(getContext().getString(R.string.plz_select_valid_time));
+            }
         }
     };
 
     public void setTimeSelectionListener(TimeSelectionListener timeSelectionListener) {
         this.timeSelectionListener = timeSelectionListener;
-    }
-
-    public void setUpperBoundDate(Date upperBoundDate) {
-        this.upperBoundDate = upperBoundDate;
-    }
-
-    public void setLowerBoundDate(Date lowerBoundDate) {
-        this.lowerBoundDate = lowerBoundDate;
     }
 
     public interface TimeSelectionListener {

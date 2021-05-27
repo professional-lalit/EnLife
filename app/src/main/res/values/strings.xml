@@ -63,4 +63,6 @@
     <string name="add_event">Add Event</string>
     <string name="plz_goal_duration">Please select goal duration</string>
     <string name="plz_milestone_duration">Please select milestone duration</string>
+    <string name="goal_is_saved">Goal is saved!</string>
+    <string name="plz_select_valid_time">Please select valid time</string>
 </resources>

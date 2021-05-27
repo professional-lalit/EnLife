@@ -1,20 +1,26 @@
 package com.enlife.app.database.models;
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 public class Goal {
+    private final long goalId;
     private final String title;
     private final String description;
     private final String goalType;
     private final String fromDate;
     private final String toDate;
+
+    @Nullable
     private final List<Milestone> milestones;
 
     public Goal(
-            String title, String description,
+            long goalId, String title, String description,
             String goalType, String fromDate, String toDate,
-            List<Milestone> milestones
+            @Nullable List<Milestone> milestones
     ) {
+        this.goalId = goalId;
         this.title = title;
         this.description = description;
         this.goalType = goalType;

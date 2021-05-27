@@ -5,7 +5,7 @@ import com.enlife.app.di.modules.GoalManagementModule;
 import com.enlife.app.di.modules.UtilityModule;
 import com.enlife.app.screens.main.dialog.EventsBottomDialog;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
-import com.enlife.app.screens.main.fragments.goals.addgoal.GoalManagementFragment;
+import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
 
@@ -22,7 +22,7 @@ public interface ApplicationComponent {
 
     void inject(AddEventBottomDialog dialog);
 
-    void inject(GoalManagementFragment dialog);
+    void inject(AddGoalFragment dialog);
 
     void inject(AddMilestoneBottomDialog dialog);
 

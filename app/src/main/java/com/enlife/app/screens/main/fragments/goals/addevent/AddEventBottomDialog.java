@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
-import com.enlife.app.database.models.GoalEvent;
-import com.enlife.app.database.operators.GoalEventDataOperator;
+import com.enlife.app.database.models.Event;
+import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.CustomToolbar;
 import com.enlife.app.screens.widgets.TimeDurationChooserView;
@@ -47,7 +47,7 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     private Date eventLowerBoundDateTime;
 
     @Inject
-    GoalEventDataOperator databaseOperator;
+    EventDataOperator databaseOperator;
 
     @Inject
     DateFormatter dateFormatter;
@@ -110,7 +110,7 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     }
 
     @Override
-    public void onEventAdded(GoalEvent event) {
+    public void onEventAdded(Event event) {
 
     }
 

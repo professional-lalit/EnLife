@@ -3,26 +3,23 @@ package com.enlife.app.database.operators;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 import com.enlife.app.database.models.DateEventCount;
 import com.enlife.app.database.models.Event;
 import com.enlife.app.database.tables.EventContract;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class EventDataOperator extends DatabaseOperator {
+public class EventDataOperator extends DatabaseOperator<Event> {
 
     @Inject
     public EventDataOperator(Context context) {
         super(context);
     }
-
 
 
     private Event.RepeatMode getEventRepeatMode(String string) {
@@ -38,7 +35,7 @@ public class EventDataOperator extends DatabaseOperator {
     }
 
     @Override
-    public long addData(Object data) {
+    public long addData(Event data) {
         Event event = (Event) data;
         ContentValues values = new ContentValues();
         values.put(EventContract.EventEntry.COLUMN_EVENT_TITLE, event.getTitle());
@@ -54,13 +51,13 @@ public class EventDataOperator extends DatabaseOperator {
     }
 
     @Override
-    public long addList(List<Object> list) {
+    public long addList(List<Event> list) {
         return 0;
     }
 
 
     @Override
-    public int updateData(long id, Object data) {
+    public int updateData(long id, Event data) {
         Event event = (Event) data;
         ContentValues values = new ContentValues();
         values.put(EventContract.EventEntry.COLUMN_EVENT_TITLE, event.getTitle());
@@ -86,6 +83,7 @@ public class EventDataOperator extends DatabaseOperator {
         );
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public final List<Event> getList(String... selectorFields) {
 

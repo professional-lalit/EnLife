@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingBottom="@dimen/dimen_size_20"
-            tools:context=".screens.main.fragments.goals.addgoal.GoalManagementFragment">
+            tools:context=".screens.main.fragments.goals.addgoal.AddGoalFragment">
 
             <ImageView
                 android:id="@+id/img_header"

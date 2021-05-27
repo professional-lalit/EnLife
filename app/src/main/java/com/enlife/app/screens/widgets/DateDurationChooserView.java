@@ -70,7 +70,9 @@ public class DateDurationChooserView extends ConstraintLayout {
                 calendar.setTime(lowerBoundDate);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
             }
-            DatePickerDialog dialog = new DatePickerDialog(getContext(), toDateSetListener,
+            DatePickerDialog dialog = new DatePickerDialog(
+                    getContext(),
+                    toDateSetListener,
                     calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)
             );
@@ -82,7 +84,6 @@ public class DateDurationChooserView extends ConstraintLayout {
         });
     }
 
-
     private final DatePickerDialog.OnDateSetListener fromDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -90,6 +91,7 @@ public class DateDurationChooserView extends ConstraintLayout {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.YEAR, year);
+            lowerBoundDate = calendar.getTime();
             txtFromDate.setText(new DateFormatter().getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, calendar.getTime()));
             if (selectionListener != null) {
                 selectionListener.onFromDateSet(calendar.getTime());

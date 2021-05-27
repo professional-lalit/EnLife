@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.main.fragments.goals.addgoal.GoalManagementFragment;
+import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -79,8 +79,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_goals:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fragment_container, GoalManagementFragment.newInstance())
-                        .addToBackStack(GoalManagementFragment.class.getSimpleName())
+                        .add(R.id.fragment_container, AddGoalFragment.newInstance())
+                        .addToBackStack(AddGoalFragment.class.getSimpleName())
                         .commit();
                 homeDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;

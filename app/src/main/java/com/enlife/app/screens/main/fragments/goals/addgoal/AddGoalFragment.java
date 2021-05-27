@@ -14,24 +14,26 @@ import android.widget.ImageView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
-import com.enlife.app.database.models.Event;
-import com.enlife.app.database.models.Goal;
+import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
+import com.enlife.app.database.operators.MilestoneDataOperator;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.DateDurationChooserView;
 import com.enlife.app.utils.DateFormatter;
 import com.enlife.app.utils.Utils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
 
 
-public class GoalManagementFragment extends Fragment
-        implements CustomAppBar.CustomActionBarCallback,
+public class AddGoalFragment extends Fragment implements
+        CustomAppBar.CustomActionBarCallback,
         View.OnClickListener,
-        GoalManagementContract.ViewContract, DateDurationChooserView.DateSelectionListener {
+        GoalManagementContract.ViewContract,
+        DateDurationChooserView.DateSelectionListener {
 
     private CustomAppBar customAppBar;
     private ImageView imgAddMilestone;
@@ -43,7 +45,13 @@ public class GoalManagementFragment extends Fragment
     private Date toDate;
 
     @Inject
-    GoalDataOperator databaseOperator;
+    GoalDataOperator goalDatabaseOperator;
+
+    @Inject
+    MilestoneDataOperator milestoneDatabaseOperator;
+
+    @Inject
+    EventDataOperator eventDatabaseOperator;
 
     @Inject
     DateFormatter dateFormatter;
@@ -57,19 +65,20 @@ public class GoalManagementFragment extends Fragment
         CustomApplication.getInstance()
                 .applicationComponent
                 .inject(this);
-        presenter = new GoalManagementPresenter(dateFormatter, databaseOperator);
+        presenter = new GoalManagementPresenter(
+                dateFormatter, goalDatabaseOperator,
+                milestoneDatabaseOperator, eventDatabaseOperator
+        );
     }
 
-
-    public static GoalManagementFragment newInstance() {
-        return new GoalManagementFragment();
+    public static AddGoalFragment newInstance() {
+        return new AddGoalFragment();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_goal_management, container, false);
+        return inflater.inflate(R.layout.fragment_add_goal, container, false);
     }
 
     @Override
@@ -78,6 +87,7 @@ public class GoalManagementFragment extends Fragment
         initViews();
         initToolbar();
         setViews();
+        setGoalDurationBounds();
     }
 
     private void initViews() {
@@ -98,6 +108,13 @@ public class GoalManagementFragment extends Fragment
     private void setViews() {
         imgAddMilestone.setOnClickListener(this);
         dateDurationChooserView.setSelectionListener(this);
+    }
+
+    private void setGoalDurationBounds() {
+        Calendar calendar = Calendar.getInstance();
+        dateDurationChooserView.setLowerBoundDate(calendar.getTime());
+        calendar.add(Calendar.YEAR, 1);
+        dateDurationChooserView.setUpperBoundDate(calendar.getTime());
     }
 
     @Override
@@ -126,16 +143,6 @@ public class GoalManagementFragment extends Fragment
     }
 
     @Override
-    public void onEventAdded(Event event) {
-
-    }
-
-    @Override
-    public void onGoalAdded(Goal goal) {
-
-    }
-
-    @Override
     public void onFromDateSet(Date date) {
         fromDate = date;
     }
@@ -143,5 +150,11 @@ public class GoalManagementFragment extends Fragment
     @Override
     public void onToDateSet(Date date) {
         toDate = date;
+    }
+
+    @Override
+    public void onDataSaved() {
+        utils.showToast(getString(R.string.goal_is_saved));
+        getActivity().onBackPressed();
     }
 }

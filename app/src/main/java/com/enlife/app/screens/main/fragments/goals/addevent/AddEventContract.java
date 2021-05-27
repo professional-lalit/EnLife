@@ -1,10 +1,10 @@
 package com.enlife.app.screens.main.fragments.goals.addevent;
 
-import com.enlife.app.database.models.GoalEvent;
+import com.enlife.app.database.models.Event;
 
 public interface AddEventContract {
     interface ViewContract{
-        void onEventAdded(GoalEvent event);
+        void onEventAdded(Event event);
     }
     interface PresenterContract{
         void addEvent();

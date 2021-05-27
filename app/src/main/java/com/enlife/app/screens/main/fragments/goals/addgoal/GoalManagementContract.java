@@ -10,13 +10,10 @@ import java.util.List;
 interface GoalManagementContract {
 
     interface ViewContract {
-        void onEventAdded(Event event);
-        void onGoalAdded(Goal goal);
+        void onDataSaved();
     }
 
     interface PresenterContract {
-        void addEvents(List<GoalEvent> goalEvents);
-
-        void addGoal(Goal goal);
+        void saveGoal(Goal goal);
     }
 }
