@@ -6,14 +6,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Goal;
+import com.enlife.app.database.models.Milestone;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
 import com.enlife.app.database.operators.MilestoneDataOperator;
@@ -23,8 +29,10 @@ import com.enlife.app.screens.widgets.DateDurationChooserView;
 import com.enlife.app.utils.DateFormatter;
 import com.enlife.app.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,16 +41,23 @@ public class AddGoalFragment extends Fragment implements
         CustomAppBar.CustomActionBarCallback,
         View.OnClickListener,
         GoalManagementContract.ViewContract,
-        DateDurationChooserView.DateSelectionListener {
+        DateDurationChooserView.DateSelectionListener, AddMilestoneBottomDialog.MilestoneAddedCallback {
 
     private CustomAppBar customAppBar;
     private ImageView imgAddMilestone;
+    private Button btnSaveGoal;
     private DateDurationChooserView dateDurationChooserView;
+    private EditText edtGoalTitle;
+    private EditText edtShortDescriptionText;
+    private RadioGroup rgGoalType;
+    private RecyclerView recyclerMilestones;
 
     private GoalManagementPresenter presenter;
 
     private Date fromDate;
     private Date toDate;
+
+    private List<Milestone> milestonesAdded = new ArrayList<>();
 
     @Inject
     GoalDataOperator goalDatabaseOperator;
@@ -96,6 +111,8 @@ public class AddGoalFragment extends Fragment implements
         customAppBar = requireView().findViewById(R.id.action_bar);
         imgAddMilestone = requireView().findViewById(R.id.img_add_milestone);
         dateDurationChooserView = requireView().findViewById(R.id.time_duration_chooser);
+        btnSaveGoal = requireView().findViewById(R.id.btn_save_goal);
+        recyclerMilestones = requireView().findViewById(R.id.recycler_milestones);
     }
 
     private void initToolbar() {
@@ -110,6 +127,7 @@ public class AddGoalFragment extends Fragment implements
     private void setViews() {
         imgAddMilestone.setOnClickListener(this);
         dateDurationChooserView.setSelectionListener(this);
+        btnSaveGoal.setOnClickListener(this);
     }
 
     private void setGoalDurationBounds() {
@@ -134,14 +152,41 @@ public class AddGoalFragment extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_milestone:
+                AddMilestoneBottomDialog dialog = AddMilestoneBottomDialog.createDialog(fromDate, toDate);
+                dialog.setMilestoneAddedCallback(this);
                 if (fromDate != null && toDate != null) {
-                    AddMilestoneBottomDialog.createDialog(fromDate, toDate)
-                            .show(getChildFragmentManager(), AddMilestoneBottomDialog.TAG);
+                    dialog.show(getChildFragmentManager(), AddMilestoneBottomDialog.TAG);
                 } else {
                     utils.showToast(getString(R.string.plz_goal_duration));
                 }
                 break;
+
+            case R.id.btn_save_goal:
+                Goal goal = new Goal(
+                        0L,
+                        edtGoalTitle.getText().toString(),
+                        edtShortDescriptionText.getText().toString(),
+                        getGoalType(),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, fromDate),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, toDate),
+                        milestonesAdded
+                );
+                presenter.saveGoal(goal);
+                break;
         }
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private Goal.GoalType getGoalType() {
+        switch (rgGoalType.getCheckedRadioButtonId()) {
+            case R.id.rb_weekly:
+                return Goal.GoalType.WEEKLY;
+            case R.id.rb_monthly:
+                return Goal.GoalType.MONTHLY;
+            case R.id.rb_annual:
+                return Goal.GoalType.ANNUAL;
+        }
+        return Goal.GoalType.MONTHLY;
     }
 
     @Override
@@ -158,5 +203,10 @@ public class AddGoalFragment extends Fragment implements
     public void onDataSaved() {
         utils.showToast(getString(R.string.goal_is_saved));
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onMilestoneAdded(Milestone milestone) {
+        milestonesAdded.add(milestone);
     }
 }

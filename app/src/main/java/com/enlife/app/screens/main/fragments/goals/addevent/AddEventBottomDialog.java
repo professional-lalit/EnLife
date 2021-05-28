@@ -1,9 +1,12 @@
 package com.enlife.app.screens.main.fragments.goals.addevent;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +27,7 @@ import javax.inject.Inject;
 
 public class AddEventBottomDialog extends BottomSheetDialogFragment
         implements AddEventContract.ViewContract,
-        CustomAppBar.CustomActionBarCallback, TimeDurationChooserView.TimeSelectionListener {
+        CustomAppBar.CustomActionBarCallback, TimeDurationChooserView.TimeSelectionListener, View.OnClickListener {
 
     public static final String TAG = AddEventBottomDialog.class.getSimpleName();
     private AddEventDialogPresenter presenter;
@@ -39,12 +42,15 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     }
 
     private CustomToolbar customToolbar;
+    private Button btnAddEvent;
     private TimeDurationChooserView timeDurationChooserView;
+    private EditText edtEventTitle;
+    private EditText edtEventDescription;
 
     private Date eventDate;
-
     private Date eventUpperBoundDateTime;
     private Date eventLowerBoundDateTime;
+    private EventAddedCallback eventAddedCallback;
 
     @Inject
     EventDataOperator databaseOperator;
@@ -85,6 +91,9 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     private void initViews() {
         customToolbar = requireView().findViewById(R.id.action_bar);
         timeDurationChooserView = requireView().findViewById(R.id.time_duration_chooser);
+        btnAddEvent = requireView().findViewById(R.id.btn_add_event);
+        edtEventTitle = requireView().findViewById(R.id.edt_event_title);
+        edtEventDescription = requireView().findViewById(R.id.edt_event_description);
     }
 
     private void initToolbar() {
@@ -96,6 +105,7 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     }
 
     private void setViews() {
+        btnAddEvent.setOnClickListener(this);
         timeDurationChooserView.setTimeSelectionListener(this);
     }
 
@@ -122,5 +132,36 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     @Override
     public void onToTimeSet(Date date) {
         eventUpperBoundDateTime = date;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add_event:
+                Event event = new Event(0L,
+                        edtEventTitle.getText().toString(),
+                        edtEventDescription.getText().toString(),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventDate),
+                        false,
+                        "",
+                        Event.RepeatMode.NONE,
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventLowerBoundDateTime),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventUpperBoundDateTime),
+                        "",
+                        0L,
+                        0L
+                );
+                eventAddedCallback.onEventAdded(event);
+                break;
+        }
+    }
+
+    public void setEventAddedCallback(EventAddedCallback eventAddedCallback) {
+        this.eventAddedCallback = eventAddedCallback;
+    }
+
+    public interface EventAddedCallback {
+        void onEventAdded(Event event);
     }
 }

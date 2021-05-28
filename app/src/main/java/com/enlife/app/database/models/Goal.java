@@ -17,13 +17,13 @@ public class Goal {
 
     public Goal(
             long goalId, String title, String description,
-            String goalType, String fromDate, String toDate,
+            GoalType goalType, String fromDate, String toDate,
             @Nullable List<Milestone> milestones
     ) {
         this.goalId = goalId;
         this.title = title;
         this.description = description;
-        this.goalType = goalType;
+        this.goalType = goalType.type;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.milestones = milestones;
@@ -51,5 +51,15 @@ public class Goal {
 
     public List<Milestone> getMilestones() {
         return milestones;
+    }
+
+    public enum GoalType {
+        WEEKLY("weekly"), MONTHLY("monthly"), ANNUAL("annual");
+
+        private String type;
+
+        GoalType(String type) {
+            this.type = type;
+        }
     }
 }

@@ -7,14 +7,18 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Event;
 import com.enlife.app.database.models.Milestone;
 import com.enlife.app.database.operators.MilestoneDataOperator;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
@@ -25,15 +29,17 @@ import com.enlife.app.utils.DateFormatter;
 import com.enlife.app.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
 public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         implements CustomAppBar.CustomActionBarCallback,
         AddMilestoneContract.ViewContract,
-        View.OnClickListener, DateDurationChooserView.DateSelectionListener, DatePickerDialog.OnDateSetListener {
+        View.OnClickListener, DateDurationChooserView.DateSelectionListener, DatePickerDialog.OnDateSetListener, AddEventBottomDialog.EventAddedCallback {
 
     public static final String TAG = AddMilestoneBottomDialog.class.getSimpleName();
     private AddMilestoneDialogPresenter presenter;
@@ -54,12 +60,20 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
     private CustomToolbar customToolbar;
     private LinearLayout linAddEvent;
     private DateDurationChooserView dateDurationChooserView;
+    private EditText edtMilestoneTitle;
+    private EditText edtMilestoneDescription;
+    private Button btnAddMilestone;
+    private RecyclerView recyclerEvents;
 
     private Date goalUpperBoundDate;
     private Date goalLowerBoundDate;
 
     private Date milestoneLowerBoundDate;
     private Date milestoneUpperBoundDate;
+
+    private MilestoneAddedCallback milestoneAddedCallback;
+
+    private List<Event> eventsAdded = new ArrayList<>();
 
     @Inject
     MilestoneDataOperator databaseOperator;
@@ -102,6 +116,10 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         customToolbar = view.findViewById(R.id.action_bar);
         linAddEvent = view.findViewById(R.id.lin_add_event);
         dateDurationChooserView = view.findViewById(R.id.time_duration_chooser);
+        btnAddMilestone = view.findViewById(R.id.btn_add_milestone);
+        edtMilestoneTitle = view.findViewById(R.id.edt_milestone_title);
+        edtMilestoneDescription = view.findViewById(R.id.edt_event_description);
+        recyclerEvents = view.findViewById(R.id.recycler_events);
     }
 
     private void setToolbar() {
@@ -114,6 +132,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
 
     private void setViews() {
         linAddEvent.setOnClickListener(this);
+        btnAddMilestone.setOnClickListener(this);
         dateDurationChooserView.setSelectionListener(this);
         dateDurationChooserView.setUpperBoundDate(goalUpperBoundDate);
         dateDurationChooserView.setLowerBoundDate(goalLowerBoundDate);
@@ -137,10 +156,21 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
             case R.id.lin_add_event:
                 if (milestoneUpperBoundDate != null && milestoneLowerBoundDate != null) {
                     showDatePicker();
-
                 } else {
                     utils.showToast(getString(R.string.plz_milestone_duration));
                 }
+                break;
+
+            case R.id.btn_add_milestone:
+                Milestone milestone = new Milestone(
+                        0L,
+                        edtMilestoneTitle.getText().toString(),
+                        edtMilestoneDescription.getText().toString(),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneLowerBoundDate),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneUpperBoundDate),
+                        eventsAdded
+                );
+                milestoneAddedCallback.onMilestoneAdded(milestone);
                 break;
         }
     }
@@ -155,11 +185,6 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         dialog.getDatePicker().setMaxDate(milestoneUpperBoundDate.getTime());
         dialog.getDatePicker().setMinDate(milestoneLowerBoundDate.getTime());
         dialog.show();
-    }
-
-    @Override
-    public void onMilestoneAdded(Milestone milestone) {
-
     }
 
     @Override
@@ -178,7 +203,29 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
-        new Handler().postDelayed(() -> AddEventBottomDialog.createDialog(calendar.getTime())
-                .show(getChildFragmentManager(), AddEventBottomDialog.TAG), 500L);
+
+        AddEventBottomDialog dialog = AddEventBottomDialog.createDialog(calendar.getTime());
+        dialog.setEventAddedCallback(this);
+        new Handler().postDelayed(() ->
+                dialog.show(getChildFragmentManager(), AddEventBottomDialog.TAG), 500L
+        );
+    }
+
+    @Override
+    public void onEventAdded(Event event) {
+        eventsAdded.add(event);
+    }
+
+    @Override
+    public void onMilestoneAdded(Milestone milestone) {
+
+    }
+
+    public void setMilestoneAddedCallback(MilestoneAddedCallback milestoneAddedCallback) {
+        this.milestoneAddedCallback = milestoneAddedCallback;
+    }
+
+    public interface MilestoneAddedCallback {
+        void onMilestoneAdded(Milestone milestone);
     }
 }

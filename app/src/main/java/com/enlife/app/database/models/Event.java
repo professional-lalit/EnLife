@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 
 public class Event {
     @Nullable
-    private final Long id;
+    private final long id;
     private String title;
     private String description;
     private String date;
@@ -16,9 +16,14 @@ public class Event {
     private String toTime;
     @Nullable
     private String imagePath;
+    @Nullable
+    private long goalId;
+    @Nullable
+    private long milestoneId;
 
-    public Event(Long id, String title, String description, String date, boolean isAllDay, String location,
-                 RepeatMode repeatMode, String fromTime, String toTime, String imagePath) {
+    public Event(long id, String title, String description, String date, boolean isAllDay, String location,
+                 RepeatMode repeatMode, String fromTime, String toTime, String imagePath,
+                 long goalId, long milestoneId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,6 +34,8 @@ public class Event {
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.imagePath = imagePath;
+        this.goalId = goalId;
+        this.milestoneId = milestoneId;
     }
 
     public void setTitle(String title) {
@@ -105,6 +112,14 @@ public class Event {
 
     public String getDate() {
         return date;
+    }
+
+    public long getGoalId() {
+        return goalId;
+    }
+
+    public long getMilestoneId() {
+        return milestoneId;
     }
 
     public enum RepeatMode {

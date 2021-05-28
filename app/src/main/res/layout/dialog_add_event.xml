@@ -29,7 +29,7 @@
         android:text="Milestone: Cut expenses" />
 
     <EditText
-        android:id="@+id/edt_milestone_title"
+        android:id="@+id/edt_event_title"
         style="@style/BasicEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
 
 
     <EditText
-        android:id="@+id/edt_milestone_description"
+        android:id="@+id/edt_event_description"
         style="@style/BasicEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

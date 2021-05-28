@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:paddingBottom="@dimen/dimen_size_20"
+            android:paddingBottom="@dimen/dimen_size_70"
             tools:context=".screens.main.fragments.goals.addgoal.AddGoalFragment">
 
             <ImageView
@@ -144,7 +144,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_tasks"
+                android:id="@+id/recycler_milestones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_size_20"
@@ -159,7 +159,7 @@
                 android:text="@string/add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_tasks" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_milestones" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -169,4 +169,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
+
+    <Button
+        android:id="@+id/btn_save_goal"
+        style="@style/BasicButton"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:text="@string/save_goal"
+        android:textAllCaps="true" />
+
 </RelativeLayout>
