@@ -65,9 +65,11 @@ public class AddGoalFragment extends Fragment implements
         CustomApplication.getInstance()
                 .applicationComponent
                 .inject(this);
-        presenter = new GoalManagementPresenter(
-                dateFormatter, goalDatabaseOperator,
-                milestoneDatabaseOperator, eventDatabaseOperator
+        presenter = new GoalManagementPresenter(this,
+                dateFormatter,
+                goalDatabaseOperator,
+                milestoneDatabaseOperator,
+                eventDatabaseOperator
         );
     }
 
