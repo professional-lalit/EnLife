@@ -16,6 +16,7 @@ public class Event {
     private String toTime;
     @Nullable
     private String imagePath;
+
     @Nullable
     private long goalId;
     @Nullable
@@ -136,4 +137,13 @@ public class Event {
             return mode;
         }
     }
+
+    public void setGoalId(long goalId) {
+        this.goalId = goalId;
+    }
+
+    public void setMilestoneId(long milestoneId) {
+        this.milestoneId = milestoneId;
+    }
+
 }

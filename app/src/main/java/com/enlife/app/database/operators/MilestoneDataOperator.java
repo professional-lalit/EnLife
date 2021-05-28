@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.enlife.app.database.models.Milestone;
-import com.enlife.app.database.tables.GoalContract;
 import com.enlife.app.database.tables.MilestoneContract;
 
 import java.util.ArrayList;
@@ -28,8 +27,10 @@ public class MilestoneDataOperator extends DatabaseOperator<Milestone> {
     }
 
     @Override
-    public long addList(List<Milestone> list) {
-        return 0;
+    public void addList(List<Milestone> list) {
+        for (Milestone milestone : list) {
+            addData(milestone);
+        }
     }
 
     @Override
@@ -76,6 +77,7 @@ public class MilestoneDataOperator extends DatabaseOperator<Milestone> {
                 MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_DESCRIPTION,
                 MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_FROM_DATE,
                 MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_TO_DATE,
+                MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_GOAL_ID,
         };
 
         if (selectorFields.length > 0) {
@@ -100,7 +102,8 @@ public class MilestoneDataOperator extends DatabaseOperator<Milestone> {
                     cursor.getString(cursor.getColumnIndexOrThrow(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_DESCRIPTION)),
                     cursor.getString(cursor.getColumnIndexOrThrow(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_FROM_DATE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_TO_DATE)),
-                    null
+                    null,
+                    cursor.getLong(cursor.getColumnIndexOrThrow(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_GOAL_ID))
             );
             milestones.add(milestone);
         }

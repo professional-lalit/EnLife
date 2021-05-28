@@ -2,6 +2,9 @@ package com.enlife.app.utils;
 
 import android.text.format.DateFormat;
 
+import androidx.annotation.Nullable;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -30,6 +33,17 @@ public class DateFormatter {
     public String getFormattedDate(DateFormat dateFormat, Date date) {
         return new SimpleDateFormat(dateFormat.format, Locale.getDefault())
                 .format(date);
+    }
+
+    @Nullable
+    public String changeFormat(DateFormat inFormat, DateFormat outFormat, String strDate) {
+        try {
+            Date date = new SimpleDateFormat(inFormat.format, Locale.getDefault()).parse(strDate);
+            return getFormattedDate(outFormat, date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

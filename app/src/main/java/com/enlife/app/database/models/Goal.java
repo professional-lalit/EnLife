@@ -56,10 +56,14 @@ public class Goal {
     public enum GoalType {
         WEEKLY("weekly"), MONTHLY("monthly"), ANNUAL("annual");
 
-        private String type;
+        private final String type;
 
         GoalType(String type) {
             this.type = type;
+        }
+
+        public String getType(){
+            return this.type;
         }
     }
 }

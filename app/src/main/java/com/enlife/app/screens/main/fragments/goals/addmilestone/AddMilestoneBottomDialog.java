@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.enlife.app.R;
@@ -22,6 +23,7 @@ import com.enlife.app.database.models.Event;
 import com.enlife.app.database.models.Milestone;
 import com.enlife.app.database.operators.MilestoneDataOperator;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
+import com.enlife.app.screens.main.fragments.home.events.EventAdapter;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.CustomToolbar;
 import com.enlife.app.screens.widgets.DateDurationChooserView;
@@ -64,6 +66,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
     private EditText edtMilestoneDescription;
     private Button btnAddMilestone;
     private RecyclerView recyclerEvents;
+    private EventAdapter eventAdapter;
 
     private Date goalUpperBoundDate;
     private Date goalLowerBoundDate;
@@ -110,6 +113,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         initViews(view);
         setToolbar();
         setViews();
+        setEventsAdapter();
     }
 
     private void initViews(@NonNull View view) {
@@ -118,7 +122,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         dateDurationChooserView = view.findViewById(R.id.time_duration_chooser);
         btnAddMilestone = view.findViewById(R.id.btn_add_milestone);
         edtMilestoneTitle = view.findViewById(R.id.edt_milestone_title);
-        edtMilestoneDescription = view.findViewById(R.id.edt_event_description);
+        edtMilestoneDescription = view.findViewById(R.id.edt_milestone_description);
         recyclerEvents = view.findViewById(R.id.recycler_events);
     }
 
@@ -138,6 +142,11 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         dateDurationChooserView.setLowerBoundDate(goalLowerBoundDate);
     }
 
+    private void setEventsAdapter() {
+        eventAdapter = new EventAdapter(eventsAdded);
+        recyclerEvents.setAdapter(eventAdapter);
+        recyclerEvents.setLayoutManager(new LinearLayoutManager(requireContext()));
+    }
 
     @Override
     public void onHomeButtonClicked() {
@@ -168,9 +177,10 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
                         edtMilestoneDescription.getText().toString(),
                         dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneLowerBoundDate),
                         dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneUpperBoundDate),
-                        eventsAdded
-                );
+                        eventsAdded,
+                        0L);
                 milestoneAddedCallback.onMilestoneAdded(milestone);
+                dismiss();
                 break;
         }
     }
@@ -214,6 +224,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
     @Override
     public void onEventAdded(Event event) {
         eventsAdded.add(event);
+        eventAdapter.notifyDataSetChanged();
     }
 
     @Override

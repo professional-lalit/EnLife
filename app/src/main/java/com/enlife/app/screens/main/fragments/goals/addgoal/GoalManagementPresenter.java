@@ -29,15 +29,20 @@ public class GoalManagementPresenter implements GoalManagementContract.Presenter
 
     @Override
     public void saveGoal(Goal goal) {
+        long goalId = goalDatabaseOperator.addData(goal);
         if (!goal.getMilestones().isEmpty()) {
             for (Milestone milestone : goal.getMilestones()) {
+                milestone.setGoalId(goalId);
+                long milestoneId = milestoneDatabaseOperator.addData(milestone);
                 if (!milestone.getEvents().isEmpty()) {
-                    eventDatabaseOperator.addList(milestone.getEvents());
+                    for (Event event : milestone.getEvents()) {
+                        event.setMilestoneId(milestoneId);
+                        event.setGoalId(goalId);
+                        eventDatabaseOperator.addData(event);
+                    }
                 }
-                milestoneDatabaseOperator.addData(milestone);
             }
         }
-        goalDatabaseOperator.addData(goal);
         viewContract.onDataSaved();
     }
 }

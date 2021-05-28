@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -48,9 +49,10 @@ public class AddGoalFragment extends Fragment implements
     private Button btnSaveGoal;
     private DateDurationChooserView dateDurationChooserView;
     private EditText edtGoalTitle;
-    private EditText edtShortDescriptionText;
+    private EditText edtGoalDescriptionText;
     private RadioGroup rgGoalType;
     private RecyclerView recyclerMilestones;
+    private MilestoneAdapter milestoneAdapter;
 
     private GoalManagementPresenter presenter;
 
@@ -105,9 +107,13 @@ public class AddGoalFragment extends Fragment implements
         initToolbar();
         setViews();
         setGoalDurationBounds();
+        setMilesToneAdapter();
     }
 
     private void initViews() {
+        edtGoalTitle = requireView().findViewById(R.id.edt_goal_title);
+        edtGoalDescriptionText = requireView().findViewById(R.id.edt_goal_description);
+        rgGoalType = requireView().findViewById(R.id.rg_goal_type);
         customAppBar = requireView().findViewById(R.id.action_bar);
         imgAddMilestone = requireView().findViewById(R.id.img_add_milestone);
         dateDurationChooserView = requireView().findViewById(R.id.time_duration_chooser);
@@ -135,6 +141,12 @@ public class AddGoalFragment extends Fragment implements
         dateDurationChooserView.setLowerBoundDate(calendar.getTime());
         calendar.add(Calendar.YEAR, 1);
         dateDurationChooserView.setUpperBoundDate(calendar.getTime());
+    }
+
+    private void setMilesToneAdapter() {
+        milestoneAdapter = new MilestoneAdapter(milestonesAdded);
+        recyclerMilestones.setAdapter(milestoneAdapter);
+        recyclerMilestones.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     @Override
@@ -165,7 +177,7 @@ public class AddGoalFragment extends Fragment implements
                 Goal goal = new Goal(
                         0L,
                         edtGoalTitle.getText().toString(),
-                        edtShortDescriptionText.getText().toString(),
+                        edtGoalDescriptionText.getText().toString(),
                         getGoalType(),
                         dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, fromDate),
                         dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, toDate),
@@ -208,5 +220,6 @@ public class AddGoalFragment extends Fragment implements
     @Override
     public void onMilestoneAdded(Milestone milestone) {
         milestonesAdded.add(milestone);
+        milestoneAdapter.notifyDataSetChanged();
     }
 }

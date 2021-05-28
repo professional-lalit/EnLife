@@ -146,13 +146,14 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
                         false,
                         "",
                         Event.RepeatMode.NONE,
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventLowerBoundDateTime),
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventUpperBoundDateTime),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, eventLowerBoundDateTime),
+                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, eventUpperBoundDateTime),
                         "",
                         0L,
                         0L
                 );
                 eventAddedCallback.onEventAdded(event);
+                dismiss();
                 break;
         }
     }

@@ -22,7 +22,7 @@ public abstract class DatabaseOperator<T extends Object> {
 
     public abstract long addData(T data);
 
-    public abstract long addList(List<T> list);
+    public abstract void addList(List<T> list);
 
     public abstract int updateData(long id, T data);
 

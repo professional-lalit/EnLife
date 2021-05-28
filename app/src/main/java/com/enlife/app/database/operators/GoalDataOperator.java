@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.enlife.app.database.models.Goal;
-import com.enlife.app.database.tables.EventContract;
 import com.enlife.app.database.tables.GoalContract;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GoalDataOperator extends DatabaseOperator<Goal> {
@@ -30,8 +28,10 @@ public class GoalDataOperator extends DatabaseOperator<Goal> {
     }
 
     @Override
-    public long addList(List<Goal> list) {
-        return 0;
+    public void addList(List<Goal> list) {
+        for (Goal goal : list) {
+            addData(goal);
+        }
     }
 
     @Override
@@ -102,7 +102,7 @@ public class GoalDataOperator extends DatabaseOperator<Goal> {
                     cursor.getLong(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_TITLE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_DESCRIPTION)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_TYPE)),
+                    getGoalType(cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_TYPE))),
                     cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_FROM_DATE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(GoalContract.GoalEntry.COLUMN_GOAL_TO_DATE)),
                     null
@@ -111,6 +111,18 @@ public class GoalDataOperator extends DatabaseOperator<Goal> {
         }
         cursor.close();
         return goals;
+    }
+
+    private Goal.GoalType getGoalType(String type) {
+        if (type.equals(Goal.GoalType.WEEKLY.getType())) {
+            return Goal.GoalType.WEEKLY;
+        } else if (type.equals(Goal.GoalType.MONTHLY.getType())) {
+            return Goal.GoalType.MONTHLY;
+        } else if (type.equals(Goal.GoalType.ANNUAL.getType())) {
+            return Goal.GoalType.ANNUAL;
+        } else {
+            return Goal.GoalType.MONTHLY;
+        }
     }
 
     @Override

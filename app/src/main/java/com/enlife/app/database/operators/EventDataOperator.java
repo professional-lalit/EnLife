@@ -51,8 +51,10 @@ public class EventDataOperator extends DatabaseOperator<Event> {
     }
 
     @Override
-    public long addList(List<Event> list) {
-        return 0;
+    public void addList(List<Event> list) {
+        for(Event event: list){
+            addData(event);
+        }
     }
 
 

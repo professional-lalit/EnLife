@@ -23,5 +23,6 @@ public class MilestoneContract {
         public static final String COLUMN_MILESTONE_DESCRIPTION = "description";
         public static final String COLUMN_MILESTONE_FROM_DATE = "from_date";
         public static final String COLUMN_MILESTONE_TO_DATE = "to_date";
+        public static final String COLUMN_MILESTONE_GOAL_ID = "goal_id";
     }
 }
