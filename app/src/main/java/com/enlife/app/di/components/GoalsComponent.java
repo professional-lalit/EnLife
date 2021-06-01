@@ -8,8 +8,8 @@ import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBott
 import dagger.Component;
 import dagger.Subcomponent;
 
-@Subcomponent(modules = {GoalsModule.class})
 @PerScreen
+@Subcomponent(modules = {GoalsModule.class})
 public interface GoalsComponent {
 
     void inject(AddMilestoneBottomDialog dialog);

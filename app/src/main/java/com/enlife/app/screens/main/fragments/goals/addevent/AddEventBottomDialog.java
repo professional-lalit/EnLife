@@ -30,7 +30,6 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
         CustomAppBar.CustomActionBarCallback, TimeDurationChooserView.TimeSelectionListener, View.OnClickListener {
 
     public static final String TAG = AddEventBottomDialog.class.getSimpleName();
-    private AddEventDialogPresenter presenter;
     private static final String EVENT_DATE = "event-date";
 
     public static AddEventBottomDialog createDialog(Date eventDate) {
@@ -53,10 +52,7 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     private EventAddedCallback eventAddedCallback;
 
     @Inject
-    EventDataOperator databaseOperator;
-
-    @Inject
-    DateFormatter dateFormatter;
+    AddEventDialogPresenter presenter;
 
     @Override
     public void setArguments(@Nullable Bundle args) {
@@ -69,9 +65,10 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
+                .eventsComponentBuilder()
+                .build()
                 .inject(this);
-
-        presenter = new AddEventDialogPresenter(dateFormatter, databaseOperator);
+        presenter.setViewContract(this);
     }
 
     @Nullable
@@ -121,7 +118,10 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
 
     @Override
     public void onEventAdded(Event event) {
-
+        if (eventAddedCallback != null) {
+            eventAddedCallback.onEventAdded(event);
+        }
+        dismiss();
     }
 
     @Override
@@ -139,23 +139,13 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_add_event:
-                Event event = new Event(0L,
+                presenter.addEvent(
                         edtEventTitle.getText().toString(),
                         edtEventDescription.getText().toString(),
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventDate),
-                        false,
-                        "",
-                        Event.RepeatMode.NONE,
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, eventLowerBoundDateTime),
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, eventUpperBoundDateTime),
-                        "",
-                        0L,
-                        0L
+                        eventDate,
+                        eventLowerBoundDateTime,
+                        eventUpperBoundDateTime
                 );
-                if (eventAddedCallback != null) {
-                    eventAddedCallback.onEventAdded(event);
-                }
-                dismiss();
                 break;
         }
     }
