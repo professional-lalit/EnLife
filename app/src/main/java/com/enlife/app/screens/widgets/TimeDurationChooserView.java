@@ -26,8 +26,8 @@ public class TimeDurationChooserView extends ConstraintLayout {
 
     private Date fromTime;
 
-    private DateFormatter dateFormatter = new DateFormatter();
-    private Utils utils = new Utils();
+    private final DateFormatter dateFormatter = new DateFormatter();
+    private final Utils utils = new Utils();
 
     private TimeSelectionListener timeSelectionListener;
 
