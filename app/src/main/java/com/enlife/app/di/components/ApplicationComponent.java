@@ -20,11 +20,6 @@ import dagger.Component;
 })
 public interface ApplicationComponent {
 
-    void inject(EventsBottomDialog dialog);
-
-    void inject(HomeFragment dialog);
-
-
     GoalsComponent.Builder goalsComponentBuilder();
 
     EventsComponent.Builder eventsComponentBuilder();

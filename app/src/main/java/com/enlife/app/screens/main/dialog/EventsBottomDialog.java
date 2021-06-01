@@ -29,7 +29,6 @@ import javax.inject.Inject;
 
 public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract, View.OnClickListener {
 
-    private EventsBottomContract.PresenterContract presenter;
 
     private RecyclerView recyclerEvents;
     private TextView txtDialogTitle;
@@ -43,6 +42,10 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
 
     @Inject
     EventDataOperator databaseOperator;
+
+    @Inject
+    EventsBottomDialogPresenter presenter;
+
 
     private static final String ARG_EVENTS_DATE = "arg_events_date";
 
@@ -68,8 +71,10 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
+                .eventsComponentBuilder()
+                .build()
                 .inject(this);
-        presenter = new EventsBottomDialogPresenter(this, dateFormatter, databaseOperator);
+        presenter.setViewContract(this);
     }
 
     @Nullable

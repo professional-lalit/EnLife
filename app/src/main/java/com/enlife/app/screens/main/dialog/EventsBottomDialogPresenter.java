@@ -7,14 +7,12 @@ import java.util.Date;
 
 public class EventsBottomDialogPresenter implements EventsBottomContract.PresenterContract {
 
-    private final EventsBottomContract.ViewContract viewContract;
+    private EventsBottomContract.ViewContract viewContract;
 
     DateFormatter dateFormatter;
     EventDataOperator databaseOperator;
 
-    public EventsBottomDialogPresenter(EventsBottomContract.ViewContract viewContract,
-                                       DateFormatter dateFormatter, EventDataOperator databaseOperator) {
-        this.viewContract = viewContract;
+    public EventsBottomDialogPresenter(DateFormatter dateFormatter, EventDataOperator databaseOperator) {
         this.dateFormatter = dateFormatter;
         this.databaseOperator = databaseOperator;
     }
@@ -23,5 +21,9 @@ public class EventsBottomDialogPresenter implements EventsBottomContract.Present
     public void loadEvents(Date date) {
         String formattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, date);
         viewContract.onEventsLoaded(databaseOperator.getList(formattedDate));
+    }
+
+    public void setViewContract(EventsBottomContract.ViewContract viewContract) {
+        this.viewContract = viewContract;
     }
 }

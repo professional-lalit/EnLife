@@ -15,14 +15,14 @@ import javax.inject.Inject;
 
 public class HomeFragmentPresenter implements HomeScreenContract.PresenterContract {
 
-    private final HomeScreenContract.ViewContract viewContract;
     private Date cursorDate = new Date();
     EventDataOperator databaseOperator;
     DateFormatter dateFormatter;
 
-    public HomeFragmentPresenter(HomeScreenContract.ViewContract viewContract,
-                                 EventDataOperator databaseOperator, DateFormatter dateFormatter) {
-        this.viewContract = viewContract;
+    private HomeScreenContract.ViewContract viewContract;
+
+
+    public HomeFragmentPresenter(EventDataOperator databaseOperator, DateFormatter dateFormatter) {
         this.databaseOperator = databaseOperator;
         this.dateFormatter = dateFormatter;
     }
@@ -129,5 +129,9 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         int selectedPosition = calendarDays.indexOf(selectedCalendarDay);
         selectedCalendarDay.setSelected(true);
         viewContract.onDayUpdated(selectedPosition);
+    }
+
+    public void setViewContract(HomeScreenContract.ViewContract viewContract) {
+        this.viewContract = viewContract;
     }
 }

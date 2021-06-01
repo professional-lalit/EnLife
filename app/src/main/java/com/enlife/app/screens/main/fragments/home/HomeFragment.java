@@ -38,12 +38,7 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     private CustomAppBar customAppBar;
 
     @Inject
-    EventDataOperator dataOperator;
-
-    @Inject
-    DateFormatter dateFormatter;
-
-    private HomeScreenContract.PresenterContract presenterContract;
+    HomeFragmentPresenter presenterContract;
 
     public static HomeFragment newInstance(@Nullable Bundle bundle) {
         HomeFragment fragment = new HomeFragment();
@@ -56,8 +51,10 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
+                .eventsComponentBuilder()
+                .build()
                 .inject(this);
-        presenterContract = new HomeFragmentPresenter(this, dataOperator, dateFormatter);
+        presenterContract.setViewContract(this);
     }
 
     @Override
