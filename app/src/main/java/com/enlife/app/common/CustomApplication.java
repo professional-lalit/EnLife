@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.enlife.app.di.components.ApplicationComponent;
 import com.enlife.app.di.components.DaggerApplicationComponent;
+import com.enlife.app.di.modules.DatabaseModule;
+import com.enlife.app.di.modules.UtilityModule;
 
 public class CustomApplication extends Application {
 
@@ -24,6 +26,10 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
         customApplication = this;
-        applicationComponent = DaggerApplicationComponent.create();
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .utilityModule(new UtilityModule())
+                .databaseModule(new DatabaseModule())
+                .build();
     }
 }

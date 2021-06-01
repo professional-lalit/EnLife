@@ -152,7 +152,9 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
                         0L,
                         0L
                 );
-                eventAddedCallback.onEventAdded(event);
+                if (eventAddedCallback != null) {
+                    eventAddedCallback.onEventAdded(event);
+                }
                 dismiss();
                 break;
         }

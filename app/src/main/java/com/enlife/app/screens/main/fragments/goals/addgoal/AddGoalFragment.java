@@ -21,9 +21,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Goal;
 import com.enlife.app.database.models.Milestone;
-import com.enlife.app.database.operators.EventDataOperator;
-import com.enlife.app.database.operators.GoalDataOperator;
-import com.enlife.app.database.operators.MilestoneDataOperator;
+import com.enlife.app.di.components.GoalsComponent;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.DateDurationChooserView;
@@ -54,7 +52,6 @@ public class AddGoalFragment extends Fragment implements
     private RecyclerView recyclerMilestones;
     private MilestoneAdapter milestoneAdapter;
 
-    private GoalManagementPresenter presenter;
 
     private Date fromDate;
     private Date toDate;
@@ -62,32 +59,24 @@ public class AddGoalFragment extends Fragment implements
     private List<Milestone> milestonesAdded = new ArrayList<>();
 
     @Inject
-    GoalDataOperator goalDatabaseOperator;
-
-    @Inject
-    MilestoneDataOperator milestoneDatabaseOperator;
-
-    @Inject
-    EventDataOperator eventDatabaseOperator;
-
-    @Inject
     DateFormatter dateFormatter;
 
     @Inject
     Utils utils;
 
+    @Inject
+    AddGoalFragmentPresenter presenter;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CustomApplication.getInstance()
+        GoalsComponent goalsComponent = CustomApplication.getInstance()
                 .applicationComponent
-                .inject(this);
-        presenter = new GoalManagementPresenter(this,
-                dateFormatter,
-                goalDatabaseOperator,
-                milestoneDatabaseOperator,
-                eventDatabaseOperator
-        );
+                .goalsComponentBuilder()
+                .build();
+        goalsComponent.inject(this);
+        presenter.setViewContract(this);
     }
 
     public static AddGoalFragment newInstance() {
@@ -174,6 +163,10 @@ public class AddGoalFragment extends Fragment implements
                 break;
 
             case R.id.btn_save_goal:
+                if (milestonesAdded.isEmpty()) {
+                    utils.showToast(getString(R.string.plz_add_milestones));
+                    return;
+                }
                 Goal goal = new Goal(
                         0L,
                         edtGoalTitle.getText().toString(),

@@ -67,4 +67,5 @@
     <string name="plz_select_valid_time">Please select valid time</string>
     <string name="save_goal">Save Goal</string>
     <string name="events">Events</string>
+    <string name="plz_add_milestones">Please add milestones</string>
 </resources>

@@ -119,7 +119,7 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_event:
-                AddEventBottomDialog.createDialog(null).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
+                AddEventBottomDialog.createDialog(date).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
                 break;
         }
     }

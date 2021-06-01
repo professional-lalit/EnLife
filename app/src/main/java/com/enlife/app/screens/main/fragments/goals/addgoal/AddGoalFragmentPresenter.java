@@ -6,21 +6,20 @@ import com.enlife.app.database.models.Milestone;
 import com.enlife.app.database.operators.DatabaseOperator;
 import com.enlife.app.utils.DateFormatter;
 
-public class GoalManagementPresenter implements GoalManagementContract.PresenterContract {
+public class AddGoalFragmentPresenter implements GoalManagementContract.PresenterContract {
 
     private final DateFormatter dateFormatter;
     private final DatabaseOperator<Goal> goalDatabaseOperator;
     private final DatabaseOperator<Milestone> milestoneDatabaseOperator;
     private final DatabaseOperator<Event> eventDatabaseOperator;
-    private final GoalManagementContract.ViewContract viewContract;
+    private GoalManagementContract.ViewContract viewContract;
 
-    public GoalManagementPresenter(GoalManagementContract.ViewContract viewContract,
-                                   DateFormatter dateFormatter,
-                                   DatabaseOperator<Goal> goalDatabaseOperator,
-                                   DatabaseOperator<Milestone> milestoneDatabaseOperator,
-                                   DatabaseOperator<Event> eventDatabaseOperator
+    public AddGoalFragmentPresenter(
+                                    DateFormatter dateFormatter,
+                                    DatabaseOperator<Goal> goalDatabaseOperator,
+                                    DatabaseOperator<Milestone> milestoneDatabaseOperator,
+                                    DatabaseOperator<Event> eventDatabaseOperator
     ) {
-        this.viewContract = viewContract;
         this.dateFormatter = dateFormatter;
         this.goalDatabaseOperator = goalDatabaseOperator;
         this.milestoneDatabaseOperator = milestoneDatabaseOperator;
@@ -44,5 +43,9 @@ public class GoalManagementPresenter implements GoalManagementContract.Presenter
             }
         }
         viewContract.onDataSaved();
+    }
+
+    public void setViewContract(GoalManagementContract.ViewContract viewContract) {
+        this.viewContract = viewContract;
     }
 }

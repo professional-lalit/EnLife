@@ -41,10 +41,12 @@ import javax.inject.Inject;
 public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         implements CustomAppBar.CustomActionBarCallback,
         AddMilestoneContract.ViewContract,
-        View.OnClickListener, DateDurationChooserView.DateSelectionListener, DatePickerDialog.OnDateSetListener, AddEventBottomDialog.EventAddedCallback {
+        View.OnClickListener,
+        DateDurationChooserView.DateSelectionListener,
+        DatePickerDialog.OnDateSetListener,
+        AddEventBottomDialog.EventAddedCallback {
 
     public static final String TAG = AddMilestoneBottomDialog.class.getSimpleName();
-    private AddMilestoneDialogPresenter presenter;
 
     private static final String UPPER_BOUND_DATE = "upper-bound-date";
     private static final String LOWER_BOUND_DATE = "lower-bound-date";
@@ -80,12 +82,12 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
 
     @Inject
     MilestoneDataOperator databaseOperator;
-
-    @Inject
-    DateFormatter dateFormatter;
-
+    
     @Inject
     Utils utils;
+
+    @Inject
+    AddMilestoneDialogPresenter presenter;
 
     @Override
     public void setArguments(@Nullable Bundle args) {
@@ -97,8 +99,12 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CustomApplication.getInstance().applicationComponent.inject(this);
-        presenter = new AddMilestoneDialogPresenter(dateFormatter, databaseOperator);
+        CustomApplication.getInstance()
+                .applicationComponent
+                .goalsComponentBuilder()
+                .build()
+                .inject(this);
+        presenter.setViewContract(this);
     }
 
     @Nullable
@@ -171,16 +177,13 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
                 break;
 
             case R.id.btn_add_milestone:
-                Milestone milestone = new Milestone(
-                        0L,
+                presenter.addMilestone(
                         edtMilestoneTitle.getText().toString(),
                         edtMilestoneDescription.getText().toString(),
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneLowerBoundDate),
-                        dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, milestoneUpperBoundDate),
-                        eventsAdded,
-                        0L);
-                milestoneAddedCallback.onMilestoneAdded(milestone);
-                dismiss();
+                        milestoneLowerBoundDate,
+                        milestoneUpperBoundDate,
+                        eventsAdded
+                );
                 break;
         }
     }
@@ -229,7 +232,8 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
 
     @Override
     public void onMilestoneAdded(Milestone milestone) {
-
+        milestoneAddedCallback.onMilestoneAdded(milestone);
+        dismiss();
     }
 
     public void setMilestoneAddedCallback(MilestoneAddedCallback milestoneAddedCallback) {
