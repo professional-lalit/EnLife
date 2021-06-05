@@ -56,7 +56,7 @@ public class AddGoalFragment extends Fragment implements
     private Date fromDate;
     private Date toDate;
 
-    private List<Milestone> milestonesAdded = new ArrayList<>();
+    private final List<Milestone> milestonesAdded = new ArrayList<>();
 
     @Inject
     DateFormatter dateFormatter;
@@ -115,8 +115,7 @@ public class AddGoalFragment extends Fragment implements
                 .titleColor(R.color.white)
                 .callback(this)
                 .backGroundColor(R.color.transparent)
-                .homeIcon(R.drawable.ic_back)
-                .optionIcon(R.drawable.ic_add_photo);
+                .homeIcon(R.drawable.ic_back);
     }
 
     private void setViews() {

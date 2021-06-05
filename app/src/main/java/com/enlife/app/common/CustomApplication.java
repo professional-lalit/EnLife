@@ -2,6 +2,7 @@ package com.enlife.app.common;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.enlife.app.di.components.ApplicationComponent;
 import com.enlife.app.di.components.DaggerApplicationComponent;
@@ -22,9 +23,12 @@ public class CustomApplication extends Application {
 
     public ApplicationComponent applicationComponent;
 
+    public SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        sharedPreferences = getSharedPreferences(PreferenceManager.PREF_NAME, Context.MODE_PRIVATE);
         customApplication = this;
         applicationComponent = DaggerApplicationComponent
                 .builder()

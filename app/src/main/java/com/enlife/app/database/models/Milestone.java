@@ -3,7 +3,7 @@ package com.enlife.app.database.models;
 import java.util.List;
 
 public class Milestone {
-    private final long milestoneId;
+    private long milestoneId;
     private final String title;
     private final String description;
     private final String fromDate;

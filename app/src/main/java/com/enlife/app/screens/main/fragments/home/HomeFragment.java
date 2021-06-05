@@ -18,6 +18,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
+import com.enlife.app.screens.main.HomeActivity;
 import com.enlife.app.screens.main.dialog.EventsBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
 import com.enlife.app.screens.widgets.CustomAppBar;
@@ -117,7 +118,9 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
 
     @Override
     public void onHomeButtonClicked() {
-
+        if (requireActivity() instanceof HomeActivity) {
+            ((HomeActivity) requireActivity()).homeClicked();
+        }
     }
 
     @Override

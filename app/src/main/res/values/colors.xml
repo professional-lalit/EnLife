@@ -11,5 +11,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="greyText">#bdc3c7</color>
     <color name="redButtonBg">#FF3366</color>
+    <color name="navy_blue">#1e272e</color>
 
 </resources>

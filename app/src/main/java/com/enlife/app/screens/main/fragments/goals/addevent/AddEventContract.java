@@ -10,6 +10,8 @@ public interface AddEventContract {
     }
 
     interface PresenterContract {
-        void addEvent(String title, String description, Date eventDate, Date fromTime, Date toTime);
+        void addEvent(String title, String description,
+                      Date eventDate, Date fromTime,
+                      Date toTime);
     }
 }

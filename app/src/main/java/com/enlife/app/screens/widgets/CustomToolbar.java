@@ -49,7 +49,12 @@ public class CustomToolbar extends RelativeLayout {
     public CustomToolbar homeIcon(@DrawableRes int homeIcon) {
         imgHome.setVisibility(VISIBLE);
         imgHome.setImageResource(homeIcon);
-        imgHome.setOnClickListener(v -> customActionBarCallback.onHomeButtonClicked());
+        imgHome.setOnClickListener(v -> {
+                    if (customActionBarCallback != null) {
+                        customActionBarCallback.onHomeButtonClicked();
+                    }
+                }
+        );
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.enlife.app.di.components;
 
+import com.enlife.app.di.modules.AppModule;
 import com.enlife.app.di.modules.DatabaseModule;
 import com.enlife.app.di.modules.GoalsModule;
 import com.enlife.app.di.modules.UtilityModule;
@@ -16,11 +17,16 @@ import dagger.Component;
 @Singleton
 @Component(modules = {
         DatabaseModule.class,
-        UtilityModule.class
+        UtilityModule.class,
+        AppModule.class
 })
 public interface ApplicationComponent {
+
+    MainComponent.Builder mainComponentBuilder();
 
     GoalsComponent.Builder goalsComponentBuilder();
 
     EventsComponent.Builder eventsComponentBuilder();
+
+    QuotesComponent.Builder quotesComponentBuilder();
 }

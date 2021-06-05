@@ -4,6 +4,7 @@ import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
 import com.enlife.app.database.operators.MilestoneDataOperator;
+import com.enlife.app.database.operators.QuoteDataOperator;
 
 import javax.inject.Singleton;
 
@@ -29,6 +30,12 @@ public class DatabaseModule {
     @Provides
     public MilestoneDataOperator milestoneDataOperator(CustomApplication customApplication) {
         return new MilestoneDataOperator(customApplication.getApplicationContext());
+    }
+
+    @Singleton
+    @Provides
+    public QuoteDataOperator quoteDataOperator(CustomApplication customApplication) {
+        return new QuoteDataOperator(customApplication.getApplicationContext());
     }
 
 }

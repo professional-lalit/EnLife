@@ -7,6 +7,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,10 +17,18 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.enlife.app.R;
+import com.enlife.app.WakeUpReceiver;
 import com.enlife.app.common.Constants;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.common.PreferenceManager;
 import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
+import com.enlife.app.screens.main.fragments.stoicism.QuotesFragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Calendar;
+
+import javax.inject.Inject;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,17 +38,52 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         activity.startActivity(intent);
     }
 
+    public static void openScreen(Context context, @Nullable Bundle bundle) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.putExtra(Constants.ARG_BUNDLE, bundle);
+        context.startActivity(intent);
+    }
+
     private ImageView imgDrawerClose;
     private DrawerLayout homeDrawerLayout;
     private NavigationView homeNavigation;
+
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
+
+    @Inject
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        CustomApplication.getInstance()
+                .applicationComponent
+                .mainComponentBuilder()
+                .build()
+                .inject(this);
+
         initViews();
         setViews();
         loadHomeFragment();
+
+//        if (!preferenceManager.isDailyWakeupNotificationSet()) {
+        scheduleDailyWakeupNotification();
+//        }
+    }
+
+    private void scheduleDailyWakeupNotification() {
+        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, WakeUpReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, 1);
+//        calendar.set(Calendar.HOUR_OF_DAY, 8);
+//        calendar.set(Calendar.MINUTE, 30);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
+        preferenceManager.setDailyWakeupNotification(true);
     }
 
     private void initViews() {
@@ -57,6 +103,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 .replace(R.id.fragment_container, HomeFragment.newInstance(null))
                 .addToBackStack(HomeFragment.class.getSimpleName())
                 .commit();
+    }
+
+    public void homeClicked() {
+        if (homeDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            homeDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            homeDrawerLayout.openDrawer(GravityCompat.START);
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -91,6 +145,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 homeDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.action_daily_stocism:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragment_container, QuotesFragment.getInstance())
+                        .addToBackStack(QuotesFragment.class.getSimpleName())
+                        .commit();
                 homeDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.action_settings:

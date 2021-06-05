@@ -41,7 +41,7 @@ public class MilestoneDataOperator extends DatabaseOperator<Milestone> {
         values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_FROM_DATE, data.getFromDate());
         values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_TO_DATE, data.getToDate());
 
-        String selection = MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_TITLE + " LIKE ?";
+        String selection = MilestoneContract.MilestoneEntry._ID + " LIKE ?";
         String[] selectionArgs = {String.valueOf(id)};
 
         return databaseHelper.getWritableDatabase().update(
