@@ -22,5 +22,7 @@ public interface HomeScreenContract {
         void onPrevious();
 
         void onDaySelected(List<CalendarDay> calendarDays, CalendarDay selectedCalendarDay);
+
+        void reloadEvents();
     }
 }

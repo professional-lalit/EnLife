@@ -16,10 +16,12 @@ import android.widget.TextView;
 
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
+import com.enlife.app.database.models.Event;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.main.HomeActivity;
 import com.enlife.app.screens.main.dialog.EventsBottomDialog;
+import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.utils.DateFormatter;
@@ -30,7 +32,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract, CustomAppBar.CustomActionBarCallback {
+public class HomeFragment extends Fragment implements HomeScreenContract.ViewContract, CustomAppBar.CustomActionBarCallback, AddEventBottomDialog.EventAddedCallback {
 
     private RecyclerView recyclerCalendar;
     private ImageView imgPreviousWeek;
@@ -100,6 +102,7 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
             presenterContract.onDaySelected(calendarDays, calendarDay);
             Date date = ((HomeFragmentPresenter) presenterContract).getCursorDate();
             EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
+            dialog.setEventAddedCallback(this);
             dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
         });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
@@ -126,5 +129,10 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     @Override
     public void onOptionButtonClicked() {
 
+    }
+
+    @Override
+    public void onEventAdded(Event event) {
+        presenterContract.reloadEvents();
     }
 }

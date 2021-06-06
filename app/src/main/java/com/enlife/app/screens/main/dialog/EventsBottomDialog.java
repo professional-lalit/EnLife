@@ -2,6 +2,7 @@ package com.enlife.app.screens.main.dialog;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
-import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.events.EventAdapter;
 import com.enlife.app.utils.DateFormatter;
@@ -27,7 +27,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract, View.OnClickListener {
+public class EventsBottomDialog extends BottomSheetDialogFragment implements EventsBottomContract.ViewContract, View.OnClickListener, AddEventBottomDialog.EventAddedCallback {
 
 
     private RecyclerView recyclerEvents;
@@ -37,11 +37,10 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
 
     private Date date;
 
-    @Inject
-    DateFormatter dateFormatter;
+    private AddEventBottomDialog.EventAddedCallback eventAddedCallback;
 
     @Inject
-    EventDataOperator databaseOperator;
+    DateFormatter dateFormatter;
 
     @Inject
     EventsBottomDialogPresenter presenter;
@@ -119,13 +118,32 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         }
     }
 
+    @Override
+    public void onEventSaved(Event event) {
+        presenter.loadEvents(date);
+        eventAddedCallback.onEventAdded(event);
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_add_event:
-                AddEventBottomDialog.createDialog(date).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
+                AddEventBottomDialog dialog = AddEventBottomDialog.createDialog(date);
+                dialog.setEventAddedCallback(this);
+                new Handler().postDelayed(() ->
+                        dialog.show(getChildFragmentManager(), AddEventBottomDialog.TAG), 500L
+                );
                 break;
         }
+    }
+
+    @Override
+    public void onEventAdded(Event event) {
+        presenter.saveEvent(event);
+    }
+
+    public void setEventAddedCallback(AddEventBottomDialog.EventAddedCallback eventAddedCallback) {
+        this.eventAddedCallback = eventAddedCallback;
     }
 }

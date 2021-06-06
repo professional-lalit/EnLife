@@ -1,5 +1,6 @@
 package com.enlife.app.screens.main.dialog;
 
+import com.enlife.app.database.models.Event;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.utils.DateFormatter;
 
@@ -21,6 +22,12 @@ public class EventsBottomDialogPresenter implements EventsBottomContract.Present
     public void loadEvents(Date date) {
         String formattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, date);
         viewContract.onEventsLoaded(databaseOperator.getList(formattedDate));
+    }
+
+    @Override
+    public void saveEvent(Event event) {
+        databaseOperator.addData(event);
+        viewContract.onEventSaved(event);
     }
 
     public void setViewContract(EventsBottomContract.ViewContract viewContract) {

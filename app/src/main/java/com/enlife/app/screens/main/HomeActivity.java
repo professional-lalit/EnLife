@@ -125,6 +125,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getFragments().size() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

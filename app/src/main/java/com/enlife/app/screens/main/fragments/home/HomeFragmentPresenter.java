@@ -131,6 +131,11 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
         viewContract.onDayUpdated(selectedPosition);
     }
 
+    @Override
+    public void reloadEvents() {
+        updateCalendar();
+    }
+
     public void setViewContract(HomeScreenContract.ViewContract viewContract) {
         this.viewContract = viewContract;
     }
