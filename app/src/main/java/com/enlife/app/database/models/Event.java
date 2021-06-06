@@ -1,8 +1,9 @@
 package com.enlife.app.database.models;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class Event {
+public class Event implements Cloneable {
     @Nullable
     private final long id;
     private String title;
@@ -146,4 +147,11 @@ public class Event {
         this.milestoneId = milestoneId;
     }
 
+    @NonNull
+    @Override
+    public Event clone() throws CloneNotSupportedException {
+        return new Event(this.id, this.title, this.description, this.date,
+                this.isAllDay, this.location, this.repeatMode, this.fromTime,
+                this.toTime, this.imagePath, this.goalId, this.milestoneId);
+    }
 }

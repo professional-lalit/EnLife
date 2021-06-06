@@ -36,6 +36,16 @@ public class DateFormatter {
     }
 
     @Nullable
+    public Date getDate(DateFormat dateFormat, String strDate) {
+        try {
+            return new SimpleDateFormat(dateFormat.format, Locale.getDefault()).parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Nullable
     public String changeFormat(DateFormat inFormat, DateFormat outFormat, String strDate) {
         try {
             Date date = new SimpleDateFormat(inFormat.format, Locale.getDefault()).parse(strDate);

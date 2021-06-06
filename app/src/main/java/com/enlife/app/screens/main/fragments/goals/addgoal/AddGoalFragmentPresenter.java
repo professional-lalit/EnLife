@@ -6,6 +6,9 @@ import com.enlife.app.database.models.Milestone;
 import com.enlife.app.database.operators.DatabaseOperator;
 import com.enlife.app.utils.DateFormatter;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddGoalFragmentPresenter implements GoalManagementContract.PresenterContract {
 
     private final DateFormatter dateFormatter;
@@ -15,10 +18,10 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
     private GoalManagementContract.ViewContract viewContract;
 
     public AddGoalFragmentPresenter(
-                                    DateFormatter dateFormatter,
-                                    DatabaseOperator<Goal> goalDatabaseOperator,
-                                    DatabaseOperator<Milestone> milestoneDatabaseOperator,
-                                    DatabaseOperator<Event> eventDatabaseOperator
+            DateFormatter dateFormatter,
+            DatabaseOperator<Goal> goalDatabaseOperator,
+            DatabaseOperator<Milestone> milestoneDatabaseOperator,
+            DatabaseOperator<Event> eventDatabaseOperator
     ) {
         this.dateFormatter = dateFormatter;
         this.goalDatabaseOperator = goalDatabaseOperator;
@@ -28,6 +31,7 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
 
     @Override
     public void saveGoal(Goal goal) {
+        Calendar calendar = Calendar.getInstance();
         long goalId = goalDatabaseOperator.addData(goal);
         if (!goal.getMilestones().isEmpty()) {
             for (Milestone milestone : goal.getMilestones()) {
@@ -35,14 +39,46 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
                 long milestoneId = milestoneDatabaseOperator.addData(milestone);
                 if (!milestone.getEvents().isEmpty()) {
                     for (Event event : milestone.getEvents()) {
-                        event.setMilestoneId(milestoneId);
-                        event.setGoalId(goalId);
-                        eventDatabaseOperator.addData(event);
+
+                        //Each event for each date in milestone's date range
+                        createEventForEachDayInMilestoneRange(calendar, goalId, milestone, milestoneId, event);
                     }
                 }
             }
         }
         viewContract.onDataSaved();
+    }
+
+    private void createEventForEachDayInMilestoneRange(Calendar calendar, long goalId,
+                                                       Milestone milestone, long milestoneId, Event event) {
+        Date fromDate = dateFormatter.getDate(
+                DateFormatter.DateFormat.INDIAN_DATE_FORMAT,
+                milestone.getFromDate()
+        );
+
+        Date toDate = dateFormatter.getDate(
+                DateFormatter.DateFormat.INDIAN_DATE_FORMAT,
+                milestone.getToDate()
+        );
+
+        if (fromDate != null && toDate != null) {
+            calendar.setTime(fromDate);
+            while (!calendar.getTime().after(toDate)) {
+                Event perDayEvent;
+                try {
+                    perDayEvent = event.clone();
+                    perDayEvent.setDate(dateFormatter.getFormattedDate(
+                            DateFormatter.DateFormat.INDIAN_DATE_FORMAT, calendar.getTime())
+                    );
+                    perDayEvent.setMilestoneId(milestoneId);
+                    perDayEvent.setGoalId(goalId);
+                    eventDatabaseOperator.addData(perDayEvent);
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void setViewContract(GoalManagementContract.ViewContract viewContract) {
