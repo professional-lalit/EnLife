@@ -33,13 +33,12 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
     public void saveGoal(Goal goal) {
         Calendar calendar = Calendar.getInstance();
         long goalId = goalDatabaseOperator.addData(goal);
-        if (!goal.getMilestones().isEmpty()) {
+        if (goal.getMilestones() != null && !goal.getMilestones().isEmpty()) {
             for (Milestone milestone : goal.getMilestones()) {
                 milestone.setGoalId(goalId);
                 long milestoneId = milestoneDatabaseOperator.addData(milestone);
                 if (!milestone.getEvents().isEmpty()) {
                     for (Event event : milestone.getEvents()) {
-
                         //Each event for each date in milestone's date range
                         createEventForEachDayInMilestoneRange(calendar, goalId, milestone, milestoneId, event);
                     }

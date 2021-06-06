@@ -23,6 +23,7 @@ import com.enlife.app.screens.main.HomeActivity;
 import com.enlife.app.screens.main.dialog.EventsBottomDialog;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
+import com.enlife.app.screens.main.fragments.schedule.DailyScheduleFragment;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.utils.DateFormatter;
 
@@ -100,10 +101,14 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
     public void setCalenderView(List<CalendarDay> calendarDays) {
         CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays, (position, calendarDay) -> {
             presenterContract.onDaySelected(calendarDays, calendarDay);
-            Date date = ((HomeFragmentPresenter) presenterContract).getCursorDate();
-            EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
-            dialog.setEventAddedCallback(this);
-            dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
+            Date date = presenterContract.getCursorDate();
+//            EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
+//            dialog.setEventAddedCallback(this);
+//            dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
+            DailyScheduleFragment fragment = DailyScheduleFragment.openScreen(date);
+            getChildFragmentManager().beginTransaction()
+                    .add(fragment, DailyScheduleFragment.TAG)
+                    .commit();
         });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));

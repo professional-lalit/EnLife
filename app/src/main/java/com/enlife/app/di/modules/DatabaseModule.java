@@ -3,6 +3,7 @@ package com.enlife.app.di.modules;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
+import com.enlife.app.database.operators.GoalEventDataOperator;
 import com.enlife.app.database.operators.MilestoneDataOperator;
 import com.enlife.app.database.operators.QuoteDataOperator;
 
@@ -28,6 +29,13 @@ public class DatabaseModule {
 
     @Singleton
     @Provides
+    public GoalEventDataOperator goalEventDataOperator(CustomApplication customApplication) {
+        return new GoalEventDataOperator(customApplication.getApplicationContext());
+    }
+
+
+    @Singleton
+    @Provides
     public MilestoneDataOperator milestoneDataOperator(CustomApplication customApplication) {
         return new MilestoneDataOperator(customApplication.getApplicationContext());
     }
@@ -37,5 +45,6 @@ public class DatabaseModule {
     public QuoteDataOperator quoteDataOperator(CustomApplication customApplication) {
         return new QuoteDataOperator(customApplication.getApplicationContext());
     }
+
 
 }

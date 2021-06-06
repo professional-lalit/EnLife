@@ -149,7 +149,7 @@ public class Event implements Cloneable {
 
     @NonNull
     @Override
-    public Event clone() throws CloneNotSupportedException {
+    public Event clone() {
         return new Event(this.id, this.title, this.description, this.date,
                 this.isAllDay, this.location, this.repeatMode, this.fromTime,
                 this.toTime, this.imagePath, this.goalId, this.milestoneId);

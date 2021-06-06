@@ -1,47 +1,25 @@
 package com.enlife.app.database.models;
 
 public class GoalEvent {
-    private String goalId;
-    private String milestoneId;
-    private String title;
-    private String description;
-    private String fromTime;
-    private String toTime;
+    private final Event event;
+    private final Goal goal;
+    private final Milestone milestone;
 
-    public GoalEvent(
-            String goalId, String milestoneId,
-            String title, String description,
-            String fromTime, String toTime
-    ) {
-        this.goalId = goalId;
-        this.milestoneId = milestoneId;
-        this.title = title;
-        this.description = description;
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+    public GoalEvent(Event event, Goal goal, Milestone milestone) {
+        this.event = event;
+        this.goal = goal;
+        this.milestone = milestone;
     }
 
-    public String getGoalId() {
-        return goalId;
+    public Event getEvent() {
+        return event;
     }
 
-    public String getMilestoneId() {
-        return milestoneId;
+    public Goal getGoal() {
+        return goal;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getFromTime() {
-        return fromTime;
-    }
-
-    public String getToTime() {
-        return toTime;
+    public Milestone getMilestone() {
+        return milestone;
     }
 }
