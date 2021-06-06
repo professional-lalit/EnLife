@@ -1,5 +1,6 @@
 package com.enlife.app.di.components;
 
+import com.enlife.app.WakeUpReceiver;
 import com.enlife.app.di.modules.AppModule;
 import com.enlife.app.di.modules.DatabaseModule;
 import com.enlife.app.di.modules.GoalsModule;
@@ -21,6 +22,8 @@ import dagger.Component;
         AppModule.class
 })
 public interface ApplicationComponent {
+
+    void inject(WakeUpReceiver receiver);
 
     MainComponent.Builder mainComponentBuilder();
 

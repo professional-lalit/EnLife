@@ -3,6 +3,7 @@ package com.enlife.app.screens.main;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -24,6 +25,7 @@ import com.enlife.app.common.PreferenceManager;
 import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
 import com.enlife.app.screens.main.fragments.stoicism.QuotesFragment;
+import com.enlife.app.utils.NotificationHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
@@ -70,7 +72,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         loadHomeFragment();
 
 //        if (!preferenceManager.isDailyWakeupNotificationSet()) {
-        scheduleDailyWakeupNotification();
+//        scheduleDailyWakeupNotification();
 //        }
     }
 
@@ -80,8 +82,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 1);
-//        calendar.set(Calendar.HOUR_OF_DAY, 8);
-//        calendar.set(Calendar.MINUTE, 30);
+//        calendar.set(Calendar.HOUR_OF_DAY, 7);
+//        calendar.set(Calendar.MINUTE, 0);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 20, alarmIntent);
         preferenceManager.setDailyWakeupNotification(true);
     }

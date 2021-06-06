@@ -12,6 +12,7 @@ import com.enlife.app.database.tables.QuoteContract;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class QuoteDataOperator extends DatabaseOperator<Quote> {
 
@@ -104,6 +105,11 @@ public class QuoteDataOperator extends DatabaseOperator<Quote> {
         }
         cursor.close();
         return quotes;
+    }
+
+    public Quote getRandomQuoteForWakeUp() {
+        long rowId = new Random().nextInt((100 - 1) + 1) + 1;
+        return getList(String.valueOf(rowId)).get(0);
     }
 
     @Override

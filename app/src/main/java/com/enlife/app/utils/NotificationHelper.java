@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
+import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
 
 import com.enlife.app.R;
+import com.enlife.app.database.models.Quote;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
@@ -44,5 +46,20 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentTitle("Alarm!")
                 .setContentText("Your AlarmManager is working.")
                 .setSmallIcon(R.drawable.ic_notification_alarm);
+    }
+
+    public NotificationCompat.Builder getWakeUpNotification(String title, Quote quote) {
+        RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.layout_small_notification);
+        RemoteViews notificationLayoutExpanded = new RemoteViews(getPackageName(), R.layout.layout_notification_expanded);
+
+        notificationLayoutExpanded.setTextViewText(R.id.txt_notification_title, title);
+        notificationLayoutExpanded.setTextViewText(R.id.txt_quote, quote.getQuote());
+        notificationLayoutExpanded.setTextViewText(R.id.txt_author, quote.getAuthor());
+
+        return new NotificationCompat.Builder(getApplicationContext(), channelID)
+                .setSmallIcon(R.drawable.ic_notification_alarm)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setCustomContentView(notificationLayout)
+                .setCustomBigContentView(notificationLayoutExpanded);
     }
 }

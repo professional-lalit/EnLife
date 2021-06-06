@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.enlife.app.R;
+import com.enlife.app.common.CustomApplication;
+import com.enlife.app.common.GlideApp;
 import com.enlife.app.database.models.Quote;
 
 import java.util.ArrayList;
@@ -36,10 +38,8 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.QuotesView
     @NonNull
     @Override
     public QuotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(),
-                R.layout.item_stoic_quote_layout,
-                null
-        );
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_stoic_quote_layout, parent, false);
         return new QuotesViewHolder(view, bgs);
     }
 
@@ -72,7 +72,9 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.QuotesView
         public void onBind(Quote quote) {
             txtQuote.setText(quote.getQuote());
             txtAuthor.setText("-" + quote.getAuthor());
-            imgAuthor.setImageResource(bgs.get(getAdapterPosition() % bgs.size()));
+            GlideApp.with(CustomApplication.getAppContext())
+                    .load(bgs.get(getAdapterPosition() % bgs.size()))
+                    .into(imgAuthor);
         }
     }
 }
