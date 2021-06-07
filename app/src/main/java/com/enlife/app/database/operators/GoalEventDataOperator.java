@@ -28,11 +28,11 @@ public class GoalEventDataOperator extends DatabaseOperatorAdapter<GoalEvent> {
         Cursor cursor = databaseHelper.getReadableDatabase().rawQuery(
                 "SELECT a._id as eventId, a.title, a.description, a.date, a.is_all_day, a.location, a.repeat_mode, " +
                         "a.from_time, a.to_time, a.image_path, a.goal_id, a.milestone_id, " +
-                        "b._id as goalId, b.title, b.description, b.type, b.from_date, b.to_date, " +
-                        "c._id as milestoneId , c.title, c.description, c.from_date, c.to_date " +
+                        "b._id, b.title, b.description, b.type, b.from_date, b.to_date, " +
+                        "c._id, c.title, c.description, c.from_date, c.to_date " +
                         "FROM events as a, goals as b, milestones as c " +
-                        "WHERE a.goal_id=b._id AND a.milestone_id=c._id AND a.date=?",
-                new String[]{strDate}
+                        "WHERE a.goal_id=b._id AND a.milestone_id=c._id AND a.date='" + strDate + "'",
+                null
         );
         while (cursor.moveToNext()) {
             Event event = new Event(
