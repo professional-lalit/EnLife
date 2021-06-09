@@ -17,15 +17,12 @@ import android.widget.TextView;
 import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
-import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.models.CalendarDay;
 import com.enlife.app.screens.main.HomeActivity;
-import com.enlife.app.screens.main.dialog.EventsBottomDialog;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
-import com.enlife.app.screens.main.fragments.schedule.DailyScheduleFragment;
+import com.enlife.app.screens.main.fragments.schedule.DailyScheduleDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
-import com.enlife.app.utils.DateFormatter;
 
 import java.util.Date;
 import java.util.List;
@@ -105,10 +102,9 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
 //            EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
 //            dialog.setEventAddedCallback(this);
 //            dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
-            DailyScheduleFragment fragment = DailyScheduleFragment.openScreen(date);
-            getChildFragmentManager().beginTransaction()
-                    .add(fragment, DailyScheduleFragment.TAG)
-                    .commit();
+            DailyScheduleDialog.createDialog(date)
+                    .show(getChildFragmentManager(), DailyScheduleDialog.TAG);
+
         });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));

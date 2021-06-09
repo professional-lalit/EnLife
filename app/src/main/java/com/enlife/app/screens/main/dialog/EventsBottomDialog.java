@@ -36,7 +36,6 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
     private ImageView imgAddEvent;
 
     private Date date;
-
     private AddEventBottomDialog.EventAddedCallback eventAddedCallback;
 
     @Inject

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".screens.main.fragments.schedule.DailyScheduleFragment">
+    tools:context=".screens.main.fragments.schedule.DailyScheduleDialog">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.enlife.app.screens.widgets.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_events"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@+id/toolbar"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/dimen_size_20" />
 
-</FrameLayout>
+</RelativeLayout>

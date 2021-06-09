@@ -23,6 +23,7 @@ public class MilestoneDataOperator extends DatabaseOperator<Milestone> {
         values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_DESCRIPTION, data.getDescription());
         values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_FROM_DATE, data.getFromDate());
         values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_TO_DATE, data.getToDate());
+        values.put(MilestoneContract.MilestoneEntry.COLUMN_MILESTONE_GOAL_ID, data.getGoalId());
         return databaseHelper.getWritableDatabase().insert(MilestoneContract.MilestoneEntry.TABLE_NAME, null, values);
     }
 

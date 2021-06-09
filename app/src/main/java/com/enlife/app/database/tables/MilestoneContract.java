@@ -13,7 +13,8 @@ public class MilestoneContract {
                 MilestoneEntry.COLUMN_MILESTONE_TITLE + " TEXT," +
                 MilestoneEntry.COLUMN_MILESTONE_DESCRIPTION + " TEXT," +
                 MilestoneEntry.COLUMN_MILESTONE_FROM_DATE + " VARCHAR(20)," +
-                MilestoneEntry.COLUMN_MILESTONE_TO_DATE + " VARCHAR(20))";
+                MilestoneEntry.COLUMN_MILESTONE_TO_DATE + " VARCHAR(20),"+
+                MilestoneEntry.COLUMN_MILESTONE_GOAL_ID + " INTEGER NOT NULL)";
     }
 
     public static class MilestoneEntry implements BaseColumns {

@@ -47,6 +47,8 @@ public class EventDataOperator extends DatabaseOperator<Event> {
         values.put(EventContract.EventEntry.COLUMN_EVENT_TO_TIME, event.getToTime());
         values.put(EventContract.EventEntry.COLUMN_EVENT_IMAGE_PATH, event.getImagePath());
         values.put(EventContract.EventEntry.COLUMN_EVENT_DATE, event.getDate());
+        values.put(EventContract.EventEntry.COLUMN_EVENT_GOAL_ID, event.getGoalId());
+        values.put(EventContract.EventEntry.COLUMN_EVENT_MILESTONE_ID, event.getMilestoneId());
         return databaseHelper.getWritableDatabase().insert(EventContract.EventEntry.TABLE_NAME, null, values);
     }
 
