@@ -1,8 +1,7 @@
-package com.enlife.app.di.components;
+package com.enlife.app.screens.main;
 
 import com.enlife.app.di.modules.MainModule;
 import com.enlife.app.di.scopes.ActivityScope;
-import com.enlife.app.screens.main.MainActivity;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;

@@ -42,7 +42,7 @@ public class QuotesFragment extends Fragment {
     private CustomToolbar customToolbar;
     private RecyclerView recyclerQuotes;
 
-    private List<Quote> quotes = new ArrayList<>();
+    private final List<Quote> quotes = new ArrayList<>();
     private long lastRowId = 0;
 
     @Override

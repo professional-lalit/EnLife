@@ -1,8 +1,7 @@
-package com.enlife.app.di.components;
+package com.enlife.app.screens.main.fragments.schedule;
 
 import com.enlife.app.di.modules.DailyScheduleModule;
 import com.enlife.app.di.scopes.FragmentScope;
-import com.enlife.app.screens.main.fragments.schedule.DailyScheduleDialog;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;

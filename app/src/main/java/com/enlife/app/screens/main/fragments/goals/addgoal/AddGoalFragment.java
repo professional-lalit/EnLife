@@ -21,7 +21,6 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Goal;
 import com.enlife.app.database.models.Milestone;
-import com.enlife.app.di.components.AddGoalComponent;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.DateDurationChooserView;

@@ -1,9 +1,7 @@
-package com.enlife.app.di.components;
+package com.enlife.app.screens.main.fragments.goals.addmilestone;
 
 import com.enlife.app.di.modules.GoalsModule;
 import com.enlife.app.di.scopes.FragmentScope;
-import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
-import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;

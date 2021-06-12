@@ -1,8 +1,7 @@
-package com.enlife.app.di.components;
+package com.enlife.app.screens.main.fragments.stoicism;
 
 import com.enlife.app.di.modules.QuotesModule;
 import com.enlife.app.di.scopes.FragmentScope;
-import com.enlife.app.screens.main.fragments.stoicism.QuotesFragment;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
