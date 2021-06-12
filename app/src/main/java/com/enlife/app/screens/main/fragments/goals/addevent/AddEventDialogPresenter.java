@@ -24,15 +24,16 @@ public class AddEventDialogPresenter implements AddEventContract.PresenterContra
 
     @Override
     public void addEvent(String title, String description, Date eventDate, Date fromTime, Date toTime) {
+        String strFormattedDate = dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventDate);
         Event event = new Event(0L,
                 title,
                 description,
-                dateFormatter.getFormattedDate(DateFormatter.DateFormat.INDIAN_DATE_FORMAT, eventDate),
+                strFormattedDate,
                 false,
                 "",
                 Event.RepeatMode.NONE,
-                dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, fromTime),
-                dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, toTime),
+                fromTime == null ? strFormattedDate : dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, fromTime),
+                toTime == null ? strFormattedDate : dateFormatter.getFormattedDate(DateFormatter.DateFormat.HH_mm_a, toTime),
                 "",
                 0L,
                 0L

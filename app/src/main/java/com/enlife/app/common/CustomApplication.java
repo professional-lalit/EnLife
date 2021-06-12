@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.enlife.app.di.components.DaggerApplicationComponent;
 import com.enlife.app.di.modules.DatabaseModule;
 import com.enlife.app.di.modules.UtilityModule;
 

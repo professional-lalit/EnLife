@@ -25,14 +25,13 @@ public class GoalEventDataOperator extends DatabaseOperatorAdapter<GoalEvent> {
         List<GoalEvent> goalEvents = new ArrayList<>();
         String strDate = selectorFields[0];
 
-        String query = "SELECT * from events";
-
         Cursor cursor = databaseHelper.getReadableDatabase().rawQuery(
                 "SELECT a._id as eventId, a.title, a.description, a.date, a.is_all_day, a.location, a.repeat_mode, " +
                         "a.from_time, a.to_time, a.image_path, a.goal_id, a.milestone_id, " +
                         "b._id as goalId, b.title, b.description, b.type, b.from_date, b.to_date, " +
                         "c._id as milestoneId, c.title, c.description, c.from_date, c.to_date, c.goal_id " +
-                        "FROM events a, goals b, milestones c WHERE a.date='" + strDate + "'",
+                        "FROM events a, goals b, milestones c WHERE a.goal_id=goalId " +
+                        "AND a.milestone_id=milestoneId AND a.date='" + strDate + "'",
                 null
         );
         while (cursor.moveToNext()) {

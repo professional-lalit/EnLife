@@ -63,7 +63,7 @@ public class DailyScheduleDialog extends BottomSheetDialogFragment implements
 
     private CustomToolbar toolbar;
     private RecyclerView recyclerEvents;
-    private List<GoalEvent> goalEvents = new ArrayList<>();
+    private final List<GoalEvent> goalEvents = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,7 +125,9 @@ public class DailyScheduleDialog extends BottomSheetDialogFragment implements
 
     @Override
     public void onOptionButtonClicked() {
-        AddEventBottomDialog.createDialog(date).show(getChildFragmentManager(), AddEventBottomDialog.TAG);
+        AddEventBottomDialog dialog = AddEventBottomDialog.createDialog(date);
+        dialog.setEventAddedCallback(this);
+        dialog.show(getChildFragmentManager(), AddEventBottomDialog.TAG);
     }
 
     @Override

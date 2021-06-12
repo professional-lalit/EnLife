@@ -99,12 +99,8 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         CalendarDaysAdapter calendarDaysAdapter = new CalendarDaysAdapter(calendarDays, (position, calendarDay) -> {
             presenterContract.onDaySelected(calendarDays, calendarDay);
             Date date = presenterContract.getCursorDate();
-//            EventsBottomDialog dialog = EventsBottomDialog.createDialog(date);
-//            dialog.setEventAddedCallback(this);
-//            dialog.show(getChildFragmentManager(), EventsBottomDialog.class.getSimpleName());
             DailyScheduleDialog.createDialog(date)
                     .show(getChildFragmentManager(), DailyScheduleDialog.TAG);
-
         });
         recyclerCalendar.setAdapter(calendarDaysAdapter);
         recyclerCalendar.setLayoutManager(new GridLayoutManager(requireContext(), 7));

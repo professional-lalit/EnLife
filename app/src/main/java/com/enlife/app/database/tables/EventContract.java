@@ -19,8 +19,8 @@ public class EventContract {
                 EventEntry.COLUMN_EVENT_FROM_TIME + " VARCHAR(10)," +
                 EventEntry.COLUMN_EVENT_TO_TIME + " VARCHAR(10)," +
                 EventEntry.COLUMN_EVENT_DATE + " VARCHAR(20)," +
-                EventEntry.COLUMN_EVENT_GOAL_ID + " VARCHAR(10)," +
-                EventEntry.COLUMN_EVENT_MILESTONE_ID + " VARCHAR(10)," +
+                EventEntry.COLUMN_EVENT_GOAL_ID + " INTEGER," +
+                EventEntry.COLUMN_EVENT_MILESTONE_ID + " INTEGER," +
                 EventEntry.COLUMN_EVENT_IMAGE_PATH + " TEXT)";
     }
 

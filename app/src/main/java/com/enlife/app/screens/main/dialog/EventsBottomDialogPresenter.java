@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class EventsBottomDialogPresenter implements EventsBottomContract.PresenterContract {
 
-    private EventsBottomContract.ViewContract viewContract;
+    private final EventsBottomContract.ViewContract viewContract;
 
     DateFormatter dateFormatter;
     EventDataOperator databaseOperator;
