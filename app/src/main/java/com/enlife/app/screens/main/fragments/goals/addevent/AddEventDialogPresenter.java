@@ -2,6 +2,7 @@ package com.enlife.app.screens.main.fragments.goals.addevent;
 
 import com.enlife.app.database.models.Event;
 import com.enlife.app.database.operators.DatabaseOperator;
+import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.utils.DateFormatter;
 
 import java.util.Date;
@@ -9,16 +10,15 @@ import java.util.Date;
 public class AddEventDialogPresenter implements AddEventContract.PresenterContract {
 
     private final DateFormatter dateFormatter;
-    private final DatabaseOperator databaseOperator;
+    private final EventDataOperator databaseOperator;
 
     private AddEventContract.ViewContract viewContract;
 
-    public AddEventDialogPresenter(DateFormatter dateFormatter, DatabaseOperator databaseOperator) {
+    public AddEventDialogPresenter(DateFormatter dateFormatter,
+                                   EventDataOperator databaseOperator,
+                                   AddEventContract.ViewContract viewContract) {
         this.dateFormatter = dateFormatter;
         this.databaseOperator = databaseOperator;
-    }
-
-    public void setViewContract(AddEventContract.ViewContract viewContract) {
         this.viewContract = viewContract;
     }
 

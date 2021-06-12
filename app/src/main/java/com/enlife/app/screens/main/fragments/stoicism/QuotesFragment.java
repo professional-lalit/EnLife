@@ -51,7 +51,7 @@ public class QuotesFragment extends Fragment {
         CustomApplication.getInstance()
                 .applicationComponent
                 .quotesComponentBuilder()
-                .build()
+                .create(this)
                 .inject(this);
     }
 

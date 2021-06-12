@@ -18,7 +18,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Event;
 import com.enlife.app.models.CalendarDay;
-import com.enlife.app.screens.main.HomeActivity;
+import com.enlife.app.screens.main.MainActivity;
 import com.enlife.app.screens.main.fragments.goals.addevent.AddEventBottomDialog;
 import com.enlife.app.screens.main.fragments.home.calendar.CalendarDaysAdapter;
 import com.enlife.app.screens.main.fragments.schedule.DailyScheduleDialog;
@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
-                .eventsComponentBuilder()
-                .build()
+                .homeFragmentComponentBuilder()
+                .create(this)
                 .inject(this);
         presenterContract.setViewContract(this);
     }
@@ -122,8 +122,8 @@ public class HomeFragment extends Fragment implements HomeScreenContract.ViewCon
 
     @Override
     public void onHomeButtonClicked() {
-        if (requireActivity() instanceof HomeActivity) {
-            ((HomeActivity) requireActivity()).homeClicked();
+        if (requireActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).homeClicked();
         }
     }
 

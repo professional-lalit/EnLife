@@ -14,12 +14,13 @@ public class AddMilestoneDialogPresenter implements AddMilestoneContract.Present
     private final DatabaseOperator databaseOperator;
     private AddMilestoneContract.ViewContract viewContract;
 
-    public AddMilestoneDialogPresenter(DateFormatter dateFormatter, DatabaseOperator databaseOperator) {
+    public AddMilestoneDialogPresenter(
+            DateFormatter dateFormatter,
+            DatabaseOperator databaseOperator,
+            AddMilestoneContract.ViewContract viewContract
+    ) {
         this.dateFormatter = dateFormatter;
         this.databaseOperator = databaseOperator;
-    }
-
-    public void setViewContract(AddMilestoneContract.ViewContract viewContract) {
         this.viewContract = viewContract;
     }
 

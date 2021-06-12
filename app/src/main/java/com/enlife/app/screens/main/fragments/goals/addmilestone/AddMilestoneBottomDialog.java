@@ -78,7 +78,7 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
 
     private MilestoneAddedCallback milestoneAddedCallback;
 
-    private List<Event> eventsAdded = new ArrayList<>();
+    private final List<Event> eventsAdded = new ArrayList<>();
 
     @Inject
     MilestoneDataOperator databaseOperator;
@@ -101,10 +101,9 @@ public class AddMilestoneBottomDialog extends BottomSheetDialogFragment
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
-                .goalsComponentBuilder()
-                .build()
+                .addMilestoneComponentBuilder()
+                .create(this)
                 .inject(this);
-        presenter.setViewContract(this);
     }
 
     @Nullable

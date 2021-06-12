@@ -22,9 +22,12 @@ public class HomeFragmentPresenter implements HomeScreenContract.PresenterContra
     private HomeScreenContract.ViewContract viewContract;
 
 
-    public HomeFragmentPresenter(EventDataOperator databaseOperator, DateFormatter dateFormatter) {
+    public HomeFragmentPresenter(EventDataOperator databaseOperator,
+                                 DateFormatter dateFormatter,
+                                 HomeScreenContract.ViewContract viewContract) {
         this.databaseOperator = databaseOperator;
         this.dateFormatter = dateFormatter;
+        this.viewContract = viewContract;
     }
 
     @Override

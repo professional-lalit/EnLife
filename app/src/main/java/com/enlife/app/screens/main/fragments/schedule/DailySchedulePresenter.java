@@ -11,17 +11,20 @@ import java.util.List;
 
 public class DailySchedulePresenter implements DailyScheduleContract.PresenterContract {
 
-    private DailyScheduleContract.ViewContract viewContract;
+    private final DailyScheduleContract.ViewContract viewContract;
     private final GoalEventDataOperator goalEventDataOperator;
     private final EventDataOperator eventDataOperator;
     private final DateFormatter dateFormatter;
 
     public DailySchedulePresenter(GoalEventDataOperator goalEventDataOperator,
                                   EventDataOperator eventDataOperator,
-                                  DateFormatter dateFormatter) {
+                                  DateFormatter dateFormatter,
+                                  DailyScheduleContract.ViewContract viewContract
+    ) {
         this.goalEventDataOperator = goalEventDataOperator;
         this.eventDataOperator = eventDataOperator;
         this.dateFormatter = dateFormatter;
+        this.viewContract = viewContract;
     }
 
     @Override
@@ -36,9 +39,5 @@ public class DailySchedulePresenter implements DailyScheduleContract.PresenterCo
     public void saveEvent(Event event) {
         eventDataOperator.addData(event);
         viewContract.onEventSaved(event);
-    }
-
-    public void setViewContract(DailyScheduleContract.ViewContract viewContract) {
-        this.viewContract = viewContract;
     }
 }

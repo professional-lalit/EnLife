@@ -12,24 +12,16 @@ import com.enlife.app.database.models.Event;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView imgEvent;
-    private TextView txtEventTitle;
-    private TextView txtEventTime;
+    private final TextView txtEventTitle;
+    private final TextView txtEventTime;
 
     public EventViewHolder(@NonNull View itemView) {
         super(itemView);
-        imgEvent = itemView.findViewById(R.id.img_event);
         txtEventTitle = itemView.findViewById(R.id.txt_event_title);
         txtEventTime = itemView.findViewById(R.id.txt_event_time);
     }
 
     void onBind(Event event) {
-        if (!event.getImagePath().isEmpty()) {
-            imgEvent.setVisibility(View.GONE);
-        } else {
-            imgEvent.setVisibility(View.VISIBLE);
-        }
-
         txtEventTitle.setText(event.getTitle());
         txtEventTime.setText(getTimeText(event));
     }

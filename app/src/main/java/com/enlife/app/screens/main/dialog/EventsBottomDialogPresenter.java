@@ -13,9 +13,14 @@ public class EventsBottomDialogPresenter implements EventsBottomContract.Present
     DateFormatter dateFormatter;
     EventDataOperator databaseOperator;
 
-    public EventsBottomDialogPresenter(DateFormatter dateFormatter, EventDataOperator databaseOperator) {
+    public EventsBottomDialogPresenter(
+            DateFormatter dateFormatter,
+            EventDataOperator databaseOperator,
+            EventsBottomContract.ViewContract viewContract
+    ) {
         this.dateFormatter = dateFormatter;
         this.databaseOperator = databaseOperator;
+        this.viewContract = viewContract;
     }
 
     @Override
@@ -30,7 +35,4 @@ public class EventsBottomDialogPresenter implements EventsBottomContract.Present
         viewContract.onEventSaved(event);
     }
 
-    public void setViewContract(EventsBottomContract.ViewContract viewContract) {
-        this.viewContract = viewContract;
-    }
 }

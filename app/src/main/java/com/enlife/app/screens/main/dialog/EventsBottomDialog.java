@@ -69,10 +69,9 @@ public class EventsBottomDialog extends BottomSheetDialogFragment implements Eve
         super.onCreate(savedInstanceState);
         CustomApplication.getInstance()
                 .applicationComponent
-                .eventsComponentBuilder()
-                .build()
+                .eventsBottomDialogComponentBuilder()
+                .create(this)
                 .inject(this);
-        presenter.setViewContract(this);
     }
 
     @Nullable

@@ -3,15 +3,12 @@ package com.enlife.app;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.operators.QuoteDataOperator;
-import com.enlife.app.screens.main.HomeActivity;
 import com.enlife.app.utils.NotificationHelper;
-import com.enlife.app.utils.Utils;
 
 import javax.inject.Inject;
 

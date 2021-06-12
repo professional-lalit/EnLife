@@ -21,7 +21,7 @@ import com.enlife.app.R;
 import com.enlife.app.common.CustomApplication;
 import com.enlife.app.database.models.Goal;
 import com.enlife.app.database.models.Milestone;
-import com.enlife.app.di.components.GoalsComponent;
+import com.enlife.app.di.components.AddGoalComponent;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
 import com.enlife.app.screens.widgets.CustomAppBar;
 import com.enlife.app.screens.widgets.DateDurationChooserView;
@@ -71,12 +71,11 @@ public class AddGoalFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GoalsComponent goalsComponent = CustomApplication.getInstance()
+        AddGoalComponent addGoalComponent = CustomApplication.getInstance()
                 .applicationComponent
-                .goalsComponentBuilder()
-                .build();
-        goalsComponent.inject(this);
-        presenter.setViewContract(this);
+                .addGoalComponentBuilder()
+                .create(this);
+        addGoalComponent.inject(this);
     }
 
     public static AddGoalFragment newInstance() {

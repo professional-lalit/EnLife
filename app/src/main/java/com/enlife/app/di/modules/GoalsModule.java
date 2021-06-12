@@ -3,8 +3,11 @@ package com.enlife.app.di.modules;
 import com.enlife.app.database.operators.EventDataOperator;
 import com.enlife.app.database.operators.GoalDataOperator;
 import com.enlife.app.database.operators.MilestoneDataOperator;
-import com.enlife.app.di.scopes.PerScreen;
+import com.enlife.app.di.scopes.FragmentScope;
+import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragmentPresenter;
+import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneBottomDialog;
+import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneContract;
 import com.enlife.app.screens.main.fragments.goals.addmilestone.AddMilestoneDialogPresenter;
 import com.enlife.app.utils.DateFormatter;
 
@@ -14,30 +17,30 @@ import dagger.Provides;
 @Module
 public class GoalsModule {
 
-    @PerScreen
+    @FragmentScope
     @Provides
-    AddGoalFragmentPresenter provideAddGoalFragmentPresenter(DateFormatter dateFormatter,
-                                                             GoalDataOperator goalDatabaseOperator,
-                                                             MilestoneDataOperator milestoneDatabaseOperator,
-                                                             EventDataOperator eventDatabaseOperator
+    AddGoalFragmentPresenter addGoalFragmentPresenter(DateFormatter dateFormatter,
+                                                      GoalDataOperator goalDatabaseOperator,
+                                                      MilestoneDataOperator milestoneDatabaseOperator,
+                                                      EventDataOperator eventDatabaseOperator,
+                                                      AddGoalFragment addGoalFragment
     ) {
         return new AddGoalFragmentPresenter(
                 dateFormatter,
                 goalDatabaseOperator,
                 milestoneDatabaseOperator,
-                eventDatabaseOperator
+                eventDatabaseOperator,
+                addGoalFragment
         );
     }
 
-    @PerScreen
+    @FragmentScope
     @Provides
-    AddMilestoneDialogPresenter provideAddMilestoneDialogPresenter(DateFormatter dateFormatter,
-                                                                   MilestoneDataOperator milestoneDatabaseOperator
+    AddMilestoneDialogPresenter addMilestoneDialogPresenter(DateFormatter dateFormatter,
+                                                            MilestoneDataOperator milestoneDatabaseOperator,
+                                                            AddMilestoneBottomDialog dialog
     ) {
-        return new AddMilestoneDialogPresenter(
-                dateFormatter,
-                milestoneDatabaseOperator
-        );
+        return new AddMilestoneDialogPresenter(dateFormatter, milestoneDatabaseOperator, dialog);
     }
 
 

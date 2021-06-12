@@ -3,7 +3,6 @@ package com.enlife.app.screens.main;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,23 +24,22 @@ import com.enlife.app.common.PreferenceManager;
 import com.enlife.app.screens.main.fragments.goals.addgoal.AddGoalFragment;
 import com.enlife.app.screens.main.fragments.home.HomeFragment;
 import com.enlife.app.screens.main.fragments.stoicism.QuotesFragment;
-import com.enlife.app.utils.NotificationHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     public static void openScreen(AppCompatActivity activity, @Nullable Bundle bundle) {
-        Intent intent = new Intent(activity, HomeActivity.class);
+        Intent intent = new Intent(activity, MainActivity.class);
         intent.putExtra(Constants.ARG_BUNDLE, bundle);
         activity.startActivity(intent);
     }
 
     public static void openScreen(Context context, @Nullable Bundle bundle) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(Constants.ARG_BUNDLE, bundle);
         context.startActivity(intent);
     }
@@ -64,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         CustomApplication.getInstance()
                 .applicationComponent
                 .mainComponentBuilder()
-                .build()
+                .create(this)
                 .inject(this);
 
         initViews();

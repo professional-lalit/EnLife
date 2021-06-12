@@ -71,9 +71,8 @@ public class DailyScheduleDialog extends BottomSheetDialogFragment implements
         CustomApplication.getInstance()
                 .applicationComponent
                 .dailyScheduleBuilder()
-                .build()
+                .create(this)
                 .inject(this);
-        presenter.setViewContract(this);
     }
 
     @Override

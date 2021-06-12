@@ -21,12 +21,14 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
             DateFormatter dateFormatter,
             DatabaseOperator<Goal> goalDatabaseOperator,
             DatabaseOperator<Milestone> milestoneDatabaseOperator,
-            DatabaseOperator<Event> eventDatabaseOperator
+            DatabaseOperator<Event> eventDatabaseOperator,
+            GoalManagementContract.ViewContract viewContract
     ) {
         this.dateFormatter = dateFormatter;
         this.goalDatabaseOperator = goalDatabaseOperator;
         this.milestoneDatabaseOperator = milestoneDatabaseOperator;
         this.eventDatabaseOperator = eventDatabaseOperator;
+        this.viewContract = viewContract;
     }
 
     @Override
@@ -80,7 +82,4 @@ public class AddGoalFragmentPresenter implements GoalManagementContract.Presente
         }
     }
 
-    public void setViewContract(GoalManagementContract.ViewContract viewContract) {
-        this.viewContract = viewContract;
-    }
 }

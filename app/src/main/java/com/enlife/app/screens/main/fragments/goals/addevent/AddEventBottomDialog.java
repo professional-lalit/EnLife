@@ -66,9 +66,8 @@ public class AddEventBottomDialog extends BottomSheetDialogFragment
         CustomApplication.getInstance()
                 .applicationComponent
                 .eventsComponentBuilder()
-                .build()
+                .create(this)
                 .inject(this);
-        presenter.setViewContract(this);
     }
 
     @Nullable

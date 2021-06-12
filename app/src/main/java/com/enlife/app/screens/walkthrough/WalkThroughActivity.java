@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.enlife.app.R;
 import com.enlife.app.common.Constants;
-import com.enlife.app.screens.main.HomeActivity;
+import com.enlife.app.screens.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class WalkThroughActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.btn_next) {
             if (viewPager.getCurrentItem() == pageDataList.size() - 1) {
-                HomeActivity.openScreen(this, null);
+                MainActivity.openScreen(this, null);
                 finish();
                 return;
             }
